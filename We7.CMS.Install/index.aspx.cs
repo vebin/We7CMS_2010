@@ -18,6 +18,12 @@ namespace We7.CMS.Install
             {
                 Response.Redirect("upgrade.aspx", true);
             }
+            SetupPage.Init();
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        { 
+            
         }
     }
 }

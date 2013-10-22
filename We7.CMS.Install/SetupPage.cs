@@ -14,7 +14,13 @@ namespace We7.CMS.Install
     {
         private static FileVersionInfo AssemblyFileVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
 
+        public static string footer = "";
+
         public static string header = "";
+
+        public static string logo = "<img src=\"images/logo.jpg\" width=\"180\" height=\"300\">";
+
+        public static string productName = "";
 
         public static bool LockFileExist()
         {
@@ -44,7 +50,20 @@ namespace We7.CMS.Install
                 string copyright = gi.CopyrightOfWe7;
                 if (gi.IsOEM)
                     copyright = gi.Copyright;
+                footer = string.Format("<div class='pubfooter'><p>{0}</p></div>", copyright);
             }
+            else
+            {
+                footer = "<div class='pubfooter'><p>Powered by <a href=\"http://we7.cn/\" target=\"_blank\">"+GetAssemblyProductName()+"</a>";
+                footer += " &nbsp; &copy;"+GetAssemblyCopyright().Split(',')[0]+"<a href=\"http://www.westEngine.com/\" target=\"_blank\">WestEngine Inc.</a></p></div>";
+            }
+
+            productName = GetAssemblyProductName();
+        }
+
+        public static string GetAssemblyCopyright()
+        {
+            return AssemblyFileVersion.LegalCopyright;
         }
 
         public static string GetAssemblyProductName()

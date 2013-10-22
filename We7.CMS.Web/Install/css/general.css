@@ -1,0 +1,76 @@
+﻿body 
+{
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    font-size: 12px;
+    line-height: 1.6em;
+    margin: 0;
+    padding: 0;
+    background: #333;
+    color: #265210;
+}
+div, h1, h2, h3, h4, h5, p, ul, li, form, fieldset, img, blockquote
+{
+    margin: 0;
+    padding: 0;
+    border: 0;    
+}
+
+/* ------------------------
+------ HomePage Beta -----
+------------------------ */
+body.pubbox_login
+{
+    background: #444;
+    margin: 0;
+    padding: 0;
+    line-height: 1.8em;       
+}
+div.pubfooter
+{
+    width: 100%;
+    text-align: center;
+    color: #777;
+    background: #444;
+    padding: 20px 0;    
+}
+div.pubfooter a
+{
+    color: #999;
+    border-bottom: 1px solid #555;    
+}
+div.pubfooter a:hover
+{
+    color: #fff !important;
+    border-bottom: 1px, solid, #bbb;    
+}
+
+/* login */
+table.login
+{
+    line-height: 2.2em;
+    margin: 4em auto 2em auto !important;    
+}
+table.login td
+{
+    text-align: left;    
+}
+
+/* ------------------------
+------ Buttons ---------
+------------------------ */
+.bprimarypub80
+{
+    background:url(../images/button_pub.gif) top left no-repeat;
+    width: 85px;
+    border: none;
+    height: 23px;
+    color: #000;
+    font-size: 1.1em;
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    vertical-align: middle;
+    * padding-top: 4px;
+    cursor: pointer;         
+}
+
+
+  

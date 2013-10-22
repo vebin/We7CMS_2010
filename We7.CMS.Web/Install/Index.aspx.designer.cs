@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace We7.CMS.Web.Install {
+namespace We7.CMS.Install {
     
     
     public partial class index {

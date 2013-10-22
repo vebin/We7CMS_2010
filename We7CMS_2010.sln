@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "We7.Framework", "We7.Framew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "We7.CMS.Accounts", "We7.CMS.Accounts\We7.CMS.Accounts.csproj", "{AC285951-7016-4C16-991E-2A03ECFE423D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "We7.CMS.Install", "We7.CMS.Install\We7.CMS.Install.csproj", "{95596D96-7C3F-48A6-86C9-ABB0D83229A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{AC285951-7016-4C16-991E-2A03ECFE423D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC285951-7016-4C16-991E-2A03ECFE423D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC285951-7016-4C16-991E-2A03ECFE423D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95596D96-7C3F-48A6-86C9-ABB0D83229A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95596D96-7C3F-48A6-86C9-ABB0D83229A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95596D96-7C3F-48A6-86C9-ABB0D83229A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95596D96-7C3F-48A6-86C9-ABB0D83229A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

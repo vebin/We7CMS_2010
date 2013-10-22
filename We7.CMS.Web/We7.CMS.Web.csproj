@@ -52,6 +52,7 @@
   <ItemGroup>
     <Content Include="default.aspx" />
     <Content Include="Go\ShowSitePage.aspx" />
+    <Content Include="Install\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -67,6 +68,13 @@
     </Compile>
     <Compile Include="Go\ShowSitePage.aspx.designer.cs">
       <DependentUpon>ShowSitePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Install\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Install\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

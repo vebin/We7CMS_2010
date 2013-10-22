@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="Go\ShowSitePage.aspx.cs">
       <DependentUpon>ShowSitePage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Go\ShowSitePage.aspx.designer.cs">
       <DependentUpon>ShowSitePage.aspx</DependentUpon>

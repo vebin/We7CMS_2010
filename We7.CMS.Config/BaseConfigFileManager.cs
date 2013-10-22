@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.IO;
+using We7.Framework.Config;
 
 namespace We7.CMS.Config
 {
-    class BaseConfigFileManager
+    class BaseConfigFileManager : DefaultConfigFileManager
     {
         public static string filename = null;
 

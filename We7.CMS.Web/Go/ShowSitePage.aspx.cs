@@ -39,6 +39,7 @@ namespace We7.CMS.Web
         protected override void Initialize()
         {
             base.Initialize();
+            //string result = IsHtmlTemplate ? 
         }
 
         protected void Page_Load(object sender, EventArgs e)

@@ -63,11 +63,18 @@
   <ItemGroup>
     <Compile Include="Go\ShowSitePage.aspx.cs">
       <DependentUpon>ShowSitePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Go\ShowSitePage.aspx.designer.cs">
       <DependentUpon>ShowSitePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\We7.CMS.Utils\We7.CMS.Utils.csproj">
+      <Project>{7F94419E-DEC0-43DF-9781-7D0F28E0961C}</Project>
+      <Name>We7.CMS.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

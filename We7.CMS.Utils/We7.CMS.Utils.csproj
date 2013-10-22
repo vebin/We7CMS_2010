@@ -44,14 +44,24 @@
     <Compile Include="FrontBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Helpers\TemplateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\We7.CMS.Accounts\We7.CMS.Accounts.csproj">
+      <Project>{AC285951-7016-4C16-991E-2A03ECFE423D}</Project>
+      <Name>We7.CMS.Accounts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\We7.CMS.Config\We7.CMS.Config.csproj">
       <Project>{4A936897-F9D4-49B1-BAEE-16E2D7668B1C}</Project>
       <Name>We7.CMS.Config</Name>
     </ProjectReference>
+    <ProjectReference Include="..\We7.Framework\We7.Framework.csproj">
+      <Project>{77C3C049-609F-445A-BB8B-62EC07893D59}</Project>
+      <Name>We7.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

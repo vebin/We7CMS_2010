@@ -58,7 +58,9 @@
     <Content Include="Install\images\logo.jpg" />
     <Content Include="Install\images\ok.gif" />
     <Content Include="Install\Index.aspx" />
+    <Content Include="Install\js\setup.js" />
     <Content Include="Install\step2.aspx" />
+    <Content Include="Install\step3.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -88,7 +90,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Install\js\" />
     <Folder Include="_data\" />
     <Folder Include="_skins\" />
   </ItemGroup>

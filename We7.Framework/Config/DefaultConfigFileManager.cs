@@ -53,5 +53,10 @@ namespace We7.Framework.Config
         {
             return (IConfigInfo)SerializationHelper.Load(configFilePath, configType);
         }
+
+        public bool SaveConfig(string configFilePath, IConfigInfo configInfo)
+        {
+            return SerializationHelper.Save(configInfo, configFilePath);
+        }
     }
 }

@@ -23,6 +23,28 @@ namespace We7.CMS.Install
 
         public static string productName = "";
 
+        public static string SelectDB = "";
+
+        public static void CreateLockFile()
+        {
+            HttpContext context = HttpContext.Current;
+            string physicalPath = string.Empty;
+            if (context != null)
+            {
+                physicalPath = context.Server.MapPath("/config");
+            }
+            else
+            { 
+                physicalPath = AppDomain.CurrentDomain.BaseDirectory
+            }
+
+            using (FileStream fs = new FileStream(physicalPath+"\\db-is-creating.lock", FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
+            {
+                fs.Close();
+            }
+
+        }
+
         public static bool LockFileExist()
         {
             HttpContext context = HttpContext.Current;
@@ -137,12 +159,12 @@ namespace We7.CMS.Install
 
             if (!SystemConfigCheck())
             {
-                sb.Append("<tr style=\"height:15px;\"><td width='5%' bgcolor='#fff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#fff' width='95%'> db.config 不可写或没有正确放置，相关问题详见安装文档.</td></tr>");
+                sb.Append("<tr style=\"height:15px;\"><td width='5%' bgcolor='#ffffff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#ffffff' width='95%'> db.config 不可写或没有正确放置，相关问题详见安装文档.</td></tr>");
                 error = true;
             }
             else
             {
-                sb.Append("<tr style=\"height:15px;\"><td width='5%' bgcolor='#fff'><img src='images/ok.gif' width='16' height='16'></td><td bgcolor='#fff' width='95%'>对 db.config 验证通过!</td></tr>");
+                sb.Append("<tr style=\"height:15px;\"><td width='5%' bgcolor='#ffffff'><img src='images/ok.gif' width='16' height='16'></td><td bgcolor='#ffffff' width='95%'>对 db.config 验证通过!</td></tr>");
             }
 
             if (!SystemConfigCheck())
@@ -157,12 +179,12 @@ namespace We7.CMS.Install
             {
                 if (!SystemFolderCheck(folder))
                 {
-                    sb.Append("<tr><td width='5%' bgcolor='#fff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#fff' width='95%'>对 "+folder+" 目录没有写入和删除权限!</td></tr>");
+                    sb.Append("<tr><td width='5%' bgcolor='#ffffff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#ffffff' width='95%'>对 "+folder+" 目录没有写入和删除权限!</td></tr>");
                     error = true;
                 }
                 else
                 {
-                    sb.Append("<tr><td width='5%' bgcolor='#fff'><img src='images/ok.gif' width='16' height='16'></td><td bgcolor='#fff' width='95%'>对 "+folder+" 目录权限验证通过!</td></tr>");
+                    sb.Append("<tr><td width='5%' bgcolor='#ffffff'><img src='images/ok.gif' width='16' height='16'></td><td bgcolor='#ffffff' width='95%'>对 "+folder+" 目录权限验证通过!</td></tr>");
                 }
             }
 
@@ -171,25 +193,25 @@ namespace We7.CMS.Install
             {
                 if (!SystemFileCheck(file))
                 {
-                    sb.Append("<tr><td width='5%' bgcolor='#fff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#fff' width='95%'>对 " + file.Substring(0, file.LastIndexOf('\\')) + " 目录没有写入和删除权限!</td></tr>");
+                    sb.Append("<tr><td width='5%' bgcolor='#ffffff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#ffffff' width='95%'>对 " + file.Substring(0, file.LastIndexOf('\\')) + " 目录没有写入和删除权限!</td></tr>");
                     error = true;
                 }
                 else
                 {
-                    sb.Append("<tr><td width='5%' bgcolor='#fff'><img src='images/ok.gif' width='16' height='16'></td><td bgcolor='#fff' width='95%'>对 " + file.Substring(0, file.LastIndexOf('\\')) + " 目录权限验证通过!</td></tr>");
+                    sb.Append("<tr><td width='5%' bgcolor='#ffffff'><img src='images/ok.gif' width='16' height='16'></td><td bgcolor='#ffffff' width='95%'>对 " + file.Substring(0, file.LastIndexOf('\\')) + " 目录权限验证通过!</td></tr>");
                 }
             }
 
             if (!tempTest())
             {
-                sb.Append("<tr><td width='5%' bgcolor='#fff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#fff' width='95%'>您没有对 " + Path.GetTempPath() + " 文件夹访问权限，详情参见安装文档!</td></tr>");
+                sb.Append("<tr><td width='5%' bgcolor='#ffffff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#ffffff' width='95%'>您没有对 " + Path.GetTempPath() + " 文件夹访问权限，详情参见安装文档!</td></tr>");
                 error = true;
             }
             else
             {
                 if (!serializeTest())
                 {
-                    sb.Append("<tr><td width='5%' bgcolor='#fff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#fff' width='95%'>对config文件反序列化失败，请确保config下的文件具有可写权限及格式正确.</td></tr>");
+                    sb.Append("<tr><td width='5%' bgcolor='#ffffff'><img src='images/error.gif' width='16' height='16'></td><td bgcolor='#ffffff' width='95%'>对config文件反序列化失败，请确保config下的文件具有可写权限及格式正确.</td></tr>");
                     error = true;
                 }
                 else

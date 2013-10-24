@@ -7,8 +7,133 @@
 <script type="text/javascript">
     var ok = true;
     function hideall(force){
-        
+        var sel = document.getElementById("DBTypeDropDownList");
+        if (sel && '<%=SelectDB %>' != '' && !force) {
+            sel.value = '<%=SelectDB %>';
+            DBTypeChange('<%=SelectDB %>');
+        }
+        else {
+            hide("tr1");
+            hide("tr2");
+            hide("tr3");
+            hide("tr4");
+            hide("tr5");
+            hide("tr6");
+            document.getElementById("DBTypeDropDownList").selectValue = 0;
+        }
     }
+
+    function DBTypeChange(type) {
+        show("tr6");
+        document.getElementById('msg0').innerHTML = "";
+
+        switch (type) {
+            case "SqlServer":
+                show("tr1");
+                show("tr2");
+                show("tr3");
+                show("tr4");
+                hide("tr5");
+                document.getElementById('msg0').innerHTML = '<br/>*您是否在使用SQL Server 2005 Express？ 请在“服务器名”项使用“主机名称\\SQLEXPRESS”。';
+                break;
+            case "MySQL":
+                show("tr1");
+                show("tr2");
+                show("tr3");
+                show("tr4");
+                hide("tr5");                    //为何MySQL、Oracle需要隐藏数据文件、创建新数据库选项？为何SQLite、Access要隐藏数据库服务器、数据库名称、数据库用户、密码四个选项,而且需要数据文件？  
+                hide("tr6");                    //为何oracle时，不用检查服务器名称、数据库名称、用户名称三项？
+                break;
+            case "Oracle":
+                show("tr1");
+                hide("tr2");
+                show("tr3");
+                show("tr4");
+                hide("tr5");
+                hide("tr6");
+                break;
+            case "SQLite":
+            case "Access":
+                hide("tr1");
+                hide("tr2");
+                hide("tr3");
+                hide("tr4");
+                show("tr5");
+                break;
+            default:
+                hideall(true);
+                break;
+        }
+        document.getElementById('dbtype').value = type;
+    }
+
+    function show(id) {
+        document.getElementById(id).style.display = "";
+    }
+    function hide(id) {
+        document.getElementById(id).style.display = "none";
+    }
+
+    function SelectChange() {
+        DBTypeChange(document.getElementById('DBTypeDropDownList').value);
+        ok = true;
+    }
+
+    function checkid(obj, id) {
+        var v = obj.value;
+        if (v.length == 0) {
+            document.getElementById('msg' + id).innerHTML = '<span style=\'#ff0000\'>此处不能为空！</span>';
+            ok = false;
+        }
+        else {
+            document.getElementById('msg' + id).innerHTML = '';
+            ok = true;
+        }
+    }
+
+    function checknull() {
+        if (document.getElementById('AdminPasswordTextBox').value == "" || document.getElementById('AdminPasswordTextBox').value.length < 6) {
+            alert('系统管理员密码不能少于6位!');
+            document.getElementById('AdminPasswordTextBox').focus();
+            return false;
+        }
+        if (document.getElementById('repwd').value == "") {
+            alert('确认密码不能为空!');
+            document.getElementById('repwd').focus();
+            return false;
+        }
+        if (document.getElementById('repwd').value != document.getElementById('AdminPasswordTextBox').value) {
+            alert('系统管理员密码两次输入不同，请重新输入!');
+            document.getElementById('AdminPasswordTextBox').focus();
+            return false;
+        }
+        if (document.getElementById('DBTypeDropDownList').value == 'Access' || document.getElementById('DBTypeDropDownList').value == 'SQLite') {
+            if (!isEmpty('DBFileNameTextBox')) {
+                document.Form1.submit();
+            }
+            else {
+                alert('DBFileNameTextBox 不能为空!');
+                return false;
+            }
+        }
+        else if (document.getElementById('DBTypeDropDownList').value != 'oracle') {                     
+        if (!isEmpty('ServerNameTextBox') && !isEmpty('DatabaseTextBox') && !isEmpty('UserTextBox')) {          
+            document.Form1.submit();
+        }
+        else {
+            alert('datasource 不能为空!');
+            return false;
+        }
+        }
+        document.Form1.submit();
+    }
+    function isEmpty(id) {
+        if (document.getElementById(id).value.length == 0) {
+            return true;
+        }
+        return false;
+    }
+    
 </script>
 <%=header %>
 <body onload="hideall()" class="pubbox_login">
@@ -72,7 +197,7 @@
                                                         数据库类型：
                                                     </td>
                                                     <td style="background-color:#f5f5f5;width:352px;">
-                                                        <asp:DropDownList ID="DbTypeDropDownList" runat="server" onchange="SelectChange(this)">
+                                                        <asp:DropDownList ID="DBTypeDropDownList" runat="server" onchange="SelectChange(this)">
                                                             <asp:ListItem Value="0">请选择数据库类型</asp:ListItem>
                                                             <asp:ListItem Value="SqlServer">SqlServer</asp:ListItem>
                                                             <asp:ListItem Value="MySql">MySql</asp:ListItem>
@@ -123,13 +248,13 @@
                                                         数据库文件：
                                                     </td>
                                                     <td style="background-color:#f5f5f5;width:352px;">
-                                                        <asp:TextBox ID="DbFileNameTextBox" runat="server" Width="150px" Enabled="true" TextMode="Password"></asp:TextBox>
+                                                        <asp:TextBox ID="DBFileNameTextBox" runat="server" Width="150px" Enabled="true" onblur="checkid(this, '5')">We7_CMS_DB</asp:TextBox>
                                                         <span id="msg5"></span>( 默认：We7_CMS_DB.DB3 )
                                                     </td>
                                                 </tr>
                                                 <tr id="tr6">
                                                     <td>
-                                                        <asp:CheckBox runat="server" ID="CreateNewDBCheckBox" Checked="true"/>
+                                                        <asp:CheckBox runat="server" ID="CreateNewDBCheckBox" Checked="true" Text="创建新数据库"/>
                                                     </td>
                                                     <td></td>
                                                 </tr>
@@ -149,6 +274,9 @@
                                     <input type="button" value="复制到剪贴板" accesskey="c" onclick="HighlightAll(this.form.txtMsg)"/>
                                     <asp:TextBox ID="txtMsg" runat="server" Height="180" TextMode="MultiLine" Width="98%"></asp:TextBox>
                                 </asp:Panel>
+                                <div style="margin:10px 20px 30px 10px;text-align:right">
+                                    <asp:Button ID="ResetDBInfo" runat="server" OnClick="ResetDBInfo_Click" class="bprimarypub80" Text="下一步"></asp:Button >
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -156,6 +284,8 @@
             </tr>
         </table>
     </div>
+    <%=footer %>
+    <input id="dbtype" type="hidden"/>
     </form>
 </body>
 </html>

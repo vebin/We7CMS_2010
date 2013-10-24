@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseConfigFileManager.cs" />
+    <Compile Include="BaseConfigInfo.cs" />
     <Compile Include="BaseConfigs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

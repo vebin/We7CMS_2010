@@ -46,6 +46,9 @@
     <Compile Include="Config\GeneralConfigInfo.cs" />
     <Compile Include="Config\GeneralConfigs.cs" />
     <Compile Include="Config\IConfigInfo.cs" />
+    <Compile Include="Config\SiteConfigFileManager.cs" />
+    <Compile Include="Config\SiteConfigInfo.cs" />
+    <Compile Include="Config\SiteConfigs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\SerializationHelper.cs" />
     <Compile Include="Util\Utils.cs" />

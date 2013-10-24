@@ -55,6 +55,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Thinkment.Data\Thinkment.Data.csproj">
+      <Project>{FF4DFD7B-36F7-4784-B514-389796F62605}</Project>
+      <Name>Thinkment.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\We7.CMS.Config\We7.CMS.Config.csproj">
       <Project>{4A936897-F9D4-49B1-BAEE-16E2D7668B1C}</Project>
       <Name>We7.CMS.Config</Name>

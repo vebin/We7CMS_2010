@@ -3,11 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using We7.CMS.Config;
+using System.IO;
+using Thinkment.Data;
 
 namespace We7.CMS.Install
 {
     public static class Installer
     {
+        public static int CreateDatabase(BaseConfigInfo bci, out Exception resultException)
+        {
+            int result = 0;
+            resultException = null;
+            DatabaseInfo dbi = GetDatabaseInfo(bci);
+            string dbFile = "";
+            if (dbi.DBFile != null && dbi.DBFile != "")
+            {
+                dbFile = dbi.DBFile.Replace("{App}", AppDomain.CurrentDomain.BaseDirectory);
+                dbFile.Replace('\\', Path.DirectorySeparatorChar);
+            }
+
+            switch (bci.DBType)
+            { 
+                case "SqlServer":
+                    string masterstring = string.Format(@"Server={0};Database={1};User={2};Password={3};",dbi.Server, "master", dbi.User, dbi.Password);
+                    string sql = string.Format(@"IF NOT EXISTS (SELECT * FROM SYSDATABASES WHERE NAME=N'{0}') CREATE DATABASE {0}", dbi.Database);
+                    IDbDriver driver = new SqlDbDriver();
+
+                    using (IConnection conn = driver.CreateConnection(masterstring))
+                    { 
+                        
+                    }
+                    break;
+            }
+
+        }
+
         public static DatabaseInfo GetDatabaseInfo(BaseConfigInfo bci)
         {
             DatabaseInfo dbi = new DatabaseInfo();

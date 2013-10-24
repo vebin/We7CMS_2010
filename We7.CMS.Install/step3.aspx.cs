@@ -147,6 +147,17 @@ namespace We7.CMS.Install
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "", "<script>if(confirm('无法把设置写入\"db.config\"文件，系统将把文件内容显示出来，您可以将内容保存为\"db.config\"，然后通过FTP软件上传到网站根目录下.. \\r\\n*注意：db.config位于网站Config目录下。\\r\\n\\r\\n如要继续运行安装，请按\"确定\"按钮.')){window.location.href='step4.aspx?isforceload=1';}else{window.location.href='step3.aspx';}</script>");
                 return;
             }
+
+            if (bci.DBType == "Oracle" || bci.DBType == "MySql")
+            {
+                CreateNewDBCheckBox.Checked = false;
+            }
+
+            if (CreateNewDBCheckBox.Checked)
+            {
+                Exception ex = null;
+                int ret = Installer.CreateDatabase(bci, out ex);
+            }
         }
 
         public bool CheckWebConfig()

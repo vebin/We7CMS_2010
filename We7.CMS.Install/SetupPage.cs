@@ -34,8 +34,8 @@ namespace We7.CMS.Install
                 physicalPath = context.Server.MapPath("/config");
             }
             else
-            { 
-                physicalPath = AppDomain.CurrentDomain.BaseDirectory
+            {
+                physicalPath = AppDomain.CurrentDomain.BaseDirectory;
             }
 
             using (FileStream fs = new FileStream(physicalPath+"\\db-is-creating.lock", FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))

@@ -43,7 +43,7 @@
                 show("tr4");
                 hide("tr5");                    //为何MySQL、Oracle需要隐藏数据文件、创建新数据库选项？为何SQLite、Access要隐藏数据库服务器、数据库名称、数据库用户、密码四个选项,而且需要数据文件？  
                 hide("tr6");                    //为何oracle时，不用检查服务器名称、数据库名称、用户名称三项？
-                break;
+                break;                          //原因分析：MySQL、Oracle必须手动创建数据库，故必须隐藏自动新建数据库选项！
             case "Oracle":
                 show("tr1");
                 hide("tr2");

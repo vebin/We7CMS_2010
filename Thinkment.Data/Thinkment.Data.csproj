@@ -43,10 +43,12 @@
   <ItemGroup>
     <Compile Include="BaseDriver.cs" />
     <Compile Include="DataAccessPage.cs" />
+    <Compile Include="DataParameter.cs" />
     <Compile Include="IConnection.cs" />
     <Compile Include="IDbDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlDbDriver.cs" />
+    <Compile Include="SqlStatement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

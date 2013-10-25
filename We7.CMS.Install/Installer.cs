@@ -12,7 +12,7 @@ namespace We7.CMS.Install
     {
         public static int CreateDatabase(BaseConfigInfo bci, out Exception resultException)
         {
-            int result = 0;
+            int result = 0; //数据库新建失败
             resultException = null;
             DatabaseInfo dbi = GetDatabaseInfo(bci);
             string dbFile = "";
@@ -22,20 +22,55 @@ namespace We7.CMS.Install
                 dbFile.Replace('\\', Path.DirectorySeparatorChar);
             }
 
-            switch (bci.DBType)
-            { 
-                case "SqlServer":
-                    string masterstring = string.Format(@"Server={0};Database={1};User={2};Password={3};",dbi.Server, "master", dbi.User, dbi.Password);
-                    string sql = string.Format(@"IF NOT EXISTS (SELECT * FROM SYSDATABASES WHERE NAME=N'{0}') CREATE DATABASE {0}", dbi.Database);
-                    IDbDriver driver = new SqlDbDriver();
+            try
+            {
+                switch (bci.DBType)
+                {
+                    case "SqlServer":
+                        string masterstring = string.Format(@"Server={0};Database={1};User={2};Password={3};", dbi.Server, "master", dbi.User, dbi.Password);
+                        string sql = string.Format(@"IF NOT EXISTS (SELECT * FROM SYSDATABASES WHERE NAME=N'{0}') CREATE DATABASE {0}", dbi.Database);
+                        IDbDriver driver = new SqlDbDriver();
 
-                    using (IConnection conn = driver.CreateConnection(masterstring))
-                    { 
-                        
-                    }
-                    break;
+                        using (IConnection conn = driver.CreateConnection(masterstring))
+                        {
+                            SqlStatement st0 = new SqlStatement(string.Format("SELECT count(*) FROM SYSDATABASES WHERE NAME=N'{0}'", dbi.Database));
+                            int count = (int)conn.QueryScalar(st0);
+                            if (count == 0)
+                            {
+                                SqlStatement st = new SqlStatement(sql);
+                                driver.FormatSQL(st);
+                                driver.FormatSQL(st0);
+                                conn.Update(st);
+                                if ((int)conn.QueryScalar(st0) > 0)
+                                    result = 1; //代表数据库新建成功
+                            }
+                            else
+                                result = -1;    //代表数据库已经存在，无需新建
+                        }
+                        break;
+
+                    case "MySql":
+                        result = -1;
+                        break;
+                    case "Oracle":
+                        result = -1;
+                        break;
+                    case "SQLite":
+                        if (File.Exists(dbFile))
+                            result = -1;
+                        else
+                        {
+                            string dbPath = Path.GetDirectoryName(dbFile);
+                            if (!Directory.Exists(dbPath))
+                                Directory.CreateDirectory(dbPath);
+                        }
+                        break;
+                }
             }
-
+            catch
+            { 
+                
+            }
         }
 
         public static DatabaseInfo GetDatabaseInfo(BaseConfigInfo bci)

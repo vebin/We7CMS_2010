@@ -8,5 +8,11 @@ namespace Thinkment.Data
     public abstract class BaseDriver : IDbDriver
     {
         public abstract IConnection CreateConnection(string connectionString);
+
+
+        public virtual SqlStatement FormatSQL(SqlStatement sql)
+        {
+            return sql;
+        }
     }
 }

@@ -8,5 +8,7 @@ namespace Thinkment.Data
     public interface IDbDriver
     {
         IConnection CreateConnection(string connectionString);
+
+        SqlStatement FormatSQL(SqlStatement sql);
     }
 }

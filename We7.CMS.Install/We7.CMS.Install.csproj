@@ -31,8 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Interop.ADOX">
+      <HintPath>..\Solution Items\DLL\Interop.ADOX.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite_64">
+      <HintPath>..\Solution Items\DLL\System.Data.SQLite_64.DLL</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,10 +62,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Thinkment.Data\Thinkment.Data.csproj">
-      <Project>{FF4DFD7B-36F7-4784-B514-389796F62605}</Project>
-      <Name>Thinkment.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\We7.CMS.Config\We7.CMS.Config.csproj">
       <Project>{4A936897-F9D4-49B1-BAEE-16E2D7668B1C}</Project>
       <Name>We7.CMS.Config</Name>
@@ -67,6 +70,13 @@
       <Project>{77C3C049-609F-445A-BB8B-62EC07893D59}</Project>
       <Name>We7.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\We7.Share\Thinkment.Data\Thinkment.Data.csproj">
+      <Project>{D4AE4B8A-01E4-47BE-BADA-67E5C5A24437}</Project>
+      <Name>Thinkment.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

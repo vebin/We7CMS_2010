@@ -225,6 +225,73 @@ namespace Thinkment.Data
         class FrontPageSqlDbConnection : IConnectionEx
         {
 
+            public string ConnectionString
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public bool Create
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public IDbDriver Driver
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public void Commit()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool IsTransaction
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public object QueryScalar(SqlStatement sql)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int Update(SqlStatement sql)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Dispose()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Thinkment.Data
 
         void Commit();
 
+        bool IsTransaction { get; set; }
+
         object QueryScalar(SqlStatement sql);
 
         int Update(SqlStatement sql);

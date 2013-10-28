@@ -10,6 +10,34 @@ namespace We7.CMS.Install
 {
     public static class Installer
     {
+        public static bool CheckConnection(BaseConfigInfo bci, out string msg)
+        {
+            msg = "";
+            try
+            {
+                string connectionString = bci.DBConnectionString;
+                string selectDbType = bci.DBType;
+                connectionString = connectionString.Replace("{App}", AppDomain.CurrentDomain.BaseDirectory);
+                IDbDriver driver = CreateDbDriver(selectDbType);
+                using (IConnection conn = driver.CreateConnection(connectionString))
+                {
+                    SqlStatement st = new SqlStatement("SELECT 1");
+                    conn.QueryScalar(st);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Trim().ToUpper().StartsWith("ORA-00923"))
+                    return true;
+                else
+                {
+                    msg = ex.Message;
+                    return false;
+                }
+            }
+        }
+
         public static int CreateDatabase(BaseConfigInfo bci, out Exception resultException)
         {
             int result = 0; //数据库新建失败
@@ -63,14 +91,59 @@ namespace We7.CMS.Install
                             string dbPath = Path.GetDirectoryName(dbFile);
                             if (!Directory.Exists(dbPath))
                                 Directory.CreateDirectory(dbPath);
+                            System.Data.SQLite.SQLiteConnection.CreateFile(dbFile);
+                            if (File.Exists(dbFile))
+                                result = 1;
+                        }
+                        break;
+                    case "Access":
+                        if (!File.Exists(dbFile))
+                            result = -1;
+                        else
+                        {
+                            string dbPath = Path.GetDirectoryName(dbFile);
+                            if (!Directory.Exists(dbPath))
+                                Directory.CreateDirectory(dbPath);
+                            ADOX.Catalog catalog = new ADOX.Catalog();
+                            catalog.Create(string.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Jet OLEDB:Engine Type=5;", dbFile));
+                            if (File.Exists(dbFile))
+                                result = 1;
                         }
                         break;
                 }
             }
-            catch
-            { 
-                
+            catch(Exception ex)
+            {
+                resultException = ex;
+                result = 0;
             }
+
+            return result;
+        }
+
+        public static IDbDriver CreateDbDriver(string dbType)
+        {
+            IDbDriver driver = null;
+            switch (dbType.ToLower())
+            { 
+                case "sqlserver":
+                    driver = new SqlDbDriver();
+                    break;
+                case "mysql":
+                    driver = new MySqlDriver();
+                    break;
+                case "oracle":
+                    driver = new OracleDriver();
+                    break;
+                case "sqlite":
+                    driver = new SQLiteDriver();
+                    break;
+                case "access":
+                    driver = new OleDbDriver();
+                    break;
+            }
+
+            return driver;
         }
 
         public static DatabaseInfo GetDatabaseInfo(BaseConfigInfo bci)

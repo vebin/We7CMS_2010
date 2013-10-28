@@ -157,6 +157,30 @@ namespace We7.CMS.Install
             {
                 Exception ex = null;
                 int ret = Installer.CreateDatabase(bci, out ex);
+
+                if (ret == -1)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "", "<script>alert('数据库已经存在，请重新命名或去掉“创建新数据库”前的勾，使用已有数据库');</script>");
+                    return;
+                }
+                if (ret == 0)
+                {
+                    string exceptionMsgs = We7Helper.ConvertTextToHtml(ex.Message);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "", "<script>alert('数据库创建失败，错误原因："+exceptionMsgs+"');</script>");
+                    return;
+                }
+            }
+
+            string msg = "";
+            if (!Installer.CheckConnection(bci, out msg))
+            {
+                msg = We7Helper.ConvertTextToHtml(msg);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "", "<script>alert('连接数据库失败，请检查您填写的数据库信息。" + msg + "');</script>");
+                return;
+            }
+            else
+            {
+                Response.Redirect(Server.HtmlEncode(string.Format("step4.aspx?db={0}", setupDBType)), true);
             }
         }
 

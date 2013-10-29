@@ -146,6 +146,35 @@ namespace We7.CMS.Install
             return driver;
         }
 
+        public static void ExecuteSQL(BaseConfigInfo bci, string file)
+        {
+            if (file != "" && File.Exists(file))
+            { 
+                
+            }
+        }
+
+        public static void ExecuteSQLGroup(BaseConfigInfo bci)
+        {
+            List<string> files = new List<string>();
+            files.Add("create.xml");
+            files.Add("install.xml");
+            files.Add("update.xml");
+            files.Add("data.xml");
+            ExecuteSQLGroup(bci, files);
+        }
+
+        public static void ExecuteSQLGroup(BaseConfigInfo bci, List<string> files)
+        {
+            string basepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "install/SQL");
+            string corepath = Path.Combine(basepath, "core");
+
+            foreach (string file in files)
+            {
+                ExecuteSQL(bci, Path.Combine(corepath, file));
+            }
+        }
+
         public static DatabaseInfo GetDatabaseInfo(BaseConfigInfo bci)
         {
             DatabaseInfo dbi = new DatabaseInfo();

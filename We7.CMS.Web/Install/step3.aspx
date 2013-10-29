@@ -36,7 +36,7 @@
                 hide("tr5");
                 document.getElementById('msg0').innerHTML = '<br/>*您是否在使用SQL Server 2005 Express？ 请在“服务器名”项使用“主机名称\\SQLEXPRESS”。';
                 break;
-            case "MySQL":
+            case "MySql":
                 show("tr1");
                 show("tr2");
                 show("tr3");
@@ -141,7 +141,7 @@
     <div>
         <table width="700" border="0" align="center" cellpadding="0" cellspacing="12" bgcolor="#999" class="login">
             <tr>
-                <td bgcolor="#fff">
+                <td bgcolor="#ffffff">
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
                         <tr>
                             <td colspan="2">

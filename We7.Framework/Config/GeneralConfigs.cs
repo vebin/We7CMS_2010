@@ -16,7 +16,7 @@ namespace We7.Framework.Config
             GeneralConfigInfo config = null;
             if (config == null)
             {
-                GeneralConfigFileManager.LoadConfig();
+                config = GeneralConfigFileManager.LoadConfig();
             }
 
             return config;

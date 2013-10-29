@@ -55,7 +55,7 @@ namespace We7.Framework.Config
             if (ConfigInfo != null)
             {
                 m_fileoldchange = File.GetLastWriteTime(ConfigFilePath);
-                ConfigInfo = GeneralConfigFileManager.LoadConfig(ref m_fileoldchange, m_configfilepath, m_configinfo, true);
+                ConfigInfo = GeneralConfigFileManager.LoadConfig(ref m_fileoldchange, ConfigFilePath, m_configinfo, true);
             }
             else
             {
@@ -68,7 +68,7 @@ namespace We7.Framework.Config
                 {
                     SerializationHelper.Save(ConfigInfo, filename);
                 }
-                ConfigInfo = DefaultConfigFileManager.LoadConfig(ref m_fileoldchange, m_configfilepath, m_configinfo, false);
+                ConfigInfo = DefaultConfigFileManager.LoadConfig(ref m_fileoldchange, ConfigFilePath, m_configinfo, false);
             }
 
             return ConfigInfo as GeneralConfigInfo;

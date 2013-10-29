@@ -8,6 +8,8 @@ using We7.Framework.Config;
 using System.Diagnostics;
 using System.Reflection;
 using System.Collections;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace We7.CMS.Install
 {
@@ -76,6 +78,21 @@ namespace We7.CMS.Install
             mypath = Path.Combine(physicsPath, "_skins");
             if (!Directory.Exists(mypath))
                 Directory.CreateDirectory(mypath);
+        }
+
+        public void DisableSubmitButton(Page page, Button submitBtn)
+        {
+            RegisterAdminPageClientScriptBlock();
+
+            page.ClientScript.GetPostBackEventReference(submitBtn, "");
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("if(typeof(Page_ClientValidate)=='function') { if (Page_ClientValidate() == false) { return false; }}");
+            sb.Append("disableOtherSubmit();");
+            sb.Append("document.getElementById('success').style.display='block';");
+            sb.Append(this.GetPostBackEventReference(submitBtn, ""));
+            sb.Append(";");
+            submitBtn.Attributes.Add("onclick", sb.ToString());
         }
 
         public static string IISSystemBINCheck(ref bool error)
@@ -240,6 +257,22 @@ namespace We7.CMS.Install
             {
                 return AssemblyFileVersion.ProductName;
             }
+        }
+
+        public void RegisterAdminPageClientScriptBlock()
+        {
+            string script = "<div id=\"success\" style=\"position:absolute;z-index;300;height:120px;width:284px;left:50%;top:50%;margin-left:-150px;margin-top:-80px;\">\r\n" +
+                "<div id=\"Layer2\" style=\"position:absolute;z-index:300;width:270px;height:90px;background-color:#ffffff;border:solid #000000 1px;font-size:14px;\">\r\n" +
+                "   <div id=\"Layer4\" style=\"height:26px;background:#333333;line-height:26px;padding:0px 3px 0px 3px;font-weight:bolder;color:#fff;\">操作提示</div>\r\n" +
+                "   <div id=\"Layer5\" style=\"height:64px;line-height:150%;padding:0px 3px 0px 3px;\" align=\"center\"><br/>正在执行操作，请稍等...</div>\r\n" +
+                "</div>\r\n" +
+                "<div id=\"Layer3\" style=\"position:absolute;width:270px;height:90px;z-index:299;left:4px;top:5px;background-color:#cccccc;\"></div>\r\n" +
+                "</div>\r\n" +
+                "<script>\r\n" +
+                "document.getElementById('success').style.display='none';\r\n" +
+                "</script>\r\n";
+
+            base.ClientScript.RegisterClientScriptBlock(this.GetType(), "", script);
         }
 
         private static bool serializeTest()

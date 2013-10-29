@@ -41,8 +41,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.Data.SQLite_64">
-      <HintPath>..\..\Solution Items\DLL\System.Data.SQLite_64.DLL</HintPath>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\Solution Items\DLL\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />

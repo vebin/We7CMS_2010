@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -61,6 +62,7 @@
     <Content Include="Install\js\setup.js" />
     <Content Include="Install\step2.aspx" />
     <Content Include="Install\step3.aspx" />
+    <Content Include="Install\step4.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -88,6 +90,10 @@
       <Project>{7F94419E-DEC0-43DF-9781-7D0F28E0961C}</Project>
       <Name>We7.CMS.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\We7.Share\Thinkment.Data\Thinkment.Data.csproj">
+      <Project>{D4AE4B8A-01E4-47BE-BADA-67E5C5A24437}</Project>
+      <Name>Thinkment.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="_data\" />
@@ -95,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\general.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_Data\DB\We7_CMS_DB" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

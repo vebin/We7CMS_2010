@@ -37,8 +37,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite_64">
-      <HintPath>..\Solution Items\DLL\System.Data.SQLite_64.DLL</HintPath>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\Solution Items\DLL\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +58,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="step3.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="step4.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>

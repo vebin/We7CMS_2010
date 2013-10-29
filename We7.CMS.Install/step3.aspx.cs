@@ -130,7 +130,7 @@ namespace We7.CMS.Install
                 Session["SystemAdminPwd"] = AdminPasswordTextBox.Text;
             }
             catch
-            { ;}
+            { }
 
             string setupDBType = SelectDB = DBTypeDropDownList.SelectedValue;
             DatabaseInfo dbi = new DatabaseInfo();

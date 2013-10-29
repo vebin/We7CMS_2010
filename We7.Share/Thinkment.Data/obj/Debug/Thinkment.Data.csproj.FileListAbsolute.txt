@@ -1,7 +1,7 @@
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\Thinkment.Data.dll
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\Thinkment.Data.pdb
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\MySql.Data.dll
-C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\System.Data.SQLite_64.DLL
+C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\System.Data.SQLite.dll
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\ResolveAssemblyReference.cache
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.dll
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.pdb

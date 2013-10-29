@@ -17,7 +17,7 @@ namespace We7.CMS.Install
             {
                 string connectionString = bci.DBConnectionString;
                 string selectDbType = bci.DBType;
-                connectionString = connectionString.Replace("{App}", AppDomain.CurrentDomain.BaseDirectory);
+                connectionString = connectionString.Replace("{$App}", AppDomain.CurrentDomain.BaseDirectory);
                 IDbDriver driver = CreateDbDriver(selectDbType);
                 using (IConnection conn = driver.CreateConnection(connectionString))
                 {
@@ -46,7 +46,7 @@ namespace We7.CMS.Install
             string dbFile = "";
             if (dbi.DBFile != null && dbi.DBFile != "")
             {
-                dbFile = dbi.DBFile.Replace("{App}", AppDomain.CurrentDomain.BaseDirectory);
+                dbFile = dbi.DBFile.Replace("{$App}", AppDomain.CurrentDomain.BaseDirectory);
                 dbFile.Replace('\\', Path.DirectorySeparatorChar);
             }
 

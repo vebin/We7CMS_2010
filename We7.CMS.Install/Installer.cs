@@ -5,6 +5,8 @@ using System.Text;
 using We7.CMS.Config;
 using System.IO;
 using Thinkment.Data;
+using System.Xml;
+using System.Data;
 
 namespace We7.CMS.Install
 {
@@ -149,8 +151,40 @@ namespace We7.CMS.Install
         public static void ExecuteSQL(BaseConfigInfo bci, string file)
         {
             if (file != "" && File.Exists(file))
-            { 
-                
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(file);
+                foreach (XmlNode node in doc.SelectNodes("/Update/Database"))
+                {
+                    IDbDriver driver = CreateDbDriver(bci.DBDriver);
+                    if (driver == null) continue;
+                    int success = 0;
+                    int errors = 0;
+
+                    using (IConnection conn = driver.CreateConnection(bci.DBConnectionString))
+                    {
+                        foreach (XmlNode sub in node.SelectNodes("Sql"))
+                        {
+                            SqlStatement sql = new SqlStatement();
+                            sql.CommandType = CommandType.Text;
+                            sql.SqlClause = sub.InnerText;
+                            driver.FormatSQL(sql);
+                            try
+                            {
+                                conn.Update(sql);
+                                success++;
+                            }
+                            catch (Exception ex)
+                            {
+                                We7.Framework.LogHelper.WriteFileLog(We7.Framework.LogHelper.sql_update,
+                                    "执行SQL："+sql.SqlClause+"\n\t 出现错误：", ex.Message);
+                                errors++;
+                                continue;
+                            }
+                        }
+                    }
+                    We7.Framework.LogHelper.WriteFileLog(We7.Framework.LogHelper.sql_update, "执行完毕：", string.Format("{3}执行完毕！共执行语句{0}条，成功{1}条，失败{2}条", success+errors, success, errors, file));
+                }
             }
         }
 

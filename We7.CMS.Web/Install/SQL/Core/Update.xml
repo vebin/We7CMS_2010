@@ -860,7 +860,7 @@
       alter table [Comments] add [Content] text
     </Sql>
     <Sql>
-      alter table [Comments] add [Created] datetimes
+      alter table [Comments] add [Created] datetime
     </Sql>
     <Sql>
       alter table [Comments] add [Updated] datetime
@@ -985,7 +985,7 @@
     
     <!-- ************************* 向Log表中添加字段 ************************* -->
     <Sql>
-      alter table [Log] add [Title] nvarchar(400)
+      alter table [Log] add [Title] nvarchar(40)
     </Sql>
     <Sql>
       alter table [Log] add [UserID] nvarchar(40)

@@ -99,14 +99,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\DB\" />
     <Folder Include="_data\" />
     <Folder Include="_skins\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\general.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App_Data\DB\We7_CMS_DB" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

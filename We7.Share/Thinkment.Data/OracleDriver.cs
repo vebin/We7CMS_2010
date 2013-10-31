@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Data.OracleClient;
 using System.Data;
 
@@ -21,7 +22,32 @@ namespace Thinkment.Data
 
         public override SqlStatement FormatSQL(SqlStatement sql)
         {
-            return base.FormatSQL(sql);
+            RegexOptions options = RegexOptions.IgnoreCase;
+            Regex alterSql = new Regex(@"(alter\s+table|create\s+table|insert\s+into|delete\s+from|select\s+.+\s+from)\s", options);
+            if (alterSql.IsMatch(sql.SqlClause))
+            {
+                sql.SqlClause.Replace("(", " (");
+                sql.SqlClause = new Regex(@"\s+varchar[^(\w]+", options).Replace(sql.SqlClause, " VARCHAR2 ");
+                sql.SqlClause = new Regex(@"\s+nvarchar[^(\w]+", options).Replace(sql.SqlClause, " VARCHAR2 ");
+                sql.SqlClause = new Regex(@"\s+datetime[\W]+", options).Replace(sql.SqlClause, " DATE");
+                sql.SqlClause = new Regex(@"\s+text[\W]+", options).Replace(sql.SqlClause, " CLOB");
+                sql.SqlClause = new Regex(@"\s+ntext[\W]+", options).Replace(sql.SqlClause, " NCLOB");
+                sql.SqlClause = new Regex(@"\s+int[\W]+", options).Replace(sql.SqlClause, " NUMBER ");
+                sql.SqlClause = new Regex(@"\s+decimal[^(\w]+", options).Replace(sql.SqlClause, " NUMBER ");
+                sql.SqlClause = new Regex(@"\s+bigint[\W]+", options).Replace(sql.SqlClause, " NUMBER ");
+                sql.SqlClause = new Regex(@"\s+money[\W]+", options).Replace(sql.SqlClause, " NUMBER(8,2) ");
+            }
+            sql.SqlClause = new Regex(@"\s+month\(+[^\(|\)]+\)+", options).Replace(sql.SqlClause, new MatchEvaluator(ReplaceMonth));
+            sql.SqlClause = sql.SqlClause.Replace("[", "\"").Replace("]", "\"");
+            return sql;
+        }
+
+        private string ReplaceMonth(Match match)
+        {
+            string result = match.Value.ToString();
+            result = result.Replace("MONTH", "to_char");
+            result = result.Replace(")", " \'MM\')");
+            return result;
         }
 
         private IConnectionEx CreateConnection()

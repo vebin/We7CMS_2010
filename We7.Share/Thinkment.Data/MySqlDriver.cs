@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Data;
 using MySql.Data.MySqlClient;
 
@@ -14,6 +15,7 @@ namespace Thinkment.Data
         {
             IConnectionEx cc = CreateConnection();
             cc.Create = true;
+            connectionString = connectionString.Replace("{$App}", AppDomain.CurrentDomain.BaseDirectory);
             cc.ConnectionString = connectionString;
             cc.Driver = this;
             return cc;
@@ -21,7 +23,14 @@ namespace Thinkment.Data
 
         public override SqlStatement FormatSQL(SqlStatement sql)
         {
-            return base.FormatSQL(sql);
+            RegexOptions options = RegexOptions.IgnoreCase;
+            Regex alterSql = new Regex(@"(alter\s+table|create\s+table|insert\s+into|delete\s+from)\s", options);
+            if (alterSql.IsMatch(sql.SqlClause))
+            {
+                sql.SqlClause = new Regex(@"\s+[^\[]?nvarchar", options).Replace(sql.SqlClause, " varchar");//nvarchar前面的字符匹配在什么情况下回发生？
+            }
+            sql.SqlClause = sql.SqlClause.Replace("[", "`").Replace("]", "`");
+            return sql;
         }
 
         private IConnectionEx CreateConnection()

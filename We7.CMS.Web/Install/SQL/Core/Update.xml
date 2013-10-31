@@ -411,9 +411,6 @@
       alter table [AdviceTransfer] add [ToTypeID] nvarchar(40)
     </Sql>
     <Sql>
-      alter table [AdviceTransfer] add [AdviceID] nvarchar(40)
-    </Sql>
-    <Sql>
       alter table [AdviceTransfer] add [Suggest] text
     </Sql>
     <Sql>
@@ -857,40 +854,40 @@
       alter table [Comments] add [ArticleID] nvarchar(40)
     </Sql>
     <Sql>
-      alter table [Channel] add [Author] nvarchar(64)
+      alter table [Comments] add [Author] nvarchar(64)
     </Sql>
     <Sql>
-      alter table [Channel] add [Content] text
+      alter table [Comments] add [Content] text
     </Sql>
     <Sql>
-      alter table [Channel] add [Created] datetimes
+      alter table [Comments] add [Created] datetimes
     </Sql>
     <Sql>
-      alter table [Channel] add [Updated] datetime
+      alter table [Comments] add [Updated] datetime
     </Sql>
     <Sql>
-      alter table [Channel] add [SequenceIndex] int
+      alter table [Comments] add [SequenceIndex] int
     </Sql>
     <Sql>
-      alter table [Channel] add [State] int
+      alter table [Comments] add [State] int
     </Sql>
     <Sql>
-      alter table [Channel] add [IP] nvarchar(40)
+      alter table [Comments] add [IP] nvarchar(40)
     </Sql>
     <Sql>
-      alter table [Channel] add [AccountID] nvarchar(64)
+      alter table [Comments] add [AccountID] nvarchar(64)
     </Sql>
     <Sql>
-      alter table [Channel] add [ArticleName] nvarchar(100)
+      alter table [Comments] add [ArticleName] nvarchar(100)
     </Sql>
     <Sql>
-      alter table [Channel] add [UserSatisfaction] nvarchar(100)
+      alter table [Comments] add [UserSatisfaction] nvarchar(100)
     </Sql>
     <Sql>
-      alter table [Channel] add [ContentCategory] nvarchar(100)
+      alter table [Comments] add [ContentCategory] nvarchar(100)
     </Sql>
     <Sql>
-      alter table [Channel] add [ContentID] nvarchar(100)
+      alter table [Comments] add [ContentID] nvarchar(100)
     </Sql>
     
     <!-- **********************向Department表中添加字段**********************-->

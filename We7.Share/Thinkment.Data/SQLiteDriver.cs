@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SQLite;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace Thinkment.Data
 {
@@ -22,7 +23,16 @@ namespace Thinkment.Data
 
         public override SqlStatement FormatSQL(SqlStatement sql)
         {
-            return base.FormatSQL(sql);
+            RegexOptions options = RegexOptions.IgnoreCase;
+            sql.SqlClause = new Regex(@"\s+month\(+[^\(|\)]+\)+",options).Replace(sql.SqlClause, new MatchEvaluator(ReplaceMonth));
+            return sql;
+        }
+
+        private string ReplaceMonth(Match match)
+        {
+            string result = match.Value.ToString();
+            result = result.Replace(@"month(", "strftime('%m',");
+            return result;
         }
 
         private IConnectionEx CreateConnection()

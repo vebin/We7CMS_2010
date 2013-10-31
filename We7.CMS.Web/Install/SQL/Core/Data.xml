@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Upate>
+<Update>
   <Database db="We7.CMS.Common">
     <!--恢复单站点菜单出厂设置-->
     <!--**************** Menu表添加单站点数据 ***************-->
@@ -343,4 +343,4 @@
       values('1','注册用户','系统定义的用户组，不允许删除',0,1,'1')
     </Sql>
   </Database> 
-</Upate>
+</Update>

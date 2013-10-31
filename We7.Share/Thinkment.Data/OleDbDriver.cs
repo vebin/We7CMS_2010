@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.OleDb;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace Thinkment.Data
 {
@@ -13,6 +14,7 @@ namespace Thinkment.Data
         public override IConnection CreateConnection(string connectionString)
         {
             IConnectionEx conn = CreateConnection();
+            connectionString = connectionString.Replace("{$App}", AppDomain.CurrentDomain.BaseDirectory);
             conn.ConnectionString = connectionString;
             conn.Driver = this;
             conn.Create = true;
@@ -21,7 +23,16 @@ namespace Thinkment.Data
 
         public override SqlStatement FormatSQL(SqlStatement sql)
         {
-            return base.FormatSQL(sql);
+            RegexOptions options = RegexOptions.IgnoreCase;
+            Regex alterSql = new Regex(@"(alter\s+table|create\s+table|insert\s+into|delete\s+from)\s", options);
+            if (alterSql.IsMatch(sql.SqlClause))
+            {
+                sql.SqlClause = new Regex(@"\s+[^\[]?nvarchar", options).Replace(sql.SqlClause, " varchar");
+                sql.SqlClause = new Regex(@"\s+[^\[]?text", options).Replace(sql.SqlClause, " Memo");
+                sql.SqlClause = new Regex(@"\s+[^\[]?decimal", options).Replace(sql.SqlClause, " Double");
+                sql.SqlClause = new Regex(@"\s+[^\[]?bigint", options).Replace(sql.SqlClause, " Long");
+            }
+            return sql;
         }
 
         private IConnectionEx CreateConnection()

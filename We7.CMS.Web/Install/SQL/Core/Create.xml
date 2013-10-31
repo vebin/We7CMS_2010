@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Update>
-  <Datebase db="We7.CMS.Common">
+  <Database db="We7.CMS.Common">
     <Sql>
       CREATE TABLE [Account] (
         [ID] nvarchar (40) primary key
@@ -47,16 +47,6 @@
       )
     </Sql>
     <Sql>
-      CREATE TABLE [AccountRole] (
-      [ID] nvarchar (40) primary key
-      )
-    </Sql>
-    <Sql>
-      CREATE TABLE [AccountRole] (
-      [ID] nvarchar (40) primary key
-      )
-    </Sql>
-    <Sql>
       CREATE TABLE [Article] (
       [ID] nvarchar (40) primary key
       )
@@ -97,7 +87,7 @@
       )
     </Sql>
     <Sql>
-      CREATE TABLE [Logs] (
+      CREATE TABLE [Log] (
       [LogID] nvarchar (40) primary key
       )
     </Sql>
@@ -127,7 +117,7 @@
       )
     </Sql>
     <Sql>
-      CREATE TABLE [RelateArticle] (
+      CREATE TABLE [RelatedArticle] (
       [ID] nvarchar (40) primary key
       )
     </Sql>
@@ -187,7 +177,7 @@
       )
     </Sql>
     <Sql>
-      CREATE TABLE [VotEntry] (
+      CREATE TABLE [VoteEntry] (
       [ID] nvarchar (40) primary key
       )
     </Sql>
@@ -206,5 +196,5 @@
       [ID] nvarchar (40) primary key
       )
     </Sql>
-  </Datebase>
+  </Database>
 </Update>

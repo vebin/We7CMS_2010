@@ -18,7 +18,7 @@ namespace We7.Framework
             {
                 strDir = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Logs\";
             }
-            string[] parts = strDir.Replace("/", "\\").Split('\\');
+            string[] parts = filename.Replace("/", "\\").Split('\\');
             if (parts.Length > 1)
             {
                 for (int i = 0; i < parts.Length - 1; i++)

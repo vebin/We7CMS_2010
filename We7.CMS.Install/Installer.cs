@@ -99,7 +99,7 @@ namespace We7.CMS.Install
                         }
                         break;
                     case "Access":
-                        if (!File.Exists(dbFile))
+                        if (File.Exists(dbFile))
                             result = -1;
                         else
                         {
@@ -156,7 +156,7 @@ namespace We7.CMS.Install
                 doc.Load(file);
                 foreach (XmlNode node in doc.SelectNodes("/Update/Database"))
                 {
-                    IDbDriver driver = CreateDbDriver(bci.DBDriver);
+                    IDbDriver driver = CreateDbDriver(bci.DBType);
                     if (driver == null) continue;
                     int success = 0;
                     int errors = 0;
@@ -191,21 +191,33 @@ namespace We7.CMS.Install
         public static void ExecuteSQLGroup(BaseConfigInfo bci)
         {
             List<string> files = new List<string>();
-            files.Add("create.xml");
-            files.Add("install.xml");
-            files.Add("update.xml");
-            files.Add("data.xml");
+            files.Add("Create.xml");
+            files.Add("Install.xml");
+            files.Add("Update.xml");
+            files.Add("Data.xml");
             ExecuteSQLGroup(bci, files);
         }
 
         public static void ExecuteSQLGroup(BaseConfigInfo bci, List<string> files)
         {
-            string basepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "install/SQL");
-            string corepath = Path.Combine(basepath, "core");
-
+            string basepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Install\\SQL");
+            string corepath = Path.Combine(basepath, "Core");
             foreach (string file in files)
             {
                 ExecuteSQL(bci, Path.Combine(corepath, file));
+            }
+            DirectoryInfo di = new DirectoryInfo(basepath);
+            DirectoryInfo[] dis = di.GetDirectories();
+            foreach (DirectoryInfo info in dis)
+            {
+                if (info.Name.ToLower() != "core")
+                {
+                    string otherpath = Path.Combine(basepath, info.Name);
+                    foreach (string file in files)
+                    {
+                        ExecuteSQL(bci, Path.Combine(otherpath, file));
+                    }
+                }
             }
         }
 

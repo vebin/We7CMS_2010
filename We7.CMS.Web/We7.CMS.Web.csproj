@@ -60,6 +60,9 @@
     <Content Include="Install\images\ok.gif" />
     <Content Include="Install\Index.aspx" />
     <Content Include="Install\js\setup.js" />
+    <Content Include="Install\SQL\Core\Create.xml" />
+    <Content Include="Install\SQL\Core\Data.xml" />
+    <Content Include="Install\SQL\Core\Update.xml" />
     <Content Include="Install\step2.aspx" />
     <Content Include="Install\step3.aspx" />
     <Content Include="Install\step4.aspx" />

@@ -6,12 +6,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5D9F1903-4634-487D-92BF-17F9BC2CD580}</ProjectGuid>
+    <ProjectGuid>{2A5CAA2B-ED74-4EE5-89F2-AC78F1152E80}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>We7.CMS.Web</RootNamespace>
-    <AssemblyName>We7.CMS.Web</AssemblyName>
+    <RootNamespace>We7.CMS.Web.Admin</RootNamespace>
+    <AssemblyName>We7.CMS.Web.Admin</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -22,7 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,66 +50,41 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="default.aspx" />
-    <Content Include="Go\ShowSitePage.aspx" />
-    <Content Include="Install\css\general.css" />
-    <Content Include="Install\images\button_pub.gif" />
-    <Content Include="Install\images\error.gif" />
-    <Content Include="Install\images\logo.jpg" />
-    <Content Include="Install\images\ok.gif" />
-    <Content Include="Install\images\succeed.jpg" />
-    <Content Include="Install\Index.aspx" />
-    <Content Include="Install\js\setup.js" />
-    <Content Include="Install\SQL\Core\Create.xml" />
-    <Content Include="Install\SQL\Core\Data.xml" />
-    <Content Include="Install\SQL\Core\Update.xml" />
-    <Content Include="Install\step2.aspx" />
-    <Content Include="Install\step3.aspx" />
-    <Content Include="Install\step4.aspx" />
-    <Content Include="Install\succeed.aspx" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Go\ShowSitePage.aspx.cs">
-      <DependentUpon>ShowSitePage.aspx</DependentUpon>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Signin.aspx.cs">
+      <DependentUpon>Signin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Go\ShowSitePage.aspx.designer.cs">
-      <DependentUpon>ShowSitePage.aspx</DependentUpon>
+    <Compile Include="Signin.aspx.designer.cs">
+      <DependentUpon>Signin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\We7.CMS.Install\We7.CMS.Install.csproj">
-      <Project>{95596D96-7C3F-48A6-86C9-ABB0D83229A5}</Project>
-      <Name>We7.CMS.Install</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\We7.CMS.Utils\We7.CMS.Utils.csproj">
-      <Project>{7F94419E-DEC0-43DF-9781-7D0F28E0961C}</Project>
-      <Name>We7.CMS.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\We7.Share\Thinkment.Data\Thinkment.Data.csproj">
-      <Project>{D4AE4B8A-01E4-47BE-BADA-67E5C5A24437}</Project>
-      <Name>Thinkment.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\DB\" />
-    <Folder Include="_data\" />
-    <Folder Include="_skins\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config\general.config" />
+    <Content Include="Ajax\jquery\jquery.latest.min.js" />
+    <Content Include="cgi-bin\DialogHelper.js" />
+    <Content Include="cgi-bin\Menu\common.js" />
+    <Content Include="images\login_button.jpg" />
+    <Content Include="images\login_logo.gif" />
+    <Content Include="Signin.aspx" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\We7.CMS.UI\We7.CMS.UI.csproj">
+      <Project>{3E7F21EA-1D06-40D0-9A0B-4ADB3D5A351C}</Project>
+      <Name>We7.CMS.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\We7.CMS.Utils\We7.CMS.Utils.csproj">
+      <Project>{7F94419E-DEC0-43DF-9781-7D0F28E0961C}</Project>
+      <Name>We7.CMS.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\We7.Framework\We7.Framework.csproj">
+      <Project>{77C3C049-609F-445A-BB8B-62EC07893D59}</Project>
+      <Name>We7.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
@@ -119,7 +93,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>12300</DevelopmentServerPort>
+          <DevelopmentServerPort>63458</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7F94419E-DEC0-43DF-9781-7D0F28E0961C}</ProjectGuid>
+    <ProjectGuid>{3E7F21EA-1D06-40D0-9A0B-4ADB3D5A351C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>We7.CMS.Utils</RootNamespace>
-    <AssemblyName>We7.CMS.Utils</AssemblyName>
+    <RootNamespace>We7.CMS.UI</RootNamespace>
+    <AssemblyName>We7.CMS.UI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,7 +33,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,30 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FrontBasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Helpers\TemplateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\We7.CMS.Accounts\We7.CMS.Accounts.csproj">
-      <Project>{AC285951-7016-4C16-991E-2A03ECFE423D}</Project>
-      <Name>We7.CMS.Accounts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\We7.CMS.Config\We7.CMS.Config.csproj">
-      <Project>{4A936897-F9D4-49B1-BAEE-16E2D7668B1C}</Project>
-      <Name>We7.CMS.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\We7.Framework\We7.Framework.csproj">
-      <Project>{77C3C049-609F-445A-BB8B-62EC07893D59}</Project>
-      <Name>We7.Framework</Name>
-    </ProjectReference>
+    <Folder Include="Control\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

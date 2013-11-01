@@ -1,6 +1,6 @@
 ﻿<%@ Import Namespace="We7.CMS" %>
 <%@ Import Namespace="We7.CMS.Install" %>
-<%@ Page Language="C#" AutoEventWireup="false" Inherits="We7.CMS.Install.SetupPage" %>
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="We7.CMS.Install.SetupPage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 

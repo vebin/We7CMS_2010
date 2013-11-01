@@ -24,9 +24,9 @@ namespace We7.Framework.Util
                 XmlSerializer serializer = new XmlSerializer(type);
                 obj = serializer.Deserialize(fs);
             }
-            catch
+            catch (Exception ex)
             {
-
+                throw ex;
             }
             finally
             {

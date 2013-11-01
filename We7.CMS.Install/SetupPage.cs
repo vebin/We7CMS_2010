@@ -33,7 +33,7 @@ namespace We7.CMS.Install
             string physicalPath = string.Empty;
             if (context != null)
             {
-                physicalPath = context.Server.MapPath("/config");
+                physicalPath = context.Server.MapPath("/Config");
             }
             else
             {
@@ -53,7 +53,7 @@ namespace We7.CMS.Install
             string physicsPath = null;
             if (context != null)
             {
-                physicsPath = context.Server.MapPath("/config");
+                physicsPath = context.Server.MapPath("/Config");
             }
             else
             {
@@ -78,6 +78,24 @@ namespace We7.CMS.Install
             mypath = Path.Combine(physicsPath, "_skins");
             if (!Directory.Exists(mypath))
                 Directory.CreateDirectory(mypath);
+        }
+
+        public static void DeleteLockFile()
+        {
+            HttpContext context = HttpContext.Current;
+            string physicPath = "";
+            if (context != null)
+            {
+                physicPath = context.Server.MapPath("/Config");
+            }
+            else
+            {
+                physicPath = AppDomain.CurrentDomain.BaseDirectory; //为什么与上面的路径要不同，为了区别二者故意这样吗？
+            }
+            if (File.Exists(Path.Combine(physicPath, "db-is-creating.lock")))
+            {
+                File.Delete(Path.Combine(physicPath, "db-is-creating.lock"));
+            }
         }
 
         public void DisableSubmitButton(Page page, Button submitBtn)

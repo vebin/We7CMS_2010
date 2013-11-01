@@ -63,6 +63,9 @@
     <Compile Include="step4.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="succeed.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\We7.CMS.Config\We7.CMS.Config.csproj">

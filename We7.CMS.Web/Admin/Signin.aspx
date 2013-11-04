@@ -135,7 +135,7 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    <asp:Label ID="MessageLabel" runat="server" Text="" FontColor="red"></asp:Label>
+                                    <asp:Label ID="MessageLabel" runat="server" Text="" BackColor="red"></asp:Label>
                                 </td>
                             </tr>
                         </tbody>

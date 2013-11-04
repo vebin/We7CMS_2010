@@ -39,7 +39,7 @@
                             <td></td>
                             <td>
                                 <div style="margin:10px 20px 30px 10px;text-align:right;">
-                                    <input type="button" onclick="javascript:window.location.href='../admin/signin.aspx';" class="bprimarypub80" value="登陆后台"/>
+                                    <input type="button" onclick="javascript:window.location.href='../Admin/Signin.aspx';" class="bprimarypub80" value="登陆后台"/>
                                 </div>
                             </td>
                         </tr>

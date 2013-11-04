@@ -99,6 +99,10 @@
       <Project>{D4AE4B8A-01E4-47BE-BADA-67E5C5A24437}</Project>
       <Name>Thinkment.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="Admin\We7.CMS.Web.Admin.csproj">
+      <Project>{2A5CAA2B-ED74-4EE5-89F2-AC78F1152E80}</Project>
+      <Name>We7.CMS.Web.Admin</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\DB\" />

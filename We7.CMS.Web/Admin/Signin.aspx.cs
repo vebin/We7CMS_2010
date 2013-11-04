@@ -10,7 +10,7 @@ namespace We7.CMS.Web.Admin
 {
     public partial class Signin : BasePage
     {
-        protected string ProductBrand
+        public string ProductBrand
         {
             get 
             {

@@ -55,6 +55,10 @@
       <Project>{AC285951-7016-4C16-991E-2A03ECFE423D}</Project>
       <Name>We7.CMS.Accounts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\We7.CMS.Common\We7.CMS.Common.csproj">
+      <Project>{4CD41C55-E409-4A11-BAD8-DCF98BA6854E}</Project>
+      <Name>We7.CMS.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\We7.CMS.Config\We7.CMS.Config.csproj">
       <Project>{4A936897-F9D4-49B1-BAEE-16E2D7668B1C}</Project>
       <Name>We7.CMS.Config</Name>

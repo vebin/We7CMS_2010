@@ -106,3 +106,57 @@ Title:
 Content:
 	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Data.xml执行完毕！共执行语句78条，成功78条，失败0条
 
+<---------------------2013年11月4日 17:30:08--------------------->
+Title:
+	执行完毕：
+Content:
+	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Create.xml执行完毕！共执行语句39条，成功39条，失败0条
+
+<---------------------2013年11月4日 17:30:09--------------------->
+Title:
+	执行完毕：
+Content:
+	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Update.xml执行完毕！共执行语句480条，成功480条，失败0条
+
+<---------------------2013年11月4日 17:30:09--------------------->
+Title:
+	执行完毕：
+Content:
+	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Data.xml执行完毕！共执行语句78条，成功78条，失败0条
+
+<---------------------2013年11月4日 17:33:25--------------------->
+Title:
+	执行完毕：
+Content:
+	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Create.xml执行完毕！共执行语句39条，成功39条，失败0条
+
+<---------------------2013年11月4日 17:33:26--------------------->
+Title:
+	执行完毕：
+Content:
+	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Update.xml执行完毕！共执行语句480条，成功480条，失败0条
+
+<---------------------2013年11月4日 17:33:26--------------------->
+Title:
+	执行完毕：
+Content:
+	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Data.xml执行完毕！共执行语句78条，成功78条，失败0条
+
+<---------------------2013年11月4日 17:41:06--------------------->
+Title:
+	执行完毕：
+Content:
+	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Create.xml执行完毕！共执行语句39条，成功39条，失败0条
+
+<---------------------2013年11月4日 17:41:06--------------------->
+Title:
+	执行完毕：
+Content:
+	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Update.xml执行完毕！共执行语句480条，成功480条，失败0条
+
+<---------------------2013年11月4日 17:41:06--------------------->
+Title:
+	执行完毕：
+Content:
+	C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Install\SQL\Core\Data.xml执行完毕！共执行语句78条，成功78条，失败0条
+

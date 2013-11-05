@@ -158,5 +158,16 @@ namespace We7.CMS.Web.Admin
                 this.familyName = System.Drawing.FontFamily.GenericSerif.Name;
             }
         }
+
+        public static string GenerateRandomCode()
+        {
+            string s = "";
+            Random random = new Random();
+            for (int i = 0; i < 6; i++)
+            {
+                s = String.Concat(s, random.Next(10).ToString());
+            }
+            return s;
+        }
     }
 }

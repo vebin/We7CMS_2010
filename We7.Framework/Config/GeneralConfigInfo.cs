@@ -55,6 +55,13 @@ namespace We7.Framework.Config
             }
         }
 
+        string enableLoginAuhenCode;
+        public string EnableLoginAuhenCode
+        {
+            get { return enableLoginAuhenCode; }
+            set { enableLoginAuhenCode = value; }
+        }
+
         static string productVersion = "V"+AssemblyFileVersion.ProductVersion+"正式版";
     }
 }

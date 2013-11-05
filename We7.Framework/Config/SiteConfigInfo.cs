@@ -35,5 +35,19 @@ namespace We7.Framework.Config
             get { return isPasswordHashed; }
             set { isPasswordHashed = value; }
         }
+
+        private bool siteGroupEnabled = false;
+        public bool SiteGroupEnabled
+        {
+            get { return siteGroupEnabled; }
+            set { siteGroupEnabled = value; }
+        }
+
+        private string siteid;
+        public string SiteID
+        {
+            get { return siteid; }
+            set { siteid = value; }
+        }
     }
 }

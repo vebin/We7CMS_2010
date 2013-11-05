@@ -42,5 +42,11 @@ namespace We7.Framework
             sw.WriteLine("");
             sw.Close();
         }
+
+        public static void WriteLog(Type type, Exception ex)
+        {
+            log4net.ILog log = log4net.LogManager.GetLogger(type);
+            log.Error("Error", ex);
+        }
     }
 }

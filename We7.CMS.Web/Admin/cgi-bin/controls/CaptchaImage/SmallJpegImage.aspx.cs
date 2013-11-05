@@ -17,7 +17,23 @@ namespace We7.CMS.Web.Admin
             {
                 return MasterPageMode.None;
             }
-        } 
+        }
+
+        protected override bool NeedAnAccount
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        protected override bool NeedAnPermission
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

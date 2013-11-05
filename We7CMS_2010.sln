@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLL", "DLL", "{BE03E891-167E-4720-B173-E44B58DF3440}"
 	ProjectSection(SolutionItems) = preProject
 		Solution Items\DLL\Interop.ADOX.dll = Solution Items\DLL\Interop.ADOX.dll
+		Solution Items\DLL\log4net.dll = Solution Items\DLL\log4net.dll
 		Solution Items\DLL\MySql.Data.dll = Solution Items\DLL\MySql.Data.dll
 		Solution Items\DLL\System.Data.SQLite.dll = Solution Items\DLL\System.Data.SQLite.dll
 		Solution Items\DLL\System.Data.SQLite_64.DLL = Solution Items\DLL\System.Data.SQLite_64.DLL

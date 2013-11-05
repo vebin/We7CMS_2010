@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\Solution Items\DLL\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -52,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Go\ShowSitePage.aspx" />
     <Content Include="Install\css\general.css" />
     <Content Include="Install\images\button_pub.gif" />
@@ -77,6 +81,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Go\ShowSitePage.aspx.cs">
       <DependentUpon>ShowSitePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

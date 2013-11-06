@@ -82,6 +82,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\We7.CMS.Accounts\We7.CMS.Accounts.csproj">
+      <Project>{AC285951-7016-4C16-991E-2A03ECFE423D}</Project>
+      <Name>We7.CMS.Accounts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\We7.CMS.Common\We7.CMS.Common.csproj">
       <Project>{4CD41C55-E409-4A11-BAD8-DCF98BA6854E}</Project>
       <Name>We7.CMS.Common</Name>

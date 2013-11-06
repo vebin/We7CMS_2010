@@ -42,8 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Local\AccountLocalHelper.cs" />
+    <Compile Include="Remote\Authentication.cs" />
+    <Compile Include="Remote\PostService.cs" />
+    <Compile Include="Remote\SSORequest.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\We7.Framework\We7.Framework.csproj">
+      <Project>{77C3C049-609F-445A-BB8B-62EC07893D59}</Project>
+      <Name>We7.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

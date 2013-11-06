@@ -11,3 +11,4 @@ C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\System.Data.SQLite.dl
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\ResolveAssemblyReference.cache
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.dll
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.pdb
+D:\src\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.csprojResolveAssemblyReference.cache

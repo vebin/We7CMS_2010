@@ -9,6 +9,7 @@ using We7.CMS.Common.Enum;
 using System.IO;
 using We7.Framework.Util;
 using System.Text;
+using We7.CMS.Accounts;
 
 namespace We7.CMS.Web.Admin
 {
@@ -52,11 +53,40 @@ namespace We7.CMS.Web.Admin
             }
         }
 
-        public bool CheckAdministrator(string loginname, string password, string siteid)
+        string ReturnURL
+        {
+            get
+            {
+                if (Request["ReturnURL"] == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return Server.UrlDecode(Request["ReturnURL"].ToString());
+                }
+            }
+        }
+
+        public bool CheckLocalAdministrator(string loginname, string password, string siteid)
         {
             if (SiteConfigs.GetConfig().SiteGroupEnabled == true)
-            { 
-                
+            {
+                return true;
+            }
+            else
+            {
+                if (String.Compare(loginname, SiteConfigs.GetConfig().AdministratorName, true) == 0)
+                {
+                    if (SiteConfigs.GetConfig().IsPasswordHashed)
+                    {
+                        password = Security.Encrypt(password);
+                    }
+                    string hashpwd = SiteConfigs.GetConfig().AdministratorKey;
+                    return String.Compare(password, hashpwd, true) == 0;
+                }
+                else
+                    return false;
             }
         }
 
@@ -161,11 +191,26 @@ namespace We7.CMS.Web.Admin
             }
             bool loginSuccess = false;
 
-            if (!CheckLocalAdministrator(loginName, password, SiteConfigs.GetConfig().SiteID))
-            { 
-                
+            if (CheckLocalAdministrator(loginName, password, SiteConfigs.GetConfig().SiteID))
+            {
+                Security.SetAccountID(We7Helper.EmptyGUID);
+                loginSuccess = true;
+                SSOLogin(loginName, password);
             }
         }
 
+        private void SSOLogin(string loginName, string password)
+        {
+            if (!String.IsNullOrEmpty(GeneralConfigs.GetConfig().SSOSiteUrl))
+            {
+                SSORequest ssoRequest = new SSORequest();
+                ssoRequest.ToUrls = GeneralConfigs.GetConfig().SSOSiteUrl;
+                ssoRequest.AppUrl = string.Format("{0}/{1}", We7.Framework.Util.Utils.GetRootUrl(), String.IsNullOrEmpty(ReturnURL) ? "Admin/theme/main.aspx" : ReturnURL.TrimStart('/'));
+                ssoRequest.Action = "signin";
+                ssoRequest.UserName = loginName;
+                ssoRequest.Password = password;
+                Authentication.PostChains(ssoRequest);
+            }
+        }
     }
 }

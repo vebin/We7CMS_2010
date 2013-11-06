@@ -55,6 +55,13 @@ namespace We7.Framework.Config
             }
         }
 
+        bool enableCookieAuthentication = true;
+        public bool EnableCookieAuthentication
+        {
+            get { return enableCookieAuthentication; }
+            set { enableCookieAuthentication = value; }
+        }
+
         string enableLoginAuhenCode;
         public string EnableLoginAuhenCode
         {
@@ -63,5 +70,13 @@ namespace We7.Framework.Config
         }
 
         static string productVersion = "V"+AssemblyFileVersion.ProductVersion+"正式版";
+
+        string _SSOSiteUrl = string.Empty;
+        public string SSOSiteUrl
+        {
+            get { return _SSOSiteUrl; }
+            set { _SSOSiteUrl = value; }
+        }
+
     }
 }

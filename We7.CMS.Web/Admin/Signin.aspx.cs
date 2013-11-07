@@ -197,6 +197,10 @@ namespace We7.CMS.Web.Admin
                 loginSuccess = true;
                 SSOLogin(loginName, password);
             }
+            else
+            {
+                string[] results = AccountHelper.Login(loginName, password);
+            }
         }
 
         private void SSOLogin(string loginName, string password)

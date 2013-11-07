@@ -10,6 +10,8 @@ namespace We7.Framework.Config
     {
         private static object m_lockHelper = new object();
 
+        private static GeneralConfigInfo m_configinfo;
+
         public static GeneralConfigInfo GetConfig()
         {
             //string configid = "generalconfig";
@@ -20,6 +22,11 @@ namespace We7.Framework.Config
             }
 
             return config;
+        }
+
+        public static void ResetConfig()
+        {
+            m_configinfo = GeneralConfigFileManager.LoadRealConfig();
         }
 
         public static GeneralConfigInfo Serialize(GeneralConfigInfo configinfo, string configFilePath)

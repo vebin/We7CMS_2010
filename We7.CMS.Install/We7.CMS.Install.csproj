@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationHelper.cs" />
     <Compile Include="DatabaseInfo.cs" />
     <Compile Include="index.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>

@@ -9,6 +9,7 @@ namespace We7.Framework.Config
 {
     class SiteConfigFileManager : DefaultConfigFileManager
     {
+        private static object m_lockHelper = new object();
         private static SiteConfigInfo m_configinfo;
         public new static IConfigInfo ConfigInfo
         {
@@ -72,5 +73,16 @@ namespace We7.Framework.Config
             return ConfigInfo as SiteConfigInfo;
         }
 
+        public static SiteConfigInfo LoadRealConfig()
+        {
+            if (ConfigFilePath != "")
+            {
+                lock (m_lockHelper)
+                {
+                    ConfigInfo = DeserializeInfo(ConfigFilePath, typeof(SiteConfigInfo));
+                }
+            }
+            return ConfigInfo as SiteConfigInfo;
+        }
     }
 }

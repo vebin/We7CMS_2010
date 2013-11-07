@@ -55,6 +55,7 @@
     <Compile Include="Config\SiteConfigFileManager.cs" />
     <Compile Include="Config\SiteConfigInfo.cs" />
     <Compile Include="Config\SiteConfigs.cs" />
+    <Compile Include="Helper\BaseHelper.cs" />
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="Helper\HelperAttribute.cs" />
     <Compile Include="Helper\HelperFactory.cs" />
@@ -64,6 +65,12 @@
     <Compile Include="Util\FileHelper.cs" />
     <Compile Include="Util\SerializationHelper.cs" />
     <Compile Include="Util\Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\We7.Share\Thinkment.Data\Thinkment.Data.csproj">
+      <Project>{D4AE4B8A-01E4-47BE-BADA-67E5C5A24437}</Project>
+      <Name>Thinkment.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,6 +10,8 @@ namespace We7.Framework.Config
 {
     class GeneralConfigFileManager : DefaultConfigFileManager
     {
+        private static object m_lockHelper = new object();
+
         private static GeneralConfigInfo m_configinfo;
         public new static IConfigInfo ConfigInfo
         {
@@ -71,6 +73,18 @@ namespace We7.Framework.Config
                 ConfigInfo = DefaultConfigFileManager.LoadConfig(ref m_fileoldchange, ConfigFilePath, m_configinfo, false);
             }
 
+            return ConfigInfo as GeneralConfigInfo;
+        }
+
+        public static GeneralConfigInfo LoadRealConfig()
+        {
+            if (ConfigFilePath != "")
+            {
+                lock (m_lockHelper)
+                {
+                    ConfigInfo = DeserializeInfo(ConfigFilePath, typeof(GeneralConfigInfo));
+                }
+            }
             return ConfigInfo as GeneralConfigInfo;
         }
     }

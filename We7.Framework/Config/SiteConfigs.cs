@@ -10,6 +10,8 @@ namespace We7.Framework.Config
     {
         private static object m_lockHelper = new object();
 
+        private static SiteConfigInfo m_configinfo;
+
         public static SiteConfigInfo GetConfig()
         {
             SiteConfigInfo config = null;
@@ -18,6 +20,11 @@ namespace We7.Framework.Config
                 config = SiteConfigFileManager.LoadConfig();
             }
             return config;
+        }
+
+        public static void ResetConfig()
+        {
+            m_configinfo = SiteConfigFileManager.LoadRealConfig();
         }
 
         public static SiteConfigInfo Serialize(SiteConfigInfo configinfo, string path)

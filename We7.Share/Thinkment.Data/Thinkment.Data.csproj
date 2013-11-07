@@ -53,11 +53,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDriver.cs" />
+    <Compile Include="Criteria.cs" />
+    <Compile Include="CriteriaMode.cs" />
+    <Compile Include="CriteriaType.cs" />
     <Compile Include="DataAccessPage.cs" />
     <Compile Include="DataParameter.cs" />
     <Compile Include="IConnection.cs" />
+    <Compile Include="IDatabase.cs" />
     <Compile Include="IDbDriver.cs" />
+    <Compile Include="Internal.cs" />
     <Compile Include="MySqlDriver.cs" />
+    <Compile Include="ObjectAssistant.cs" />
     <Compile Include="OleDbDriver.cs" />
     <Compile Include="OracleDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

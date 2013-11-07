@@ -2,12 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using We7.CMS.Common.PF;
+using Thinkment.Data;
+using We7.Framework;
 
 namespace We7.CMS.Accounts
 {
     [Serializable]
-    public partial class AccountLocalHelper
+    public partial class AccountLocalHelper : IAccountHelper, BaseHelper
     {
         public static readonly string AccountSessionKey = "We7.Session.Account.Key";
+
+        public Account GetAccountByLoginName(string loginName)
+        {
+            Criteria c = new Criteria(CriteriaType.Equals, "LoginName", loginName);
+            if (Assistant.Count<Account>(c) > 0)
+            { 
+                
+            }
+        }
+
+        public string[] Login(string username, string password)
+        {
+            string[] results = { "false", ""};
+            Account act = GetAccountByLoginName(username);
+        }
     }
+
 }

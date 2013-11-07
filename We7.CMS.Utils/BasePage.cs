@@ -6,11 +6,17 @@ using System.Web.UI;
 using We7.CMS.Common.Enum;
 using We7.CMS.Utils.Helpers;
 using We7.Framework;
+using We7.CMS.Accounts;
 
 namespace We7.CMS
 {
     public class BasePage : Page
     {
+        protected IAccountHelper AccountHelper
+        {
+            get { return AccountFactory.CreateInstance(); }
+        }
+
         protected virtual MasterPageMode MasterPageIs
         {
             get { return MasterPageMode.FullMenu; }
@@ -30,5 +36,7 @@ namespace We7.CMS
         {
             get { return HelperFactory.GetHelper<SiteSettingHelper>(); }
         }
+
+        
     }
 }

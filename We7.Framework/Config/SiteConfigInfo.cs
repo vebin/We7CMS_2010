@@ -36,6 +36,25 @@ namespace We7.Framework.Config
             set { isPasswordHashed = value; }
         }
 
+        public string PassportAuthPage 
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(PassportServiceUrl))
+                {
+                    string url = PassportServiceUrl.Remove(PassportServiceUrl.LastIndexOf("/"));
+                    url += "/Authentication.aspx";
+                    return url;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        public string PassportServiceUrl { get; set; }
+
         private bool siteGroupEnabled = false;
         public bool SiteGroupEnabled
         {

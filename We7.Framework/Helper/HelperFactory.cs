@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Web;
+using We7.Framework.Util;
 
 namespace We7.Framework
 {
@@ -24,6 +25,72 @@ namespace We7.Framework
         { 
             helpers = new Dictionary<Type, IHelper>();
             assemblies = new List<Assembly>();
+        }
+
+        public static string ApplicationID = "We7.HelperFactory";
+
+        static bool IsExproe;
+
+        static object _locker = new object();
+
+        public static HelperFactory Instance
+        {
+            get 
+            {
+                bool reseted = false;
+                bool fromhttpcontext = (null != HttpContext.Current);
+                HelperFactory helper;
+                if (IsExproe)
+                {
+                    ResetHelperFactory(fromhttpcontext);
+                    reseted = true;
+                    IsExproe = false;
+                }
+                if (reseted || null == (helper = TryAssignHelperFactory(fromhttpcontext)))
+                {
+                    lock (_locker)
+                    {
+                        helper = TryAssignHelperFactory(fromhttpcontext);
+                        if (null == helper)
+                        {
+                            CreateFactory(fromhttpcontext);
+                            helper = TryAssignHelperFactory(fromhttpcontext);
+                        }
+                    }
+                }
+                return helper;
+            }
+        }
+
+        static void CreateFactory(bool reset)
+        {
+            object helper = Utils.CreateInstance("We7.CMS.ApplicationHelper,We7.CMS.Install");
+            if (helper != null)
+            {
+                MethodInfo method = helper.GetType().GetMethod(reset ? "ResetApplication" : "LoadHelperFactory");
+                if (method != null)
+                {
+                    method.Invoke(helper, null);
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("系统安装状态不确定，无法初始化持久化安装程序");
+            }
+        }
+
+        static void ResetHelperFactory(bool fromHttpContext)
+        {
+            lock (_locker)
+            {
+                if (fromHttpContext)
+                    HttpContext.Current.Application[HelperFactory.ApplicationID] = null;
+            }
+        }
+
+        static HelperFactory TryAssignHelperFactory(bool fromHttpContext)
+        {
+            return fromHttpContext ? HttpContext.Current.Application[HelperFactory.ApplicationID] as HelperFactory : null;
         }
 
         public static T GetHelper<T>()

@@ -5,9 +5,12 @@ using System.Text;
 
 namespace Thinkment.Data
 {
-    public interface IDatabase
+    [Serializable]
+    public enum ErrorCodes
     {
-        string Name { get; set; }
-        string ConnectionString { get; set; }
+        Success = 0,
+
+        UnkownObject = 20,
+        UnkownProperty = 21,
     }
 }

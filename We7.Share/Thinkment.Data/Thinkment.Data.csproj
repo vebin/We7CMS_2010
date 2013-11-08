@@ -57,7 +57,9 @@
     <Compile Include="CriteriaMode.cs" />
     <Compile Include="CriteriaType.cs" />
     <Compile Include="DataAccessPage.cs" />
+    <Compile Include="DataException.cs" />
     <Compile Include="DataParameter.cs" />
+    <Compile Include="ErrorCodes.cs" />
     <Compile Include="IConnection.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="IDbDriver.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="OleDbDriver.cs" />
     <Compile Include="OracleDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Property.cs" />
     <Compile Include="SqlDbDriver.cs" />
     <Compile Include="SQLiteDriver.cs" />
     <Compile Include="SqlStatement.cs" />

@@ -8,6 +8,36 @@ using System.Reflection;
 
 namespace Thinkment.Data
 {
+    public class ObjectManager
+    {
+        EntityObject curObject;
+        public EntityObject CurObject
+        {
+            get { return curObject; }
+            set { curObject = value; }
+        }
+
+        Type objType;
+        public Type ObjType
+        {
+            get { return objType; }
+            set { objType = value; }
+        }
+
+        Database curDatabase;
+        public Database CurDatabase
+        {
+            get { return curDatabase; }
+            set { curDatabase = value; }
+        }
+
+        public int MyCount(IConnection conn, Criteria condition)
+        {
+            CountHandle cs = new CountHandle();
+
+        }
+    }
+
     static class UpdateXmlElement
     {
         public static string GetXEAttribute(XmlElement element, string name, string value)
@@ -87,6 +117,20 @@ namespace Thinkment.Data
             set { objType = value; }
         }
 
+        bool isDataTable;
+        public bool IsDataTable
+        {
+            get { return isDataTable; }
+            set { isDataTable = value; }
+        }
+
+        Type typeForDT;
+        public Type TypeForDT
+        {
+            get { return typeForDT; }
+            set { typeForDT = value; }
+        }
+
         public void Build()
         {
             objType = Type.GetType(typeName);
@@ -123,12 +167,19 @@ namespace Thinkment.Data
 
             return this;
         }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 
     class Dictionaries
     {
         Dictionary<string, IDatabase> databaseDict;
         Dictionary<IDatabase, IConnection> connectionDict;
+        Dictionary<Type, ObjectManager> objectManagerDict;
+        Dictionary<string, ObjectManager> objColumnDict;
         string GlobalDBString = string.Empty;
         string GlobalDBDriver = string.Empty;
 
@@ -136,6 +187,20 @@ namespace Thinkment.Data
         {
             databaseDict = new Dictionary<string, IDatabase>();
             connectionDict = new Dictionary<IDatabase, IConnection>();
+            objectManagerDict = new Dictionary<Type, ObjectManager>();
+            objColumnDict = new Dictionary<string, ObjectManager>();
+        }
+
+        public IConnection GetDBConnection(Type type)
+        {
+            return GetObjectManager(type).CurDatabase.CreateConnection();
+        }
+
+        public ObjectManager GetObjectManager(Type type)
+        {
+            if (!objectManagerDict.ContainsKey(type))
+                throw new DataException(ErrorCodes.UnkownObject);
+            return objectManagerDict[type];
         }
 
         public void SetGlobalDBString(string dbString, string dbDriver)
@@ -199,9 +264,38 @@ namespace Thinkment.Data
                     foreach (EntityObject _f4 in _f3.Objects.Values)
                     {
                         _f4.Build();
+                        ObjectManager om = new ObjectManager();
+                        om.CurObject = _f4;
+                        om.CurObject.IsDataTable = false;
+                        om.CurObject.TypeForDT = null;
+                        om.ObjType = _f4.ObjType;
+                        om.CurDatabase = _f3;
+                        objectManagerDict.Add(om.ObjType, om);
+                    }
+                    foreach (EntityObject _f4 in _f3.Objects.Values)
+                    {
+                        EntityObject _f5 = new EntityObject();
+                        _f5 = _f4.Clone() as EntityObject;
+                        ObjectManager om = new ObjectManager();
+                        om.CurObject = _f5;
+                        om.CurDatabase = _f3;
+                        om.CurObject.IsDataTable = true;
+                        om.CurObject.TypeForDT = typeof(TableInfo);
+                        om.ObjType = typeof(TableInfo);
+                        objColumnDict.Add(_f5.TableName, om);
                     }
                 }
             }
+        }
+
+        private bool InArray(string[] src, string temp)
+        {
+            foreach (string ar in src)
+            {
+                if (String.Compare(ar, temp, true) == 0)
+                    return true;
+            }
+            return false;
         }
     }
 
@@ -266,6 +360,97 @@ namespace Thinkment.Data
             }
 
             return this;
+        }
+    }
+
+    abstract class BaseHandle
+    {
+        string condition;
+        public string Condition
+        {
+            get { return condition; }
+            set { condition = value; }
+        }
+
+        Criteria criteria;
+        public Criteria ConditionCriteria
+        {
+            get { return criteria; }
+            set { criteria = value; }
+        }
+
+        IConnection connect;
+        public IConnection Connect
+        {
+            get { return connect; }
+            set { connect = value; }
+        }
+
+        EntityObject entityObject;
+        public EntityObject EntityObject
+        {
+            get { return entityObject; }
+            set { entityObject = value; }
+        }
+
+        SqlStatement sql;
+        public SqlStatement SQL
+        {
+            get { return sql; }
+        }
+
+        int returnCode;
+        public int ReturnCode
+        {
+            get { return returnCode; }
+            set { returnCode = value; }
+        }
+
+        protected abstract void Build();
+
+        public BaseHandle()
+        {
+            sql = new SqlStatement();
+        }
+
+        protected void BuildCondition()
+        {
+            if (criteria != null)
+            {
+                condition = MakeCondition(criteria);
+            }
+        }
+
+        string MakeCondition(Criteria c)
+        { 
+            
+        }
+    }
+
+    class OperateHandle : BaseHandle
+    {
+
+        protected override void Build()
+        {
+            
+        }
+    }
+
+    class CountHandle : OperateHandle
+    {
+        public void Execute()
+        {
+            Build();
+        }
+
+        protected override void Build()
+        {
+            SQL.SqlClause = string.Format("SELECT COUNT(*) FROM {0}", Connect.Driver.FormatTable(EntityObject.TableName));
+            if (ConditionCriteria != null && !(ConditionCriteria.Type == CriteriaType.None && ConditionCriteria.Criterias.Count == 0))
+            {
+                BuildCondition();
+                SQL.SqlClause += " WHERE " + Condition;
+            }
         }
     }
 }

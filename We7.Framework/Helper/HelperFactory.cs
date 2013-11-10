@@ -5,6 +5,8 @@ using System.Text;
 using System.Reflection;
 using System.Web;
 using We7.Framework.Util;
+using Thinkment.Data;
+using System.Collections;
 
 namespace We7.Framework
 {
@@ -13,13 +15,28 @@ namespace We7.Framework
     {
         Dictionary<Type, IHelper> helpers;
         List<Assembly> assemblies;
-        string root;
 
+        ObjectAssistant assistant;
+        public ObjectAssistant Assistant
+        {
+            get { return assistant; }
+            set { assistant = value; }
+        }
+
+        string root;
         public string Root
         {
             get { return root; }
             set { root = value; }
         }
+
+        bool _initialized;
+        public bool IsInitialized
+        {
+            get { return _initialized; }
+            set { _initialized = value; }
+        }
+
 
         public HelperFactory()
         { 
@@ -93,7 +110,7 @@ namespace We7.Framework
             return fromHttpContext ? HttpContext.Current.Application[HelperFactory.ApplicationID] as HelperFactory : null;
         }
 
-        public static T GetHelper<T>()
+        public T GetHelper<T>()
         { 
             Type t = typeof (T);
             if (helpers.ContainsKey(t))
@@ -108,8 +125,24 @@ namespace We7.Framework
             throw new TypeLoadException(string.Format("找不到指定类型的 Helper：{0}", t.FullName));
         }
 
+        [NonSerialized]
+        ArrayList _gatherAssemblyDelegates = new ArrayList();
+
         [field:NonSerialized]
         private event EventHandler<GatheringAssemblyEventArgs> _onGatherAssemblyHandlers;
+        public event EventHandler<GatheringAssemblyEventArgs> OnGatherAssemblies
+        {
+            add
+            {
+                _onGatherAssemblyHandlers += value;
+                _gatherAssemblyDelegates.Add(value);
+            }
+            remove
+            {
+                _onGatherAssemblyHandlers -= value;
+                _gatherAssemblyDelegates.Remvoe(value);
+            }
+        }
 
         private void Load()
         {
@@ -177,6 +210,24 @@ namespace We7.Framework
             {
                 LogHelper.WriteLog(GetType(), ex);
             }
+        }
+
+        public void Initialize()
+        {
+            We7Helper.AssertNotNull(Assistant, "HelperFactory.Assistant");
+            helpers.Clear();
+            RemoveAllAssemblyGatherEvent();
+            Load();
+            IsInitialized = true;
+        }
+
+        void RemoveAllAssemblyGatherEvent()
+        {
+            foreach (EventHandler<GatheringAssemblyEventArgs> eh in _gatherAssemblyDelegates)
+            {
+                _onGatherAssemblyHandlers -= eh;
+            }
+            _gatherAssemblyDelegates.Clear();
         }
 
         public class GatheringAssemblyEventArgs : EventArgs

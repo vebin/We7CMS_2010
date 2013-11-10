@@ -10,5 +10,7 @@ namespace Thinkment.Data
         IConnection CreateConnection(string connectionString);
 
         SqlStatement FormatSQL(SqlStatement sql);
+
+        string FormatTable(string table);
     }
 }

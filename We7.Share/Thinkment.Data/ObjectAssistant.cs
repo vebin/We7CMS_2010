@@ -24,5 +24,19 @@ namespace Thinkment.Data
         {
             _d1.LoadDataSource(dir, null);
         }
+
+        public int Count<T>(Criteria condition)
+        {
+            using (IConnection conn = _d1.GetDBConnection(typeof(T)))
+            {
+                return Count<T>(conn, condition);
+            }
+        }
+
+        public int Count<T>(IConnection conn, Criteria condition)
+        {
+            ObjectManager om = _d1.GetObjectManager(typeof(T));
+            return om.MyCount(conn, condition);
+        }
     }
 }

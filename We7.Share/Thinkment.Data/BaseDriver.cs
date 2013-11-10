@@ -14,5 +14,11 @@ namespace Thinkment.Data
         {
             return sql;
         }
+
+
+        public virtual string FormatTable(string table)
+        {
+            return string.Format("[{0}]", table);
+        }
     }
 }

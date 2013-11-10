@@ -10,6 +10,12 @@ namespace Thinkment.Data
     {
         ErrorCodes errorcode = ErrorCodes.Success;
 
+        public ErrorCodes Errorcode
+        {
+            get { return errorcode; }
+            private set { errorcode = value; }
+        }
+
         public DataException(ErrorCodes code)
             : base()
         {

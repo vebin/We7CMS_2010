@@ -7,6 +7,20 @@ namespace We7
 {
     public static class We7Helper
     {
+        public static void AssertNotNull(object obj, string errMsg)
+        {
+            string s = string.Format("{0} in null", errMsg);
+            Assert(obj != null && obj != DBNull.Value, s);
+        }
+
+        public static void Assert(bool NotNull, string msg)
+        {
+            if (!NotNull)
+            {
+                throw new Exception(msg);
+            }
+        }
+
         public static string EmptyGUID
         {
             get { return "{00000000-0000-0000-0000-000000000000}"; }

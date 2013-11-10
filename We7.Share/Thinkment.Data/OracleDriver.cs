@@ -20,6 +20,11 @@ namespace Thinkment.Data
             return cc;
         }
 
+        public override string FormatTable(string table)
+        {
+            return string.Format("\"{0}\" ", table) ;
+        }
+
         public override SqlStatement FormatSQL(SqlStatement sql)
         {
             RegexOptions options = RegexOptions.IgnoreCase;

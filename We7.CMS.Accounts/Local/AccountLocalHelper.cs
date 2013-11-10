@@ -9,7 +9,8 @@ using We7.Framework;
 namespace We7.CMS.Accounts
 {
     [Serializable]
-    public partial class AccountLocalHelper : IAccountHelper, BaseHelper
+    [Helper("We7.AccountHelper")]
+    public partial class AccountLocalHelper : BaseHelper, IAccountHelper
     {
         public static readonly string AccountSessionKey = "We7.Session.Account.Key";
 

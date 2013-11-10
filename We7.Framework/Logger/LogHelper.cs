@@ -48,5 +48,11 @@ namespace We7.Framework
             log4net.ILog log = log4net.LogManager.GetLogger(type);
             log.Error("Error", ex);
         }
+
+        public static void WriteLog(Type type, string msg)
+        {
+            log4net.ILog log = log4net.LogManager.GetLogger(type);
+            log.Error(msg);
+        }
     }
 }

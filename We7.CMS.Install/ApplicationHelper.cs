@@ -6,6 +6,8 @@ using System.Web;
 using We7.CMS.Config;
 using We7.Framework.Config;
 using Thinkment.Data;
+using System.Diagnostics;
+using We7.Framework;
 
 namespace We7.CMS
 {
@@ -42,6 +44,20 @@ namespace We7.CMS
                         }
                         assistant.LoadDataSource(dataPath);
                     }
+                    catch (DataException ex)
+                    {
+                        Debug.WriteLine(ex.ToString());
+                        string s = string.Format("注意检查：/app_data/xml目录下的配置文件：\r\n错误代码：{0}\r\n错误消息：{1}",
+                                    ex.Errorcode, ex.Message);
+                        LogHelper.WriteLog(typeof(ApplicationHelper), s);
+                        throw ex;
+                    }
+
+                    HelperFactory factory = new HelperFactory();
+                    factory.Assistant = assistant;
+                    factory.Root = root;
+                    factory.Initialize();
+                    context.Application["We7.HelperFactory"] = factory;
                 }
             }
         }

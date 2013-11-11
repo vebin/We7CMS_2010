@@ -5,11 +5,33 @@ using System.Text;
 
 namespace Thinkment.Data
 {
+    [Serializable()]
     public enum CriteriaType
     {
+        None = 0,
+
+        Like,
+
+        MoreThan,
+
+        MoreThanEquals,
+
+        LessThan,
+
+        LessThanEquals,
+
         Equals,
-        None,
+
+        NotEquals,
+
+        NotLike,
+
         IsNull,
-        IsNotNull
+
+        IsNotNull,
+
+        Desc,
+
+        Asc
     }
 }

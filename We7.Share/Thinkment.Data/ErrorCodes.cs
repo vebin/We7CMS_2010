@@ -9,6 +9,7 @@ namespace Thinkment.Data
     public enum ErrorCodes
     {
         Success = 0,
+        UnkownCriteria = 1,
 
         UnkownObject = 20,
         UnkownProperty = 21,

@@ -369,6 +369,8 @@ namespace Thinkment.Data
 
     abstract class BaseHandle
     {
+        int parametersCount;
+
         string condition;
         public string Condition
         {
@@ -397,6 +399,11 @@ namespace Thinkment.Data
             set { entityObject = value; }
         }
 
+        protected string Prefix
+        {
+            get { return connect.Driver.Prefix; }
+        }
+
         SqlStatement sql;
         public SqlStatement SQL
         {
@@ -415,6 +422,20 @@ namespace Thinkment.Data
         public BaseHandle()
         {
             sql = new SqlStatement();
+        }
+
+        protected string AddParameter(Property p, object value)
+        {
+            string _f0 = string.Format("{0}P{1}", Prefix, parametersCount++);
+            DataParameter _f1 = new DataParameter();
+            _f1.DbType = p.Type;
+            _f1.ParameterName = _f0;//？？？？
+            _f1.Value = value;
+            _f1.SourceColumn = p.Field;
+            _f1.Size = p.Size;
+            _f1.IsNullable = p.Nullable;
+            SQL.Parameters.Add(_f1);
+            return _f0;
         }
 
         protected void BuildCondition()
@@ -448,10 +469,13 @@ namespace Thinkment.Data
                 {
                     string t = Connect.Driver.GetCriteria(c.Type);
                     Property p = EntityObject.PropertyDict[c.Name];
-
+                    string pn = AddParameter(p, c.Value);
+                    _f0.Append(string.Format(" {0} {1} {2} ", connect.Driver.FormatField(c.Adorn, p.Field, c.Start, c.Length), t, pn));
                 }
-
-
+            }
+            if (c.Criterias.Count > 0)
+            { 
+                
             }
         }
     }

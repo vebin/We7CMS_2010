@@ -23,5 +23,41 @@ namespace Thinkment.Data
 
 
         public abstract string FormatField(Adorns adorn, string field, int start, int length);
+
+
+        public string GetCriteria(CriteriaType type)
+        {
+            switch (type)
+            { 
+                case CriteriaType.NotEquals:
+                    return "<>";
+                case CriteriaType.LessThan:
+                    return "<";
+                case CriteriaType.LessThanEquals:
+                    return "<=";
+                case CriteriaType.MoreThan:
+                    return ">";
+                case CriteriaType.MoreThanEquals:
+                    return ">=";
+                case CriteriaType.NotLike:
+                    return "Not Like";
+                case CriteriaType.Like:
+                    return "Like";
+                case CriteriaType.Equals:
+                    return "=";
+                case CriteriaType.Desc:
+                    return "Desc";
+                case CriteriaType.Asc:
+                    return "Asc";
+                default:
+                    throw new DataException(ErrorCodes.UnkownCriteria);
+
+            }
+        }
+
+        public string Prefix
+        {
+            get { return "@"; }
+        }
     }
 }

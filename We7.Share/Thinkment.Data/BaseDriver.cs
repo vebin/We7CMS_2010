@@ -20,5 +20,8 @@ namespace Thinkment.Data
         {
             return string.Format("[{0}]", table);
         }
+
+
+        public abstract string FormatField(Adorns adorn, string field, int start, int length);
     }
 }

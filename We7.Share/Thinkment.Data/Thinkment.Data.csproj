@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adorns.cs" />
     <Compile Include="BaseDriver.cs" />
     <Compile Include="Criteria.cs" />
     <Compile Include="CriteriaMode.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="IDatabase.cs" />
     <Compile Include="IDbDriver.cs" />
     <Compile Include="Internal.cs" />
+    <Compile Include="IParameterExtension.cs" />
     <Compile Include="MySqlDriver.cs" />
     <Compile Include="ObjectAssistant.cs" />
     <Compile Include="OleDbDriver.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="SqlDbDriver.cs" />
     <Compile Include="SQLiteDriver.cs" />
     <Compile Include="SqlStatement.cs" />
+    <Compile Include="TableInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

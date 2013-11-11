@@ -27,5 +27,11 @@ namespace Thinkment.Data
         {
             errorcode = code;
         }
+
+        public DataException(string msg)
+            : base(msg)
+        { 
+        
+        }
     }
 }

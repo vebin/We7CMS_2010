@@ -12,5 +12,9 @@ namespace Thinkment.Data
         SqlStatement FormatSQL(SqlStatement sql);
 
         string FormatTable(string table);
+
+        string FormatField(Adorns adorn, string field, int start, int length);
+
+        string GetCriteria(CriteriaType type);
     }
 }

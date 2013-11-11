@@ -8,6 +8,8 @@ namespace Thinkment.Data
     public enum CriteriaType
     {
         Equals,
-        None
+        None,
+        IsNull,
+        IsNotNull
     }
 }

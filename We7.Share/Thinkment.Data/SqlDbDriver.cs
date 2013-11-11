@@ -298,5 +298,23 @@ namespace Thinkment.Data
                 throw new NotImplementedException();
             }
         }
+
+        public override string FormatField(Adorns adorn, string field, int start, int length)
+        {
+            switch (adorn)
+            { 
+                case Adorns.SubString:
+                    return string.Format("SUBSTRING([{0}],"+start+","+length+")", field);
+                case Adorns.Average:
+                case Adorns.Distinct:
+                case Adorns.Maximum:
+                case Adorns.Minimum:
+                case Adorns.Sum:
+                case Adorns.Total:
+                case Adorns.None:
+                default:
+                    return string.Format("[{0}]", field);
+            }
+        }
     }
 }

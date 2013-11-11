@@ -34,7 +34,11 @@ namespace Thinkment.Data
         public int MyCount(IConnection conn, Criteria condition)
         {
             CountHandle cs = new CountHandle();
-
+            cs.Connect = conn;
+            cs.ConditionCriteria = condition;
+            cs.EntityObject = CurObject;
+            cs.Execute();
+            return cs.ReturnCode;
         }
     }
 
@@ -104,7 +108,7 @@ namespace Thinkment.Data
         }
 
         Dictionary<string, Property> propertyDict;
-        private Dictionary<string, Property> PropertyDict
+        public Dictionary<string, Property> PropertyDict
         {
             get { return propertyDict; }
             set { propertyDict = value; }
@@ -422,8 +426,33 @@ namespace Thinkment.Data
         }
 
         string MakeCondition(Criteria c)
-        { 
-            
+        {
+            StringBuilder _f0 = new StringBuilder();
+            if (c.Type != CriteriaType.None)
+            {
+                if (!EntityObject.PropertyDict.ContainsKey(c.Name))
+                {
+                    throw new DataException("No such field in object. " + c.Name);
+                }
+                if (c.Type == CriteriaType.IsNull)
+                {
+                    Property p = EntityObject.PropertyDict[c.Name];
+                    _f0.Append(string.Format("{0} Is Null ", connect.Driver.FormatField(c.Adorn, p.Field, c.Start, c.Length)));
+                }
+                else if (c.Type == CriteriaType.IsNotNull)
+                {
+                    Property p = EntityObject.PropertyDict[c.Name];
+                    _f0.Append(string.Format("{0} Is Not Null ", connect.Driver.FormatField(c.Adorn, p.Field, c.Start, c.Length)));
+                }
+                else
+                {
+                    string t = Connect.Driver.GetCriteria(c.Type);
+                    Property p = EntityObject.PropertyDict[c.Name];
+
+                }
+
+
+            }
         }
     }
 

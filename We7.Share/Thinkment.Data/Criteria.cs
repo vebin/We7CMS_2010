@@ -42,6 +42,27 @@ namespace Thinkment.Data
             set { this.value = value; }
         }
 
+        Adorns adorn;
+        public Adorns Adorn
+        {
+            get { return adorn; }
+            set { adorn = value; }
+        }
+
+        int start;
+        public int Start
+        {
+            get { return start; }
+            set { start = value; }
+        }
+
+        int length;
+        public int Length
+        {
+            get { return length; }
+            set { length = value; }
+        }
+
         public Criteria()
         {
             criterias = new List<Criteria>();

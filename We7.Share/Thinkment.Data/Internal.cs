@@ -474,9 +474,23 @@ namespace Thinkment.Data
                 }
             }
             if (c.Criterias.Count > 0)
-            { 
-                
+            {
+                string _f1 = c.Mode == CriteriaMode.And ? "AND" : "OR";
+                if (c.Type != CriteriaType.None)
+                    _f0.Append(_f1);
+                if (c.Criterias.Count > 1)
+                    _f0.Append("(");
+                _f0.Append(MakeCondition(c.Criterias[0]));
+                for (int i = 1; i < c.Criterias.Count; i++)
+                {
+                    _f0.Append(_f1);
+                    _f0.Append(MakeCondition(c.Criterias[i]));
+                }
+                if (c.Criterias.Count > 1)
+                    _f0.Append(")");
             }
+
+            return _f0.ToString();
         }
     }
 
@@ -494,6 +508,7 @@ namespace Thinkment.Data
         public void Execute()
         {
             Build();
+            ReturnCode = Convert.ToInt32(Connect.QueryScalar(SQL));
         }
 
         protected override void Build()

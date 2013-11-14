@@ -18,8 +18,8 @@ namespace We7.CMS.Accounts
         {
             Criteria c = new Criteria(CriteriaType.Equals, "LoginName", loginName);
             if (Assistant.Count<Account>(c) > 0)
-            { 
-                
+            {
+                List<Account> accounts = Assistant.List<Account>(c, null);
             }
         }
 

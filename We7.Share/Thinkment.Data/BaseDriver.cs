@@ -24,6 +24,7 @@ namespace Thinkment.Data
 
         public abstract string FormatField(Adorns adorn, string field, int start, int length);
 
+        public abstract string FormatField(Adorns adorn, string field);
 
         public string GetCriteria(CriteriaType type)
         {

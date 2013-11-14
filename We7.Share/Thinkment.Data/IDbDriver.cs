@@ -17,6 +17,8 @@ namespace Thinkment.Data
 
         string FormatField(Adorns adorn, string field, int start, int length);
 
+        string FormatField(Adorns adorn, string field);
+
         string GetCriteria(CriteriaType type);
     }
 }

@@ -40,6 +40,39 @@ namespace Thinkment.Data
             cs.Execute();
             return cs.ReturnCode;
         }
+
+        public List<T> MyList<T>(IConnection conn, Criteria condition, Order[] orders, int from, int count, ListField[] fields)
+        {
+            if (typeof(T) != ObjType)
+                throw new DataException(ErrorCodes.UnmatchType);
+            ListSelectHandle<T> ls = new ListSelectHandle<T>();
+            ls.Connect = conn;
+            ls.ConditionCriteria = condition;
+            ls.EntityObject = curObject;
+            ls.From = from;
+            ls.Count = count;
+
+            if (orders != null)
+            {
+                foreach (Order order in orders)
+                {
+                    ls.OrderList.Add(order);
+                }
+            }
+            if (fields != null)
+            {
+                foreach (ListField field in fields)
+                {
+                    if (!ls.ListFieldDict.ContainsKey(field.FieldName))
+                    {
+                        ls.ListFieldDict.Add(field.FieldName, field);
+                    }
+                }
+            }
+            ls.Execute();
+
+            return ls.Data;
+        }
     }
 
     static class UpdateXmlElement
@@ -205,6 +238,13 @@ namespace Thinkment.Data
             if (!objectManagerDict.ContainsKey(type))
                 throw new DataException(ErrorCodes.UnkownObject);
             return objectManagerDict[type];
+        }
+
+        public ObjectManager GetObjectManager(string tablename)
+        {
+            if (!objColumnDict.ContainsKey(tablename))
+                throw new DataException(ErrorCodes.UnkownObject);
+            return objColumnDict[tablename];
         }
 
         public void SetGlobalDBString(string dbString, string dbDriver)
@@ -424,6 +464,15 @@ namespace Thinkment.Data
             sql = new SqlStatement();
         }
 
+        public void AddSplitString(StringBuilder sb, string s)
+        {
+            if (sb.Length > 0)
+            {
+                sb.Append(",");
+            }
+            sb.Append(s);
+        }
+
         protected string AddParameter(Property p, object value)
         {
             string _f0 = string.Format("{0}P{1}", Prefix, parametersCount++);
@@ -496,10 +545,70 @@ namespace Thinkment.Data
 
     class OperateHandle : BaseHandle
     {
+        public OperateHandle()
+        {
+            orderlist = new List<Order>();
+            listFieldDict = new Dictionary<string, ListField>(StringComparer.OrdinalIgnoreCase);
+        }
+
+        List<Order> orderlist;
+
+        public List<Order> OrderList
+        {
+            get { return orderlist; }
+        }
+
+        Dictionary<string, ListField> listFieldDict;
+        public Dictionary<string, ListField> ListFieldDict
+        {
+            get { return listFieldDict; }
+        }
+
+        private string fields;
+        public string Fields
+        {
+            get { return fields; }
+            set { fields = value; }
+        }
+
 
         protected override void Build()
         {
             
+        }
+
+        protected void BuildField(bool allowReadonly)
+        {
+            StringBuilder _f0 = new StringBuilder();
+
+            foreach (Property p in EntityObject.PropertyDict.Values)
+            {
+                Adorns a = Adorns.None;
+                if (!allowReadonly && p.Readonly)
+                    continue;
+                if (listFieldDict.Count > 0)
+                {
+                    if (ListFieldDict.ContainsKey(p.Name))
+                    {
+                        a = ListFieldDict[p.Name].Adorn;
+                    }
+                    else if (listFieldDict.ContainsKey(p.Field.ToUpper()))
+                    {
+                        a = ListFieldDict[p.Field.ToUpper()].Adorn;
+                    }
+                    else if (listFieldDict.ContainsKey(p.Field.ToLower())
+                    {
+                        a = listFieldDict[p.Field.ToLower()].Adorn;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                AddSplitString(_f0, Connect.Driver.FormatField(a, p.Field));
+            }
+
+            fields = _f0.ToString();
         }
     }
 
@@ -519,6 +628,55 @@ namespace Thinkment.Data
                 BuildCondition();
                 SQL.SqlClause += " WHERE " + Condition;
             }
+        }
+    }
+
+    class ListSelectHandle<T> : OperateHandle
+    {
+        public ListSelectHandle()
+        {
+            _data = new List<T>();
+
+        }        
+
+        private int _from;
+        public int From
+        {
+            get { return _from; }
+            set { _from = value; }
+        }
+
+        private int count;
+        public int Count
+        {
+            get { return count; }
+            set { count = value; }
+        }
+
+        private List<T> _data;
+        public List<T> Data
+        {
+            get { return _data; }
+        }
+
+        protected override void Build()
+        {
+            BuildField(true);
+            if (ConditionCriteria != null && !(ConditionCriteria.Type == CriteriaType.None && ConditionCriteria.Criterias.Count == 0))
+                BuildCondition();
+            else
+                Condition = string.Empty;
+            List<Order> os = new List<Order>();
+            foreach (Order order in OrderList)
+            { 
+                
+            }
+        }
+
+        public void Execute()
+        {
+            _data.Clear();
+            Build();
         }
     }
 }

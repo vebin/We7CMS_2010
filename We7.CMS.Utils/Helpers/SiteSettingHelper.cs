@@ -8,7 +8,7 @@ using We7.Framework.Config;
 namespace We7.CMS.Utils.Helpers
 {
     [Helper("We7.CMS.Helper")]
-    public class SiteSettingHelper
+    public class SiteSettingHelper : BaseHelper
     {
         public GeneralConfigInfo Config
         {

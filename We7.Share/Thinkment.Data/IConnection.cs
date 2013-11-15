@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 
 namespace Thinkment.Data
 {
@@ -12,6 +13,8 @@ namespace Thinkment.Data
         void Commit();
 
         bool IsTransaction { get; set; }
+
+        DataTable Query(SqlStatement sql);
 
         object QueryScalar(SqlStatement sql);
 

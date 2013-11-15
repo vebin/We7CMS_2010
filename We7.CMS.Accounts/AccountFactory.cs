@@ -20,7 +20,7 @@ namespace We7.CMS.Accounts
             }
             else
             {
-                AccountLocalHelper al = HelperFactory.GetHelper<AccountLocalHelper>();
+                AccountLocalHelper al = HelperFactory.Instance.GetHelper<AccountLocalHelper>();
                 return al;
             }
         }

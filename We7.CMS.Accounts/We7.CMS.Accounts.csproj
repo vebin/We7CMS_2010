@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\We7.CMS.Common\We7.CMS.Common.csproj">
+      <Project>{4CD41C55-E409-4A11-BAD8-DCF98BA6854E}</Project>
+      <Name>We7.CMS.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\We7.Framework\We7.Framework.csproj">
       <Project>{77C3C049-609F-445A-BB8B-62EC07893D59}</Project>
       <Name>We7.Framework</Name>

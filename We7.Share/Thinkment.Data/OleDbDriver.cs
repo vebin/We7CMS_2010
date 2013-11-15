@@ -21,6 +21,48 @@ namespace Thinkment.Data
             return conn;
         }
 
+        public override string FormatField(Adorns adorn, string field)
+        {
+            switch (adorn)
+            {
+                case Adorns.Average:
+                    return string.Format("AVE([{0}]) AS [{0}]", field);
+                case Adorns.Distinct:
+                    return string.Format("DISTINCT([{0}]) AS [{0}]", field);
+                case Adorns.Maximum:
+                    return string.Format("MAX([{0}]) AS [{0}]", field);
+                case Adorns.Minimum:
+                    return string.Format("MIN([{0}]) AS [{0}]", field);
+                case Adorns.Sum:
+                    return string.Format("SUM([{0}]) AS [{0}]", field);
+                case Adorns.None:
+                case Adorns.SubString:
+                    return string.Format("[{0}]", field);
+                case Adorns.Total:
+                    return string.Format("TOTAL([{0}]) AS [{0}]", field);
+                default:
+                    return string.Format("[{0}]", field);
+            }
+        }
+
+        public override string FormatField(Adorns adorn, string field, int start, int length)
+        {
+            switch (adorn)
+            {
+                case Adorns.SubString:
+                    return string.Format("SUBSTRING([{0}]," + (start + 1) + "," + length + ")", field);
+                case Adorns.Average:
+                case Adorns.Distinct:
+                case Adorns.Maximum:
+                case Adorns.Minimum:
+                case Adorns.Sum:
+                case Adorns.Total:
+                case Adorns.None:
+                default:
+                    return string.Format("[{0}]", field);
+            }
+        }
+
         public override SqlStatement FormatSQL(SqlStatement sql)
         {
             RegexOptions options = RegexOptions.IgnoreCase;
@@ -228,6 +270,23 @@ namespace Thinkment.Data
                     GC.SuppressFinalize(this);
                 }
             }
+
+
+            public DataTable Query(SqlStatement sql)
+            {
+                using (OleDbCommand _c = CreateCommand(sql))
+                {
+                    OleDbDataAdapter _s = new OleDbDataAdapter(_c);
+                    DataTable _d = new DataTable();
+                    _s.Fill(_d);
+                    PopulateCommand(_c, sql);
+                    if (!create)
+                    {
+                        Dispose(true);
+                    }
+                    return _d;
+                }
+            }
         }
 
         class FrontPageOleConnection : IConnectionEx
@@ -297,6 +356,12 @@ namespace Thinkment.Data
             }
 
             public void Dispose()
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public DataTable Query(SqlStatement sql)
             {
                 throw new NotImplementedException();
             }

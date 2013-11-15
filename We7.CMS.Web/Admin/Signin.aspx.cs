@@ -100,7 +100,7 @@ namespace We7.CMS.Web.Admin
                 {
                     string content = FileHelper.ReadFile(filePath, Encoding.Default);
                     DateTime expDate;
-                    if (DateTime.TryParse(content, out expDate)
+                    if (DateTime.TryParse(content, out expDate))
                     {
                         if (DateTime.Now >= expDate)
                         {
@@ -200,6 +200,40 @@ namespace We7.CMS.Web.Admin
             else
             {
                 string[] results = AccountHelper.Login(loginName, password);
+                if (results[0] == "false")
+                {
+                    ShowMessage("无法登陆，原因：" + results[1]);
+                    return;
+                }
+                else
+                {
+                    SSOLogin(loginName, password);
+                }
+            }
+
+            GoWhere();
+        }
+
+        private void GoWhere()
+        {
+            NewSiteConfig();
+            if (ReturnURL == null || ReturnURL == string.Empty)
+            {
+                Response.Redirect("default.aspx");
+            }
+            else
+            {
+                Response.Redirect(ReturnURL);
+            }
+        }
+
+        private void NewSiteConfig()
+        {
+            GeneralConfigInfo gi = GeneralConfigs.GetConfig();
+            if (String.IsNullOrEmpty(gi.SiteTitle) || String.IsNullOrEmpty(gi.Copyright) || String.IsNullOrEmpty(gi.SiteFullName) ||
+                    String.IsNullOrEmpty(gi.IcpInfo) || String.IsNullOrEmpty(gi.SiteLogo))
+            {
+                Response.Redirect(AppPath + "/NewSiteWizard.aspx?nomenu=1");
             }
         }
 

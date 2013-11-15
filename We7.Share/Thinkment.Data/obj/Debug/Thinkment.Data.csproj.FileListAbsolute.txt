@@ -4,6 +4,7 @@ D:\src\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\MySql.Data.dll
 D:\src\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\System.Data.SQLite.dll
 D:\src\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.dll
 D:\src\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.pdb
+D:\src\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.csprojResolveAssemblyReference.cache
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\Thinkment.Data.dll
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\Thinkment.Data.pdb
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\MySql.Data.dll
@@ -11,4 +12,3 @@ C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\bin\Debug\System.Data.SQLite.dl
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\ResolveAssemblyReference.cache
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.dll
 C:\zwq\temp\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.pdb
-D:\src\We7CMS_2010\We7.Share\Thinkment.Data\obj\Debug\Thinkment.Data.csprojResolveAssemblyReference.cache

@@ -12,6 +12,17 @@ namespace We7.CMS
 {
     public class BasePage : Page
     {
+        public string AppPath
+        {
+            get 
+            {
+                if (MasterPageIs == MasterPageMode.User)
+                    return "";
+                else
+                    return "/admin";
+            }
+        }
+
         protected IAccountHelper AccountHelper
         {
             get { return AccountFactory.CreateInstance(); }
@@ -37,6 +48,9 @@ namespace We7.CMS
             get { return HelperFactory.GetHelper<SiteSettingHelper>(); }
         }
 
-        
+        protected HelperFactory HelperFactory
+        {
+            get { return HelperFactory.Instance; }
+        }
     }
 }

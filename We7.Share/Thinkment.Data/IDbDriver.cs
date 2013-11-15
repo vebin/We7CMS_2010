@@ -9,6 +9,8 @@ namespace Thinkment.Data
     {
         string Prefix { get; }
 
+        string BuildPaging(string tablename, string fields, string where, List<Order> orders, int from, int count);
+
         IConnection CreateConnection(string connectionString);
 
         SqlStatement FormatSQL(SqlStatement sql);

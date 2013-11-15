@@ -14,6 +14,8 @@ namespace Thinkment.Data
         UnkownObject = 20,
         UnkownProperty = 21,
         ConditionRequired = 22,
-        UnmatchType = 23
+        UnmatchType = 23,
+
+        NoPrimaryKey = 34
     }
 }

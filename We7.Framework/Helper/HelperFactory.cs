@@ -117,6 +117,7 @@ namespace We7.Framework
             {
                 return (T)helpers[t];
             }
+            assemblies.Clear();
             Load();
             if (helpers.ContainsKey(t))
             {
@@ -140,7 +141,7 @@ namespace We7.Framework
             remove
             {
                 _onGatherAssemblyHandlers -= value;
-                _gatherAssemblyDelegates.Remvoe(value);
+                _gatherAssemblyDelegates.Remove(value);
             }
         }
 

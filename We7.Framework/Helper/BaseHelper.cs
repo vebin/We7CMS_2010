@@ -22,5 +22,44 @@ namespace We7.Framework
             }
             set { assistant = value; }
         }
+
+        string name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
+
+        string description;
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                description = value;
+            }
+        }
+
+        string root;
+        public string Root
+        {
+            get
+            {
+                return root;
+            }
+            set
+            {
+                root = value;
+            }
+        }
     }
 }

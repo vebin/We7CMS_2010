@@ -13,40 +13,50 @@ namespace We7.Framework.Config
         static FileVersionInfo AssemblyFileVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
 
         string copyright = "Powered by <a href=\"http://we7.cn/\" target=\"_blank\">We7</a> " + productVersion + " ©2011 <a href=\"http://www.westengine.com/\" target=\"_blank\">WestEngine Inc.</a>";
+        bool enableHtmlTemplate = true;
+        string enableLoginAuhenCode;
+        bool enableCookieAuthentication = true;
+        bool isOEM = false;
+        string icpInfo = "";
+        
+        bool onlyLoginUserCanVisit = false;
+        string productName = "We7";
+        static string productVersion = "V" + AssemblyFileVersion.ProductVersion + "正式版";
+
+        string siteTitle = "We7";
+        string siteFullName = "西部动力（北京）科技有限公司";
+        string _siteLogo = "";
+        
+        string _SSOSiteUrl = string.Empty;
+        string userRegisterMode = "none";
+
+
+
         public string Copyright
         {
             get { return copyright; }
             set { copyright = value; }
         }
-
-        bool onlyLoginUserCanVisit = false;
         public bool OnlyLoginUserCanVisit
         {
             get { return onlyLoginUserCanVisit; }
             set { onlyLoginUserCanVisit = value; }
         }
-
-        bool enableHtmlTemplate = true;
         public bool EnableHtmlTemplate
         {
             get { return enableHtmlTemplate; }
             set { enableHtmlTemplate = value; }
         }
-
-        bool isOEM = false;
         public bool IsOEM
         {
             get { return isOEM; }
             set { isOEM = value; }
         }
-
-        string productName = "We7";
         public string ProductName
         {
             get { return productName; }
             set { productName = value; }
         }
-
         public string CopyrightOfWe7
         {
             get
@@ -54,29 +64,45 @@ namespace We7.Framework.Config
                 return "Powered by <a href=\"http://we7.cn/\" target=\"_blank\">We7</a> " + productVersion + " ©2011 <a href=\"http://www.westengine.com/\" target=\"_blank\">WestEngine Inc.</a>";
             }
         }
-
-        bool enableCookieAuthentication = true;
         public bool EnableCookieAuthentication
         {
             get { return enableCookieAuthentication; }
             set { enableCookieAuthentication = value; }
         }
-
-        string enableLoginAuhenCode;
         public string EnableLoginAuhenCode
         {
             get { return enableLoginAuhenCode; }
             set { enableLoginAuhenCode = value; }
         }
-
-        static string productVersion = "V"+AssemblyFileVersion.ProductVersion+"正式版";
-
-        string _SSOSiteUrl = string.Empty;
+        public string IcpInfo
+        {
+            get { return icpInfo; }
+            set { icpInfo = value; }
+        }
+        public string SiteFullName
+        {
+            get { return siteFullName; }
+            set { siteFullName = value; }
+        }
+        public string SiteLogo
+        {
+            get { return _siteLogo; }
+            set { _siteLogo = value; }
+        }
+        public string SiteTitle
+        {
+            get { return siteTitle; }
+            set { siteTitle = value; }
+        }
         public string SSOSiteUrl
         {
             get { return _SSOSiteUrl; }
             set { _SSOSiteUrl = value; }
         }
-
+        public string UserRegisterMode
+        {
+            get { return userRegisterMode; }
+            set { userRegisterMode = value; }
+        }
     }
 }

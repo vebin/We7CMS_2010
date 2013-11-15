@@ -74,7 +74,7 @@ namespace Thinkment.Data
             return true;
         }
 
-        public List<T> SelectList<T>(IConnection conn, string tablename, Criteria condition, Order[] orders, int offset, int count, object[]                  fields)
+        public List<T> SelectList<T>(IConnection conn, string tablename, Criteria condition, Order[] orders, int offset, int count, object[] fields) 
         {
             AssistantPrepareEventArgs args;
             AssistantEntity typedEntity = new AssistantEntity(typeof(T));
@@ -109,7 +109,13 @@ namespace Thinkment.Data
                     result = oa.MyList<T>(conn, condition, orders, offset, count, (fields as string[]));
                 }
             }
+            else if (null != args.ContextData &&
+                !ReferenceEquals(parameter, args.ContextData))
+            { 
+                result = (args.ContextData as List<T>) ?? new List<T>();
+            }
 
+            return result;
         }
 
         

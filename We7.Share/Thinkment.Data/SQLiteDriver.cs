@@ -21,6 +21,74 @@ namespace Thinkment.Data
             return cc;
         }
 
+        public override string BuildPaging(string table, string fields, string where, List<Order> orders, int from, int count)
+        {
+            if (orders == null || orders.Count == 0)
+                throw new Exception("Order information is required by paging function (OleDbDriver).");
+            string ods = BuildOrderString(orders, false);
+            string ws = "";
+            if (where != null && where.Length > 0)
+                ws = " WHERE " + where;
+            if (from > 0)
+            {
+                string rods = BuildOrderString(orders, true);
+                string fmt = "SELECT * FROM (SELECT * FROM (SELECT {2} FROM {3} AS TB__1 {4} ORDER BY {5} LIMIT 0,{1}) AS TB__2 ORDER BY {6} LIMIT 0,{0}) AS TB__3 ORDER BY {5} LIMIT 0,{0}";
+                return string.Format(fmt, count, from+count, fields, table, ws, ods, rods);
+            }
+            else if (count > 0)
+            {
+                string fmt = "SELECT {1} FROM {2} {3} ORDER BY {4} LIMIT 0,{0}";
+                return string.Format(fmt, count, fields, table, ws, ods);
+            }
+            else
+            {
+                string fmt = "SELECT {0} FROM {1} {2} ORDER BY {3}";
+                return string.Format(fmt, fields, table, ws, ods);
+            }
+        }
+
+        public override string FormatField(Adorns adorn, string field)
+        {
+            switch (adorn)
+            {
+                case Adorns.Average:
+                    return string.Format("AVE([{0}]) AS [{0}]", field);
+                case Adorns.Distinct:
+                    return string.Format("DISTINCT([{0}]) AS [{0}]", field);
+                case Adorns.Maximum:
+                    return string.Format("MAX([{0}]) AS [{0}]", field);
+                case Adorns.Minimum:
+                    return string.Format("MIN([{0}]) AS [{0}]", field);
+                case Adorns.Sum:
+                    return string.Format("SUM([{0}]) AS [{0}]", field);
+                case Adorns.None:
+                case Adorns.SubString:
+                    return string.Format("[{0}]", field);
+                case Adorns.Total:
+                    return string.Format("TOTAL([{0}]) AS [{0}]", field);
+                default:
+                    return string.Format("[{0}]", field);
+            }
+        }
+
+        public override string FormatField(Adorns adorn, string field, int start, int length)
+        {
+            switch (adorn)
+            {
+                case Adorns.SubString:
+                    return string.Format("SUBSTR([{0}]," + (start + 1) + "," + length + ")", field);
+                case Adorns.Average:
+                case Adorns.Distinct:
+                case Adorns.Maximum:
+                case Adorns.Minimum:
+                case Adorns.Sum:
+                case Adorns.Total:
+                case Adorns.None:
+                default:
+                    return string.Format("[{0}]", field);
+            }
+        }
+
         public override SqlStatement FormatSQL(SqlStatement sql)
         {
             RegexOptions options = RegexOptions.IgnoreCase;
@@ -181,6 +249,22 @@ namespace Thinkment.Data
                 }
             }
 
+            public DataTable Query(SqlStatement sql)
+            {
+                using (SQLiteCommand _c = CreateCommand(sql))
+                {
+                    SQLiteDataAdapter _s = new SQLiteDataAdapter(_c);
+                    DataTable _d = new DataTable();
+                    _s.Fill(_d);
+                    PopulateCommand(_c, sql);
+                    if (!create)
+                    {
+                        Dispose(true);
+                    }
+                    return _d;
+                }
+            }
+
             public int Update(SqlStatement sql)
             {
                 using (SQLiteCommand cmd = CreateCommand(sql))
@@ -220,6 +304,7 @@ namespace Thinkment.Data
                     GC.SuppressFinalize(this);
                 }
             }
+            
         }
 
         class FrontPageSQLiteDbConnection : IConnectionEx
@@ -289,6 +374,12 @@ namespace Thinkment.Data
             }
 
             public void Dispose()
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public DataTable Query(SqlStatement sql)
             {
                 throw new NotImplementedException();
             }

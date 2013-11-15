@@ -225,6 +225,21 @@ namespace Thinkment.Data
                 }
             }
 
+            public DataTable Query(SqlStatement sql)
+            {
+                using (SqlCommand _c = CreateCommand(sql))
+                {
+                    SqlDataAdapter _s = new SqlDataAdapter(_c);
+                    DataTable _d = new DataTable();
+                    _s.Fill(_d);
+                    PopulateCommand(_c, sql);
+                    if (!create)
+                    {
+                        Dispose(true);
+                    }
+                    return _d;
+                }
+            }
         }
 
         class FrontPageSqlDbConnection : IConnectionEx
@@ -297,6 +312,12 @@ namespace Thinkment.Data
             {
                 throw new NotImplementedException();
             }
+
+
+            public DataTable Query(SqlStatement sql)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public override string FormatField(Adorns adorn, string field)
@@ -328,7 +349,7 @@ namespace Thinkment.Data
             switch (adorn)
             { 
                 case Adorns.SubString:
-                    return string.Format("SUBSTRING([{0}],"+start+","+length+")", field);
+                    return string.Format("SUBSTRING([{0}],"+(start+1)+","+length+")", field);
                 case Adorns.Average:
                 case Adorns.Distinct:
                 case Adorns.Maximum:

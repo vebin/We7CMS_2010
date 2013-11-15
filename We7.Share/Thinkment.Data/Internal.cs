@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System.Reflection;
+using System.Data;
 
 namespace Thinkment.Data
 {
@@ -39,6 +40,20 @@ namespace Thinkment.Data
             cs.EntityObject = CurObject;
             cs.Execute();
             return cs.ReturnCode;
+        }
+
+        public List<T> MyList<T>(IConnection conn, Criteria condition, Order[] orders, int from, int count, string[] fields)
+        {
+            ListField[] fs = null;
+            if (fields != null && fields.Length > 0)
+            {
+                fs = new ListField[fields.Length];
+                for (int i=0; i<fields.Length; i++)
+                {
+                    fs[i] = new ListField(fields[i]);
+                }
+            }
+            return MyList<T>(conn, condition, orders, from, count, fs);
         }
 
         public List<T> MyList<T>(IConnection conn, Criteria condition, Order[] orders, int from, int count, ListField[] fields)
@@ -189,6 +204,21 @@ namespace Thinkment.Data
             }
         }
 
+        public List<Order> BuildOrderList()
+        {
+            string[] _f0 = primaryKeyName.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
+            if (_f0.Length == 0)
+                throw new DataException(ErrorCodes.NoPrimaryKey);
+            List<Order> _f1 = new List<Order>();
+            foreach (string _f2 in _f0)
+            {
+                if (!propertyDict.ContainsKey(_f2))
+                    throw new DataException(ErrorCodes.UnkownProperty);
+                _f1.Add(new Order(propertyDict[_f2].Field));
+            }
+            return _f1;
+        }
+
         public EntityObject FromXml(XmlElement element)
         {
             propertyDict.Clear();
@@ -208,6 +238,36 @@ namespace Thinkment.Data
         public object Clone()
         {
             return this.MemberwiseClone();
+        }
+
+        public void SetValue(object obj, string name, object value)
+        {
+            if (!propertyDict.ContainsKey(name))
+                throw new DataException(name, ErrorCodes.UnkownProperty);
+            Property p = propertyDict[name];
+            if (p != null && value != null)
+            {
+                if (p.Info.PropertyType.Name.ToLower() == "int32" &&
+                    value.GetType().Name.ToLower() == "decimal")
+                    value = Convert.ToInt32(value);
+                else if (p.Info.PropertyType.Name.ToLower() == "int64" &&
+                    value.GetType().Name.ToLower() == "decimal")
+                    value = Convert.ToInt64(value);
+            }
+            if (value == null && p != null)
+            {
+                if (p.Info.PropertyType.Name.ToLower() == "string")
+                    value = string.Empty;
+                else if (p.Info.PropertyType.Name.ToLower() == "int32" ||
+                    p.Info.PropertyType.Name.ToLower() == "int64")
+                    value = -1;
+            }
+            else
+            { 
+                
+            }
+
+            p.Info.SetValue(obj, value, null);
         }
     }
 
@@ -596,7 +656,7 @@ namespace Thinkment.Data
                     {
                         a = ListFieldDict[p.Field.ToUpper()].Adorn;
                     }
-                    else if (listFieldDict.ContainsKey(p.Field.ToLower())
+                    else if (listFieldDict.ContainsKey(p.Field.ToLower()))
                     {
                         a = listFieldDict[p.Field.ToLower()].Adorn;
                     }
@@ -609,6 +669,19 @@ namespace Thinkment.Data
             }
 
             fields = _f0.ToString();
+        }
+
+        protected void BindObject(object o, DataRow dr)
+        {
+            foreach (Property p in EntityObject.PropertyDict.Values)
+            {
+                if (listFieldDict.Count > 0 && !listFieldDict.ContainsKey(p.Field))
+                    continue;
+                object v = dr[p.Field];
+                if (v == DBNull.Value)
+                    v = null;
+                EntityObject.SetValue(o, p.Name, v);
+            }
         }
     }
 
@@ -659,6 +732,14 @@ namespace Thinkment.Data
             get { return _data; }
         }
 
+        private DataTable table;
+        public DataTable Table
+        {
+            get { return table; }
+            set { table = value; }
+        }
+
+
         protected override void Build()
         {
             BuildField(true);
@@ -668,15 +749,41 @@ namespace Thinkment.Data
                 Condition = string.Empty;
             List<Order> os = new List<Order>();
             foreach (Order order in OrderList)
-            { 
-                
+            {
+                if (!EntityObject.PropertyDict.ContainsKey(order.Name))
+                {
+                    string msg = string.Format("Property '{0}' doesn't belongs to '{1}'", order.Name, EntityObject.TypeName);
+                    throw new DataException(msg, ErrorCodes.UnkownProperty);
+                }
+                Property p = EntityObject.PropertyDict[order.Name];
+                os.Add(new Order(p.Field, order.Mode));
             }
+            if (os.Count == 0 || From <= 0)
+                os = EntityObject.BuildOrderList();
+            SQL.SqlClause = Connect.Driver.BuildPaging(Connect.Driver.FormatTable(EntityObject.TableName), Fields, Condition, os, From, Count);
         }
 
         public void Execute()
         {
             _data.Clear();
             Build();
+            DataTable dt = Connect.Query(SQL);
+            if (EntityObject.IsDataTable)
+            {
+                dt.TableName = EntityObject.TableName;
+                table = dt;
+                object o = new TableInfo(table, EntityObject.PropertyDict);
+                _data.Add((T)o);
+            }
+            else
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    object o = Activator.CreateInstance(EntityObject.ObjType);
+                    BindObject(o, dr);
+                    _data.Add((T)o);
+                }
+            }
         }
     }
 }

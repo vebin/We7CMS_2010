@@ -1,0 +1,32 @@
+2013-11-15 19:22:25,412 [9] We7.Framework.HelperFactory -Error
+System.NotImplementedException: 未实现该方法或操作。
+   在 We7.Framework.BaseHelper.set_Root(String value) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\BaseHelper.cs:行号 60
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 202
+2013-11-15 19:30:50,405 [7] We7.Framework.HelperFactory -Error
+System.NotImplementedException: 未实现该方法或操作。
+   在 We7.Framework.BaseHelper.set_Root(String value) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\BaseHelper.cs:行号 60
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 202
+2013-11-15 19:37:04,622 [4] We7.Framework.HelperFactory -Error
+System.NotImplementedException: 未实现该方法或操作。
+   在 We7.Framework.BaseHelper.set_Root(String value) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\BaseHelper.cs:行号 60
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 202
+2013-11-15 19:37:04,650 [4] We7.Framework.HelperFactory -Error
+System.NotImplementedException: 未实现该方法或操作。
+   在 We7.Framework.BaseHelper.set_Root(String value) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\BaseHelper.cs:行号 60
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 202
+2013-11-15 20:07:54,486 [20] We7.Framework.HelperFactory -Error
+System.NotImplementedException: 未实现该方法或操作。
+   在 We7.Framework.BaseHelper.set_Root(String value) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\BaseHelper.cs:行号 60
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 203
+2013-11-15 20:08:32,055 [20] We7.Framework.HelperFactory -Error
+System.NotImplementedException: 未实现该方法或操作。
+   在 We7.Framework.BaseHelper.set_Root(String value) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\BaseHelper.cs:行号 60
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 203
+2013-11-15 20:09:05,191 [20] We7.Framework.HelperFactory -Error
+System.NotImplementedException: 未实现该方法或操作。
+   在 We7.Framework.BaseHelper.set_Root(String value) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\BaseHelper.cs:行号 60
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 203
+2013-11-15 20:09:05,206 [20] We7.Framework.HelperFactory -Error
+System.NotImplementedException: 未实现该方法或操作。
+   在 We7.Framework.BaseHelper.set_Root(String value) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\BaseHelper.cs:行号 60
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 203

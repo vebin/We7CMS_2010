@@ -1,0 +1,127 @@
+﻿html,body,div,span,h1,h2,h3,h4,h5,h6,
+p,a,em,font,img,center,ul,li,form,
+label,table,caption,tr,th,td
+{
+    padding:0;
+    margin:0;
+    border:0;
+    outline:0;
+    background:transparent;    
+}
+*
+{
+    padding:0;
+    margin:0;
+    word-wrap:break-word;
+    outline:none;    
+}
+html
+{
+    background-color:#fbfbfb;
+    width:100%;
+    height:100%;
+}
+
+body 
+{
+    line-height:1;
+    font:12px "Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif;
+    color:#666;
+}
+td
+{
+    font:12px "Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif;
+    word-break:break-all;
+    table-layout:fixed;     
+}
+ol,ul
+{
+    list-style:none;
+}
+li
+{
+    margin:0;
+    padding:0;
+    line-height:normal;    
+}
+a:link
+{
+    color:#2366a8;    
+}
+a:visited
+{
+    color:#2366a8;
+    -moz-outline:none;    
+}
+h2.title
+{
+    display:block;
+    font-weight:normal;
+    font-size:24px;
+    padding-left:3px;
+    margin: .73em, .12em;
+}
+.summary
+{
+    font-size:12px;
+    color:Gray;
+    margin-top:10px;
+}
+form
+{
+    font-family: Arial,tahoma,verdana,sans-serif;
+    margin:0,0,1.5em;
+}
+input
+{
+    margin:2px 0px;    
+}
+label br
+{
+    clear:left;    
+}
+
+/* Url翻页控件样式===========结束*/
+.toolbar
+{
+    padding:7px 2px 5px 3px;
+    margin:0 15px;
+    width:100%;
+    display:block;
+    min-width:400px;
+    clear:right;    
+}
+.toolbar li
+{
+    list-style-type:none;
+    display:table;
+    float:left;
+    padding:0;
+    margin:1px 0;    
+}
+.smallbutton4 a,.smallbutton4 a:visited,.smallbutton4 a:link,
+.toolbar a,.toolbar a:link,.toolbar a:visited
+{
+    border:none;
+    height:20px;
+    color: #666;
+    font-family:Verdana,Arial,Helvertica,sans-serif;
+    vertical-align:middle;
+    padding-top:5px;
+    cursor:pointer;
+    font-size:12px;
+    text-align:left;
+    text-decoration:none;
+    vertical-align:bottom;
+    margin;1px -1px;
+    display:inline-block;
+    white-space:nowrap;
+    background:url(/admin/images/button_4.gif) top left no-repeat;
+    width:78px;    
+}
+.smallbutton4 a:hover, .smallbutton4 a:active,
+.toolbar a:hover, .toolbar a:active
+{
+    background:url(/admin/images/button_4_hover.gif) top left no-repeat;
+    color:#000;     
+}

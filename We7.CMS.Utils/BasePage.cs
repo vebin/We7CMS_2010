@@ -52,5 +52,26 @@ namespace We7.CMS
         {
             get { return HelperFactory.Instance; }
         }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            try
+            {
+                Response.Expires = -1;
+                if (!IsPostBack)
+                {
+                    Initialize();
+                }
+                base.OnLoad(e);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteLog(typeof(BasePage), ex);
+            }
+        }
+
+        protected virtual void Initialize()
+        { 
+        }
     }
 }

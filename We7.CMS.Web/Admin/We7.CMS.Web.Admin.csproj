@@ -58,6 +58,13 @@
     <Compile Include="cgi-bin\controls\CaptchaImage\SmallJpegImage.aspx.designer.cs">
       <DependentUpon>SmallJpegImage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NewSiteWizard.aspx.cs">
+      <DependentUpon>NewSiteWizard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSiteWizard.aspx.designer.cs">
+      <DependentUpon>NewSiteWizard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Signin.aspx.cs">
       <DependentUpon>Signin.aspx</DependentUpon>
@@ -66,17 +73,38 @@
     <Compile Include="Signin.aspx.designer.cs">
       <DependentUpon>Signin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Template\TemplateGroupInfo.aspx.cs">
+      <DependentUpon>TemplateGroupInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Template\TemplateGroupInfo.aspx.designer.cs">
+      <DependentUpon>TemplateGroupInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="theme\ContentNoMenu.Master.cs">
+      <DependentUpon>ContentNoMenu.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="theme\ContentNoMenu.Master.designer.cs">
+      <DependentUpon>ContentNoMenu.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ajax\jquery\jquery.latest.min.js" />
+    <Content Include="Ajax\jquery\ui1.8.1\jquery-1.4.2.min.js" />
     <Content Include="cgi-bin\controls\CaptchaImage\SmallJpegImage.aspx" />
     <Content Include="cgi-bin\DialogHelper.js" />
     <Content Include="cgi-bin\Menu\common.js" />
+    <Content Include="images\button_4.gif" />
+    <Content Include="images\button_4_hover.gif" />
+    <Content Include="images\icons_look.gif" />
     <Content Include="images\ico_critical.gif" />
     <Content Include="images\ico_info.gif" />
     <Content Include="images\login_button.jpg" />
     <Content Include="images\login_logo.gif" />
+    <Content Include="NewSiteWizard.aspx" />
     <Content Include="Signin.aspx" />
+    <Content Include="Template\TemplateGroupInfo.aspx" />
+    <Content Include="theme\Style\main.css" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -102,6 +130,9 @@
       <Project>{77C3C049-609F-445A-BB8B-62EC07893D59}</Project>
       <Name>We7.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="theme\ContentNoMenu.Master" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

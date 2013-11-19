@@ -13,6 +13,8 @@ namespace We7.Framework.Config
         static FileVersionInfo AssemblyFileVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
 
         string copyright = "Powered by <a href=\"http://we7.cn/\" target=\"_blank\">We7</a> " + productVersion + " ©2011 <a href=\"http://www.westengine.com/\" target=\"_blank\">WestEngine Inc.</a>";
+        string defaultTemplateGroup, mobileTemplateGroupFileName, tabletTemplateGroupFileName;
+        string defaultTemplateGroupFileName;
         bool enableHtmlTemplate = true;
         string enableLoginAuhenCode;
         bool enableCookieAuthentication = true;
@@ -64,6 +66,26 @@ namespace We7.Framework.Config
                 return "Powered by <a href=\"http://we7.cn/\" target=\"_blank\">We7</a> " + productVersion + " ©2011 <a href=\"http://www.westengine.com/\" target=\"_blank\">WestEngine Inc.</a>";
             }
         }
+        public string DefaultTemplateGroup
+        {
+            get { return defaultTemplateGroup; }
+            set { defaultTemplateGroup = value; }
+        }
+        public string DefaultTemplateGroupFileName
+        {
+            get { return defaultTemplateGroupFileName; }
+            set { defaultTemplateGroupFileName = value; }
+        }
+        public string MobileTemplateGroupFileName
+        {
+            get { return mobileTemplateGroupFileName; }
+            set { mobileTemplateGroupFileName = value; }
+        }
+        public string TabletTemplateGroupFileName
+        {
+            get { return tabletTemplateGroupFileName; }
+            set { tabletTemplateGroupFileName = value; }
+        }
         public bool EnableCookieAuthentication
         {
             get { return enableCookieAuthentication; }
@@ -78,6 +100,10 @@ namespace We7.Framework.Config
         {
             get { return icpInfo; }
             set { icpInfo = value; }
+        }
+        public string ProductVersion
+        {
+            get { return productVersion; }
         }
         public string SiteFullName
         {

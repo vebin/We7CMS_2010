@@ -73,6 +73,13 @@
     <Compile Include="Signin.aspx.designer.cs">
       <DependentUpon>Signin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Template\controls\TemplateGroup_Info.ascx.cs">
+      <DependentUpon>TemplateGroup_Info.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Template\controls\TemplateGroup_Info.ascx.designer.cs">
+      <DependentUpon>TemplateGroup_Info.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Template\TemplateGroupInfo.aspx.cs">
       <DependentUpon>TemplateGroupInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -97,12 +104,14 @@
     <Content Include="images\button_4.gif" />
     <Content Include="images\button_4_hover.gif" />
     <Content Include="images\icons_look.gif" />
+    <Content Include="images\icon_warning.gif" />
     <Content Include="images\ico_critical.gif" />
     <Content Include="images\ico_info.gif" />
     <Content Include="images\login_button.jpg" />
     <Content Include="images\login_logo.gif" />
     <Content Include="NewSiteWizard.aspx" />
     <Content Include="Signin.aspx" />
+    <Content Include="Template\controls\TemplateGroup_Info.ascx" />
     <Content Include="Template\TemplateGroupInfo.aspx" />
     <Content Include="theme\Style\main.css" />
   </ItemGroup>

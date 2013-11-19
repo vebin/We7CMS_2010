@@ -119,9 +119,9 @@
                             <div class="toolbar">
                                 <li style="display:none" class="smallButton4"><a class="editAction" href="Template/TemplateGroupInfo.aspx">创建模板组</a></li>
                                 <li class="smallButton4">
-                                    <asp:HypeLink ID="UploadHyperLink" Enabled="false" NavigateUrl="~/admin/Plugin/PluginAdd.aspx" runat="server" Visible="false">
+                                    <asp:HyperLink ID="UploadHyperLink" Enabled="false" NavigateUrl="~/admin/Plugin/PluginAdd.aspx" runat="server" Visible="false">
                                     上传模板组
-                                    </asp:HypeLink>
+                                    </asp:HyperLink>
                                 </li>
                             </div>
                             <br />

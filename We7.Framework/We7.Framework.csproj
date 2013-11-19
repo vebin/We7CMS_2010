@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\IX.cs" />
     <Compile Include="Config\DefaultConfigFileManager.cs" />
     <Compile Include="Config\GeneralConfigFileManager.cs" />
     <Compile Include="Config\GeneralConfigInfo.cs" />

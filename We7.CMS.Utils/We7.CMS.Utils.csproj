@@ -44,6 +44,9 @@
     <Compile Include="BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="FrontBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

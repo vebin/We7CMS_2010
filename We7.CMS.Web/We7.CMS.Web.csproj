@@ -72,6 +72,7 @@
     <Content Include="Install\step3.aspx" />
     <Content Include="Install\step4.aspx" />
     <Content Include="Install\succeed.aspx" />
+    <Content Include="Scripts\we7\we7.loader.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

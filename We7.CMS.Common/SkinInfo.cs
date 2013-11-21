@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using We7;
 using System.Xml;
+using System.IO;
 
 namespace We7.CMS.Common
 {
@@ -62,6 +63,15 @@ namespace We7.CMS.Common
         {
             get { return items; }
             set { items = value; }
+        }
+
+        public void ToFile(string basepath, string filename)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlDeclaration dec = doc.CreateXmlDeclaration("1.0", "utf-8", "");
+            doc.AppendChild(dec);
+            doc.AppendChild(this.ToXml(doc));
+            doc.Save(Path.Combine(basepath, filename));
         }
 
         [Serializable]

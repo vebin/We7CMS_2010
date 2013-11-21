@@ -29,6 +29,17 @@ namespace We7.Framework.Config
             m_configinfo = GeneralConfigFileManager.LoadRealConfig();
         }
 
+        public static bool SaveConfig(GeneralConfigInfo configinfo)
+        {
+            bool ret = false;
+            lock (m_lockHelper)
+            {
+                ret = SerializationHelper.Save(configinfo, GeneralConfigFileManager.ConfigFilePath);
+                ResetConfig();
+            }
+            return ret;
+        }
+
         public static GeneralConfigInfo Serialize(GeneralConfigInfo configinfo, string configFilePath)
         {
             lock (m_lockHelper)

@@ -13,6 +13,8 @@ namespace We7.Framework.Config
         static FileVersionInfo AssemblyFileVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
 
         string copyright = "Powered by <a href=\"http://we7.cn/\" target=\"_blank\">We7</a> " + productVersion + " ©2011 <a href=\"http://www.westengine.com/\" target=\"_blank\">WestEngine Inc.</a>";
+        string defaultHomePageTitle = "首页 - We7站点";
+        
         string defaultTemplateGroup, mobileTemplateGroupFileName, tabletTemplateGroupFileName;
         string defaultTemplateGroupFileName;
         bool enableHtmlTemplate = true;
@@ -20,6 +22,8 @@ namespace We7.Framework.Config
         bool enableCookieAuthentication = true;
         bool isOEM = false;
         string icpInfo = "";
+        bool isAddLog;
+        
         
         bool onlyLoginUserCanVisit = false;
         string productName = "We7";
@@ -28,16 +32,21 @@ namespace We7.Framework.Config
         string siteTitle = "We7";
         string siteFullName = "西部动力（北京）科技有限公司";
         string _siteLogo = "";
+        string siteSkinsBasePath = "_skins";
+        
         
         string _SSOSiteUrl = string.Empty;
         string userRegisterMode = "none";
-
-
 
         public string Copyright
         {
             get { return copyright; }
             set { copyright = value; }
+        }
+        public string DefaultHomePageTitle
+        {
+            get { return defaultHomePageTitle; }
+            set { defaultHomePageTitle = value; }
         }
         public bool OnlyLoginUserCanVisit
         {
@@ -48,6 +57,11 @@ namespace We7.Framework.Config
         {
             get { return enableHtmlTemplate; }
             set { enableHtmlTemplate = value; }
+        }
+        public bool IsAddLog
+        {
+            get { return isAddLog; }
+            set { isAddLog = value; }
         }
         public bool IsOEM
         {
@@ -75,6 +89,11 @@ namespace We7.Framework.Config
         {
             get { return defaultTemplateGroupFileName; }
             set { defaultTemplateGroupFileName = value; }
+        }
+        public bool IsDemoSite
+        {
+            get;
+            set;
         }
         public string MobileTemplateGroupFileName
         {
@@ -114,6 +133,11 @@ namespace We7.Framework.Config
         {
             get { return _siteLogo; }
             set { _siteLogo = value; }
+        }
+        public string SiteSkinsBasePath
+        {
+            get { return siteSkinsBasePath; }
+            set { siteSkinsBasePath = value; }
         }
         public string SiteTitle
         {

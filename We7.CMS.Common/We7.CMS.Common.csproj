@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Enum\MasterPageMode.cs" />
     <Compile Include="Enum\TypeOfPasswordHashed.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SkinInfo.cs" />
   </ItemGroup>

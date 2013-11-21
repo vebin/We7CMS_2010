@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+//using We7.CMS.Common;
 
 namespace We7.Framework
 {
-    public class LogHelper
+    public class LogHelper: BaseHelper
     {
         public static string sql_update = @"Install/sql_update_log"+DateTime.Today.ToString("yyyyMM")+".txt";
 
@@ -53,6 +54,12 @@ namespace We7.Framework
         {
             log4net.ILog log = log4net.LogManager.GetLogger(type);
             log.Error(msg);
+        }
+
+        public static void WriteLog(string accountId, string page, string content, string remark)
+        {
+            //Log log = new Log();
+            //log.UserID = accountId;
         }
     }
 }

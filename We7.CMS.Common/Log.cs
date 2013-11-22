@@ -9,7 +9,7 @@ namespace We7.CMS.Common
     public class Log
     {
         string id;
-        public string Id
+        public string ID
         {
             get { return id; }
             set { id = value; }
@@ -33,6 +33,13 @@ namespace We7.CMS.Common
         {
             get { return created; }
             set { created = value; }
+        }
+
+        string page;
+        public string Page
+        {
+            get { return page; }
+            set { page = value; }
         }
 
         string remark;

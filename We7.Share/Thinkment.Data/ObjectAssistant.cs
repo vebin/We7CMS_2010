@@ -39,6 +39,39 @@ namespace Thinkment.Data
             return om.MyCount(conn, condition);
         }
 
+        public object Insert(object obj)
+        {
+            return Insert(obj, null);
+        }
+
+        public object Insert(object obj, string[] fields)
+        {
+            using (IConnection conn = _d1.GetDBConnection(obj.GetType()))
+            {
+                return Insert(conn, obj, fields);
+            }
+        }
+
+        public object Insert(IConnection conn, object obj, string[] fields)
+        {
+            int rowsAffected = 0;
+            object identity = null;
+            bool stoped = false;
+
+            AssistantEntity typedEntity = new AssistantEntity(obj);
+            if (AssertContinueInserting(typedEntity, fields, out stoped))
+            {
+                ObjectManager oa = _d1.GetObjectManager(obj.GetType());
+                rowsAffected = oa.MyInsert(conn, obj, fields, out identity);
+            }
+            if (!stoped)
+            {
+ 
+            }
+
+            return rowsAffected;
+        }
+
         public List<T> List<T>(Criteria condition, Order[] orders)
         {
             return List<T>(condition, orders, 0, 0, (ListField[])null);
@@ -58,6 +91,22 @@ namespace Thinkment.Data
         }
 
         public event EventHandler<AssistantPrepareEventArgs> PreSelectItem;
+        public event EventHandler<AssistantPrepareEventArgs> PreInsertItem;
+
+        private bool AssertContinueInserting(AssistantEntity entity, string[] fields, out bool stoped)
+        {
+            stoped = false;
+            if (null != PreInsertItem)
+            {
+                AssistantPrepareEventArgs args = new AssistantPrepareEventArgs();
+                args.Entity = entity;
+                args.Fields = fields;
+                PreInsertItem(this, args);
+                stoped = args.Stoped;
+                return !args.Canceled;
+            }
+            return true;
+        }
 
         private bool AssertContinueSelecting(AssistantEntity entity, AssistantQueryParameter parameter, string[] fields, out                                        AssistantPrepareEventArgs eventContext)
         {

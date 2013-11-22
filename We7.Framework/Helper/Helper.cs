@@ -39,5 +39,10 @@ namespace We7
 
             return text;
         }
+
+        public static string CreateNewID()
+        { 
+            return "{"+Guid.NewGuid().ToString()+"}";
+        }
     }
 }

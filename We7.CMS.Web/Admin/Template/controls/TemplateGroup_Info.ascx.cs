@@ -34,7 +34,7 @@ namespace We7.CMS.Web.Admin
             }
         }
 
-        public string productVersion
+        public static string productVersion
         {
             get 
             {

@@ -26,6 +26,11 @@ namespace We7.CMS.Utils
             get { return HelperFactory.GetHelper<SiteSettingHelper>(); }
         }
 
+        protected LogHelper LogHelper
+        {
+            get { return HelperFactory.GetHelper<LogHelper>(); }
+        }
+
         protected TemplateHelper TemplateHelper
         {
             get { return HelperFactory.GetHelper<TemplateHelper>(); }

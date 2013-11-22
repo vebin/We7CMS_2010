@@ -66,7 +66,7 @@ namespace We7.CMS
             }
             catch (Exception ex)
             {
-                LogHelper.WriteLog(typeof(BasePage), ex);
+                We7.Framework.LogHelper.WriteLog(typeof(BasePage), ex);
             }
         }
 

@@ -42,6 +42,23 @@ namespace Thinkment.Data
             return cs.ReturnCode;
         }
 
+        public int MyInsert(IConnection conn, object obj, string[] fields, out object identity)
+        {
+            InsertHandle handle = new InsertHandle();
+            handle.Connect = conn;
+            handle.EntityObject = curObject;
+            handle.ExecuteObject = obj;
+
+            if (null != fields)
+            {
+                foreach (string field in fields)
+                {
+                    handle.AddFields(field);
+                }
+            }
+            handle.Execute();
+        }
+
         public List<T> MyList<T>(IConnection conn, Criteria condition, Order[] orders, int from, int count, string[] fields)
         {
             ListField[] fs = null;
@@ -469,6 +486,13 @@ namespace Thinkment.Data
 
     abstract class BaseHandle
     {
+        object executeObject;
+        public object ExecuteObject
+        {
+            get { return executeObject; }
+            set { executeObject = value; }
+        }
+
         int parametersCount;
 
         string condition;
@@ -631,13 +655,18 @@ namespace Thinkment.Data
             set { fields = value; }
         }
 
+        public void AddFields(string field)
+        {
+            ListField f = new ListField(field);
+            listFieldDict.Add(f.FieldName, f);
+        }
 
         protected override void Build()
         {
             
         }
 
-        protected void BuildField(bool allowReadonly)
+        protected void BuildFields(bool allowReadonly)
         {
             StringBuilder _f0 = new StringBuilder();
 
@@ -704,6 +733,27 @@ namespace Thinkment.Data
         }
     }
 
+    class InsertHandle : OperateHandle
+    {
+        object returnObj;
+        public object ReturnObj
+        {
+            get { return returnObj; }
+        }
+
+        protected override void Build()
+        {
+            BuildFields(false);
+            BuildFieldsValue();
+        }
+
+        public void Execute()
+        {
+            returnObj = null;
+            Build();
+        }
+    }
+
     class ListSelectHandle<T> : OperateHandle
     {
         public ListSelectHandle()
@@ -742,7 +792,7 @@ namespace Thinkment.Data
 
         protected override void Build()
         {
-            BuildField(true);
+            BuildFields(true);
             if (ConditionCriteria != null && !(ConditionCriteria.Type == CriteriaType.None && ConditionCriteria.Criterias.Count == 0))
                 BuildCondition();
             else

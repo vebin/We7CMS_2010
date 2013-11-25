@@ -53,6 +53,11 @@ namespace We7.CMS
             get { return HelperFactory.Instance; }
         }
 
+        protected TemplateHelper TemplateHelper
+        {
+            get { return HelperFactory.GetHelper<TemplateHelper>(); }
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             try

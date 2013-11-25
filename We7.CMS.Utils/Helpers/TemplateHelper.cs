@@ -15,13 +15,14 @@ namespace We7.CMS
         //{ 
             
         //}
+       
         void ClearSkinInfoCache(string filename)
         {
             string key = "CD.SkinInfo." + filename;
             HttpContext.Current.Application.Remove(key);
         }
 
-        protected string TemplateGroupPath
+        public string TemplateGroupPath
         {
             get { return Path.Combine(Root, Constants.TemplateGroupBasePath); }
         }

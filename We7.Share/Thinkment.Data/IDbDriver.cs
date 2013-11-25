@@ -22,5 +22,7 @@ namespace Thinkment.Data
         string FormatField(Adorns adorn, string field);
 
         string GetCriteria(CriteriaType type);
+
+        string GetIdentityExpression(string table);
     }
 }

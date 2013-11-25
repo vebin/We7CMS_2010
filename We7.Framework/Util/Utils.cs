@@ -43,6 +43,38 @@ namespace We7.Framework.Util
             return match.Success ? match.Value : string.Empty;
         }
 
+        public static bool InArray(string search, string[] arr)
+        {
+            return InArray(search, arr, false);
+        }
+
+        public static bool InArray(string search, string[] arr, bool caseInsensitive)
+        {
+            return GetArrayID(search, arr, caseInsensitive) >= 0;
+        }
+
+        public static int GetArrayID(string search, string[] arr, bool caseInsensitive)
+        {
+            if (caseInsensitive)
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (search.ToLower() == arr[i].ToLower())
+                        return i;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (search == arr[i])
+                        return i;
+                }
+            }
+
+            return -1;
+        }
+
         public static void TrimsEndStringBuilder(StringBuilder sb, string endStr)
         {
             if (sb.Length > 0 && sb.ToString().EndsWith(endStr))

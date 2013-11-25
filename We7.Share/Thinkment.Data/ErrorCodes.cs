@@ -11,6 +11,9 @@ namespace Thinkment.Data
         Success = 0,
         UnkownCriteria = 1,
 
+        DriverRequired = 10,
+        DriverFailed = 11,
+
         UnkownObject = 20,
         UnkownProperty = 21,
         ConditionRequired = 22,

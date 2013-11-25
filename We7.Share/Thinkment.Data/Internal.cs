@@ -44,6 +44,7 @@ namespace Thinkment.Data
 
         public int MyInsert(IConnection conn, object obj, string[] fields, out object identity)
         {
+            identity = null;
             InsertHandle handle = new InsertHandle();
             handle.Connect = conn;
             handle.EntityObject = curObject;
@@ -57,6 +58,8 @@ namespace Thinkment.Data
                 }
             }
             handle.Execute();
+            identity = handle.ReturnObj;
+            return handle.ReturnCode;
         }
 
         public List<T> MyList<T>(IConnection conn, Criteria condition, Order[] orders, int from, int count, string[] fields)
@@ -193,6 +196,11 @@ namespace Thinkment.Data
             set { isDataTable = value; }
         }
 
+        public bool IsIdentity
+        {
+            get { return identityName != null && identityName != string.Empty; }
+        }
+
         Type typeForDT;
         public Type TypeForDT
         {
@@ -242,6 +250,7 @@ namespace Thinkment.Data
             typeName = UpdateXmlElement.GetXEAttribute(element, "type", "");    //此方法用于此处根本就是庸人自扰
             tableName = UpdateXmlElement.GetXEAttribute(element, "table", "");
             primaryKeyName = UpdateXmlElement.GetXEAttribute(element, "primaryKey", "");
+            identityName = UpdateXmlElement.GetXEAttribute(element, "identity", "");
             description = UpdateXmlElement.GetXEAttribute(element, "description", "");
             foreach (XmlElement xe in element.SelectNodes("Property"))
             {
@@ -285,6 +294,24 @@ namespace Thinkment.Data
             }
 
             p.Info.SetValue(obj, value, null);
+        }
+
+        public object GetValue(object obj, string name)
+        {
+            if (obj.GetType() == typeof(TableInfo))
+            {
+                TableInfo ti = obj as TableInfo;
+                if (name.ToUpper() == ti.PrimaryKeyName)
+                    return ti.ID;
+                return ti.GetFieldValue(name);
+            }
+            else
+            {
+                if (!PropertyDict.ContainsKey(name))
+                    throw new DataException(ErrorCodes.UnkownProperty);
+                Property p = PropertyDict[name];
+                return p.Info.GetValue(obj, null);
+            }
         }
     }
 
@@ -453,7 +480,24 @@ namespace Thinkment.Data
         IDbDriver dbDriver;
         public IDbDriver DbDriver
         {
-            get { return dbDriver; }
+            get 
+            {
+                if (dbDriver == null)
+                {
+                    if (driver == null || driver.Length == 0)
+                        throw new DataException(ErrorCodes.DriverRequired);
+                    try
+                    {
+                        Type driverType = Type.GetType(driver);
+                        DbDriver = (IDbDriver)Activator.CreateInstance(driverType);
+                    }
+                    catch (Exception)
+                    {
+                        throw new DataException(ErrorCodes.DriverFailed);
+                    }
+                }
+                return dbDriver; 
+            }
             set { dbDriver = value; }
         }
 
@@ -534,13 +578,6 @@ namespace Thinkment.Data
             get { return sql; }
         }
 
-        int returnCode;
-        public int ReturnCode
-        {
-            get { return returnCode; }
-            set { returnCode = value; }
-        }
-
         protected abstract void Build();
 
         public BaseHandle()
@@ -568,6 +605,20 @@ namespace Thinkment.Data
             _f1.Size = p.Size;
             _f1.IsNullable = p.Nullable;
             SQL.Parameters.Add(_f1);
+            return _f0;
+        }
+
+        protected string AddParameter(Property p)
+        {
+            string _f0 = string.Format("{0}P{1}", Prefix, parametersCount++);
+            DataParameter _f1 = new DataParameter();
+            _f1.DbType = p.Type;
+            _f1.ParameterName = p.Name;
+            _f1.Value = EntityObject.GetValue(ExecuteObject, p.Name);
+            _f1.Size = p.Size;
+            _f1.IsNullable = p.Nullable;
+            SQL.Parameters.Add(_f1);
+
             return _f0;
         }
 
@@ -716,6 +767,13 @@ namespace Thinkment.Data
 
     class CountHandle : OperateHandle
     {
+        int returnCode;
+        public int ReturnCode
+        {
+            get { return returnCode; }
+            set { returnCode = value; }
+        }
+
         public void Execute()
         {
             Build();
@@ -735,6 +793,19 @@ namespace Thinkment.Data
 
     class InsertHandle : OperateHandle
     {
+        string fieldsValue;
+        public string FieldsValue
+        {
+            get { return fieldsValue; }
+        }
+
+        int returnCode;
+        public int ReturnCode
+        {
+            get { return returnCode; }
+            set { returnCode = value; }
+        }
+
         object returnObj;
         public object ReturnObj
         {
@@ -745,12 +816,42 @@ namespace Thinkment.Data
         {
             BuildFields(false);
             BuildFieldsValue();
+            SQL.SqlClause = string.Format("INSERT INTO {0} ({1}) VALUES ({2})",
+                Connect.Driver.FormatTable(EntityObject.TableName), Fields, FieldsValue);
+        }
+
+        void BuildFieldsValue()
+        {
+            StringBuilder _f1 = new StringBuilder();
+            foreach (Property p in EntityObject.PropertyDict.Values)
+            {
+                if (ListFieldDict.Count > 0 && !ListFieldDict.ContainsKey(p.Name))
+                    continue;
+                BuildParameters(_f1, p);
+            }
+            fieldsValue = _f1.ToString();
+        }
+
+        void BuildParameters(StringBuilder sb, Property p)
+        {
+            if (p.Readonly)
+                return;
+            string _f0 = AddParameter(p);
+            AddSplitString(sb, _f0);
         }
 
         public void Execute()
         {
             returnObj = null;
             Build();
+            returnCode = Connect.Update(SQL);
+
+            if (EntityObject.IsIdentity)
+            {
+                SqlStatement _f0 = new SqlStatement(Connect.Driver.GetIdentityExpression(EntityObject.TableName));
+                returnObj = Connect.QueryScalar(_f0);
+                EntityObject.SetValue(ExecuteObject, EntityObject.IdentityName, returnObj);
+            }
         }
     }
 

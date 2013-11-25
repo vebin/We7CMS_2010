@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Article.cs" />
     <Compile Include="Enum\MasterPageMode.cs" />
     <Compile Include="Enum\TypeOfPasswordHashed.cs" />
     <Compile Include="Log.cs" />

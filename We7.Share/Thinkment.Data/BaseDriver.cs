@@ -124,6 +124,11 @@ namespace Thinkment.Data
             }
         }
 
+        public virtual string GetIdentityExpression(string table)
+        {
+            return "SELECT @@IDENTITY";
+        }
+
         public string Prefix
         {
             get { return "@"; }

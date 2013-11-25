@@ -42,7 +42,6 @@ namespace We7.CMS.Web.Admin
                 return Regex.Replace(fullVersion, @"\.\d+\.\d+\s+[\u4e00-\u9fa5]+", "");
             }
         }
-
         
         bool CreateFolder(string foldername)
         {
@@ -113,6 +112,14 @@ namespace We7.CMS.Web.Admin
                     }
                 }
                 AddLog(title, content);
+                UploadPreviewFile(filename);
+                Messages.ShowMessage("成功保存模板组信息");
+            }
+            else
+            {
+                filename = TemplateHelper.SaveSkinInfoAndPreviewFile(Data, foldername);
+                UploadPreviewFile(filename);
+                Messages.ShowMessage("成功保存模板组信息");
             }
         }
 
@@ -124,6 +131,27 @@ namespace We7.CMS.Web.Admin
                 DescriptionTextBox.Text = Data.Description;
                 CreatedLabel.Text = Data.Created.ToString();
                 FileTextBox.Text = Data.FileName;
+            }
+        }
+
+        void UploadPreviewFile(string previewFileName)
+        {
+            if (PreviewFileUploador.PostedFile.FileName != "")
+            {
+                if (string.Compare(Path.GetExtension(PreviewFileUploador.FileName), "jpg", true) == 0)
+                {
+                    string path = previewFileName + Path.GetExtension(PreviewFileUploador.FileName);
+                    path = "~/" + Path.Combine(Constants.TemplateGroupBasePath, path);
+                    string physicPath = Server.MapPath(path);
+                    PreviewFileUploador.SaveAs(physicPath);
+                }
+                else
+                {
+                    Messages.ShowMessage("图片必须是jpg文件");
+                }
+            }
+            else
+            { 
             }
         }
     }

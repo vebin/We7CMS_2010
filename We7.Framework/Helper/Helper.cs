@@ -44,5 +44,13 @@ namespace We7
         { 
             return "{"+Guid.NewGuid().ToString()+"}";
         }
+
+        public static string GUIDToFormatString(string guid)
+        {
+            if (guid == null || guid == "")
+                return "";
+            string ret = guid.Replace("{", "").Replace("}", "");
+            return ret.Replace("-", "_");
+        }
     }
 }

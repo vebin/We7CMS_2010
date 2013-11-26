@@ -8,6 +8,16 @@
         });
     });
 </script>
+<script type="text/javascript">
+    function SaveButtonClick() {
+        var submitBtn = document.getElementById("<%=SaveButton.ClientID %>");
+        var div = $("form-region");
+        var enable = we7(div).validate();
+        if (enable) {
+            sumbitBtn.click();
+        }
+    }
+</script>
 <div>
     <WEC:MessagePanel ID="Messages" runat="server">
     </WEC:MessagePanel>

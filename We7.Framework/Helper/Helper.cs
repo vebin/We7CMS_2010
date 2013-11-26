@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace We7
 {
@@ -43,6 +44,21 @@ namespace We7
         public static string CreateNewID()
         { 
             return "{"+Guid.NewGuid().ToString()+"}";
+        }
+
+        public static void DeleteFileTree(DirectoryInfo di)
+        {
+            foreach (DirectoryInfo info in di.GetDirectories())
+            {
+                DeleteFileTree(info);
+            }
+
+            foreach (FileInfo info in di.GetFiles())
+            {
+                File.SetAttributes(info.FullName, FileAttributes.Normal);
+                info.Delete();
+            }
+            Directory.Delete(di.FullName);
         }
 
         public static string GUIDToFormatString(string guid)

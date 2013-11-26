@@ -117,7 +117,7 @@
                                 </ul>
                             </h2>
                             <div class="toolbar">
-                                <li style="display:none" class="smallButton4"><a class="editAction" href="Template/TemplateGroupInfo.aspx">创建模板组</a></li>
+                                <li class="smallButton4"><a class="editAction" href="Template/TemplateGroupInfo.aspx">创建模板组</a></li>
                                 <li class="smallButton4">
                                     <asp:HyperLink ID="UploadHyperLink" Enabled="false" NavigateUrl="~/admin/Plugin/PluginAdd.aspx" runat="server" Visible="false">
                                     上传模板组
@@ -154,7 +154,7 @@
                                                                 <asp:HyperLink runat="server" NavigateUrl='<%# GetTemplateGroupUrl(DataBinder.Eval(((DataListItem)Container).DataItem, "FileName").ToString(), "编辑")%>'
                                                                     Text="编辑" ID="HyperLinkEdit">
                                                                 </asp:HyperLink>
-                                                                <asp:HyperLink runat="server" NavigateUrl='<%# GetTemplateGroupUrl(DataBinder.Eval(((DataListItem)Container).DataItem, "FileName").ToString(), DataBinder.Eval(((DataListItem)Container).DataItem, "Name"), "删除")%>'
+                                                                <asp:HyperLink runat="server" NavigateUrl='<%# GetTemplateGroupUrl(DataBinder.Eval(((DataListItem)Container).DataItem, "FileName").ToString(), DataBinder.Eval(((DataListItem)Container).DataItem, "Name").ToString(), "删除")%>'
                                                                     Text="删除" ID="HyperLinkDelete">
                                                                 </asp:HyperLink>
                                                                 <asp:HyperLink runat="server" NavigateUrl='<%# GetTemplateGroupUrl(DataBinder.Eval(((DataListItem)Container).DataItem, "FileName").ToString(), "打包")%>'
@@ -186,10 +186,10 @@
                                                             </tr>
                                                             <tr style="display:none;">
                                                                 <td align="center">
-                                                                    <asp:HyperLink runat="server" NavigateUrl='<%# GetTemplateGroupUrl(DataBinder.Eval(((DataListItem)Container).DataItem, "FileName").ToString(), DataBinder.Eval(((DataListItem)Container).DataItem, "Name"), "应用")%>'
+                                                                    <asp:HyperLink runat="server" NavigateUrl='<%# GetTemplateGroupUrl(DataBinder.Eval(((DataListItem)Container).DataItem, "FileName").ToString(), DataBinder.Eval(((DataListItem)Container).DataItem, "Name").ToString(), "应用")%>'
                                                                         Text="使用此模板" ID="HyperLinkUsed">
                                                                     </asp:HyperLink>
-                                                                    <asp:HyperLink runat="server" NavigateUrl='<%# GetTemplateGroupUrl(DataBinder.Eval(((DataListItem)Container).DataItem, "FileName").ToString(), DataBinder.Eval(((DataListItem)Container).DataItem, "Name"), "删除")%>'
+                                                                    <asp:HyperLink runat="server" NavigateUrl='<%# GetTemplateGroupUrl(DataBinder.Eval(((DataListItem)Container).DataItem, "FileName").ToString(), DataBinder.Eval(((DataListItem)Container).DataItem, "Name").ToString(), "删除")%>'
                                                                         Text="删除" ID="HyperLinkDelete">
                                                                     </asp:HyperLink>
                                                                     <asp:HyperLink runat="server" NavigateUrl='<%# GetTemplateGroupUrl(DataBinder.Eval(((DataListItem)Container).DataItem, "FileName").ToString(), "打包")%>'
@@ -211,7 +211,7 @@
                             </div>
                         </asp:Panel>
                     </div>
-                    <div>
+                    <div style="display:none;">
                         <asp:TextBox ID="ParentTextBox" runat="server" Text="0"></asp:TextBox>
                     </div>
                 </div>

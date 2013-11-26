@@ -28,6 +28,18 @@ body
     font:12px "Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif;
     color:#666;
 }
+h3
+{
+    display:block;
+    font-size:1.17em;
+    font-weight:bold;
+    letter-spacing:-1px;
+    font-family:Arail,verdana, Sans-Serif;
+    margin:0.3em 0.3em;
+    color: #000;
+    border-bottom:1px solid #eee;
+    padding-bottom: .1em;
+}
 td
 {
     font:12px "Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif;

@@ -65,6 +65,23 @@ namespace We7.CMS.Common
             set { items = value; }
         }
 
+        public void FromFile(string basepath, string filename)
+        {
+            BasePath = basepath;
+            FileName = filename;
+            XmlDocument doc = new XmlDocument();
+            string file = Path.Combine(basepath, filename);
+            if (File.Exists(file))
+            {
+                doc.Load(file);
+                this.FromXml(doc.DocumentElement);
+            }
+            else
+            {
+                throw new Exception("没有找到模板组的配置文件"+filename);
+            }
+        }
+
         public void ToFile(string basepath, string filename)
         {
             XmlDocument doc = new XmlDocument();

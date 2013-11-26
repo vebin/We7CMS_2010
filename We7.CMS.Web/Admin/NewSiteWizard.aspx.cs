@@ -31,17 +31,17 @@ namespace We7.CMS.Web.Admin
         {
             if (Request["nomenu"] != null)
             {
-
+                TitleLabel.Text = "新建站点向导";
+                SummaryLabel.Text = "分三步创建新站点";
             }
             else
-            { 
-                
+            {
+                TitleLabel.Text = "站点设置向导";
+                SummaryLabel.Text = "分三步设置站点";
             }
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
+            CheckDisplay();
+            BindSiteConfig();
+            BindTemplate();
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)
@@ -54,10 +54,58 @@ namespace We7.CMS.Web.Admin
             UploadFile();
         }
 
+        protected void applyGroupButton_Click(object sender, EventArgs e)
+        {
+            Save();
+            ApplyDefaultTemplate(currentGroup.Text);
+            Response.Write("<script>document.location.reload();</script>");
+            Response.Redirect(Request.RawUrl);
+        }
+
         protected void deleteGroupButton_Click(object sender, EventArgs e)
         {
             Save();
+            TemplateHelper.DeleteTemplateGroup(currentGroup.Text);
+            GeneralConfigInfo gi = GeneralConfigs.GetConfig();
+            if (gi.DefaultTemplateGroupFileName.ToLower() == currentGroup.Text.ToLower())
+            {
+                gi.DefaultTemplateGroupFileName = "";
+                GeneralConfigs.SaveConfig(gi);
+                GeneralConfigs.ResetConfig();
+            }
+            Response.Redirect(Request.RawUrl);
+        }
 
+        protected void PreviousPanel(object sender, EventArgs e)
+        {
+            if (pnlSiteTemplate.Visible)
+            {
+                Session["VisibleIndex"] = 1;
+                pnlSiteTemplate.Visible = false;
+                pnlSiteConfig.Visible = true;
+            }
+        }
+
+        protected void btnNextPanel(object sender, EventArgs e)
+        {
+            if (pnlSiteConfig.Visible)
+            {
+                Session["VisibleIndex"] = 2;
+                pnlSiteTemplate.Visible = true;
+                pnlSiteConfig.Visible = false;
+                PanelSuccess.Visible = false;
+                BindViewState();
+            }
+            else if (pnlSiteTemplate.Visible)
+            {
+                Save();
+                Session["VisibleIndex"] = 3;
+                pnlSiteConfig.Visible = false;
+                pnlSiteTemplate.Visible = false;
+                PanelSuccess.Visible = true;
+                btnNext.Visible = false;
+                btnPrevious.Visible = false;
+            }
         }
 
         protected string CheckLength(string content, int len)
@@ -122,6 +170,96 @@ namespace We7.CMS.Web.Admin
             }
         }
 
+        void ApplyDefaultTemplate(string filename)
+        {
+            GeneralConfigInfo gi = GeneralConfigs.GetConfig();
+            gi.DefaultTemplateGroupFileName = filename;
+            GeneralConfigs.SaveConfig(gi);
+            GeneralConfigs.ResetConfig();
+        }
+
+        void BindSiteConfig()
+        {
+            GeneralConfigInfo gi = GeneralConfigs.GetConfig();
+            txtSiteName.Text = gi.SiteTitle;
+            txtCopyright.Text = gi.Copyright;
+            txtSiteFullName.Text = gi.SiteFullName;
+            txtIcpInfo.Text = gi.IcpInfo;
+            ImageValue.Text = gi.SiteLogo;
+            lblSiteName.Text = gi.SiteTitle;
+            BindViewState();
+        }
+
+        void BindTemplate()
+        {
+            string msg = @"您尚未指定当前模板组，您可以：<br/>" +
+                "(1) 在下面可选模板组中，选择一个，点击“应用”；<br/>" +
+                "(2) 创建一个新的模板组（上面工具条中点击“创建模板组”）；<br/>" +
+                "(3) 上传一个模板组包（工具条中点击“上传模板”）。";
+            GeneralConfigInfo gi = GeneralConfigs.GetConfig();
+            if (!string.IsNullOrEmpty(gi.DefaultTemplateGroupFileName))
+            {
+                List<SkinInfo> skins = new List<SkinInfo>();
+                try
+                {
+                    skins.Add(TemplateHelper.GetTemplateGroup(gi.DefaultTemplateGroupFileName));
+                    if (skins.Count < 1)
+                        UploadHyperLink.Visible = true;
+                    UseTemplateGroupsDataList.DataSource = skins;
+                    UseTemplateGroupsDataList.DataBind();
+                }
+                catch
+                {
+                    UploadHyperLink.Visible = true;
+                    UseTemplateGroupsLabel.Text = msg;
+                }
+            }
+            else
+            {
+                UploadHyperLink.Visible = true;
+                UseTemplateGroupsLabel.Text = msg;
+            }
+            UseTemplateGroupsDataList.DataSource = TemplateHelper.GetTemplateGroup(null);
+            UseTemplateGroupsDataList.DataBind();
+        }
+
+        void BindViewState()
+        {
+            ViewState["SiteTitle"] = txtSiteName.Text;
+            ViewState["Copyright"] = txtCopyright.Text;
+            ViewState["SiteFullName"] = txtSiteFullName.Text;
+            ViewState["IcpInfo"] = txtIcpInfo.Text;
+            ViewState["SiteLogo"] = ImageValue.Text;
+        }
+
+        void CheckDisplay()
+        {
+            btnNext.Visible = true;
+            btnPrevious.Visible = true;
+            if (Session["VisibleIndex"] == null)
+            {
+                pnlSiteConfig.Visible = true;
+                pnlSiteTemplate.Visible = false;
+                PanelSuccess.Visible = false;
+            }
+            else if (Session["VisibleIndex"].ToString() == "1")
+            {
+                pnlSiteConfig.Visible = true;
+                pnlSiteTemplate.Visible = false;
+                PanelSuccess.Visible = false;
+            }
+            else if (Session["VisibleIndex"].ToString() == "2")
+            {
+                pnlSiteConfig.Visible = false;
+                pnlSiteTemplate.Visible = true;
+                PanelSuccess.Visible = false;
+            }
+            else if (Session["VisibleIndex"].ToString() == "3")
+            {
+                Session["VisibleIndex"] = null;
+            }
+        }
+
         string CreateFileName()
         {
             return DateTime.Now.ToString("yyyyMMddHHmmssfff") + new Random((int)DateTime.Now.Ticks).Next();
@@ -152,7 +290,7 @@ namespace We7.CMS.Web.Admin
         {
             if (string.IsNullOrEmpty(fuImage.FileName))
                 return false;
-            string ext = Path.GetExtension(fuImage.FileName).Trim(',');
+            string ext = Path.GetExtension(fuImage.FileName).Trim('.');
             string[] list = new string[] { "jpg", "jpeg", "gif", "png", "bmp" };
             return We7.Framework.Util.Utils.InArray(ext.ToLower(), list);
         }

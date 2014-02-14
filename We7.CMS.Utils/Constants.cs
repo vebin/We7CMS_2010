@@ -23,5 +23,8 @@ namespace We7.CMS
         {
             get { return SiteSkinsBasePath; }
         }
+
+        public static string ThemePath = "theme";
+        
     }
 }

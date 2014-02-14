@@ -58,6 +58,13 @@
     <Compile Include="cgi-bin\controls\CaptchaImage\SmallJpegImage.aspx.designer.cs">
       <DependentUpon>SmallJpegImage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="NewSiteWizard.aspx.cs">
       <DependentUpon>NewSiteWizard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -94,15 +101,34 @@
     <Compile Include="theme\ContentNoMenu.Master.designer.cs">
       <DependentUpon>ContentNoMenu.Master</DependentUpon>
     </Compile>
+    <Compile Include="theme\main.aspx.cs">
+      <DependentUpon>main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="theme\main.aspx.designer.cs">
+      <DependentUpon>main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="tools\widget\SiteProfile.ascx.cs">
+      <DependentUpon>SiteProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="tools\widget\SiteProfile.ascx.designer.cs">
+      <DependentUpon>SiteProfile.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ajax\jquery\jquery-ui.min.js" />
     <Content Include="Ajax\jquery\jquery.latest.min.js" />
     <Content Include="Ajax\jquery\ui1.8.1\jquery-1.4.2.min.js" />
     <Content Include="cgi-bin\controls\CaptchaImage\SmallJpegImage.aspx" />
     <Content Include="cgi-bin\DialogHelper.js" />
     <Content Include="cgi-bin\Menu\common.js" />
+    <Content Include="cgi-bin\Menu\jquery.easywidgets.js" />
+    <Content Include="cgi-bin\Menu\mywidgets.js" />
+    <Content Include="default.aspx" />
     <Content Include="images\button_4.gif" />
     <Content Include="images\button_4_hover.gif" />
+    <Content Include="images\icons_home.gif" />
     <Content Include="images\icons_look.gif" />
     <Content Include="images\icon_settings.png" />
     <Content Include="images\icon_warning.gif" />
@@ -117,7 +143,11 @@
     <Content Include="Signin.aspx" />
     <Content Include="Template\controls\TemplateGroup_Info.ascx" />
     <Content Include="Template\TemplateGroupInfo.aspx" />
+    <Content Include="theme\main.aspx" />
+    <Content Include="theme\Style\jquery.easywidgets.css" />
     <Content Include="theme\Style\main.css" />
+    <Content Include="theme\Style\mywidgets.css" />
+    <Content Include="tools\widget\SiteProfile.ascx" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -130,6 +160,10 @@
     <ProjectReference Include="..\..\We7.CMS.Common\We7.CMS.Common.csproj">
       <Project>{4CD41C55-E409-4A11-BAD8-DCF98BA6854E}</Project>
       <Name>We7.CMS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\We7.CMS.Report\We7.CMS.Report.csproj">
+      <Project>{02A79CE8-50B7-421C-B07E-B4A061C6847E}</Project>
+      <Name>We7.CMS.Report</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\We7.CMS.UI\We7.CMS.UI.csproj">
       <Project>{3E7F21EA-1D06-40D0-9A0B-4ADB3D5A351C}</Project>

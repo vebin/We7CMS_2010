@@ -15,6 +15,54 @@ namespace Thinkment.Data
             _d1 = new Dictionaries();
         }
 
+        public void DeleteList<T>(Criteria condition)
+        {
+            using (IConnection conn = _d1.GetDBConnection(typeof(T)))
+            {
+                DeleteList<T>(conn, condition);
+            }
+        }
+
+        public void DeleteList<T>(IConnection conn, Criteria condition)
+        {
+            int rowsAffected = 0;
+            bool stoped = false;
+            AssistantEntity typedEntity = new AssistantEntity(typeof(T));
+            typedEntity.Criteria = condition;
+            if (AssertContinueDeleting(typedEntity, out stoped))
+            {
+                ObjectManager oa = _d1.GetObjectManager(typeof(T));
+                rowsAffected = oa.MyDeleteList(conn, condition);
+            }
+        }
+   
+        /// <summary>
+        /// 按条件取得数据库记录列表（其中部分）
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="condition"></param>
+        /// <param name="orders"></param>
+        /// <param name="from"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public List<T> List<T>(Criteria condition, Order[] orders, int from, int count)
+        {
+            return List<T>(condition, orders, from, count, (string[])null);   
+        }
+
+        public List<T> List<T>(Criteria condition, Order[] orders, int from, int count, string[] fields)
+        {
+            using (IConnection conn = _d1.GetDBConnection(typeof(T)))
+            {
+                return List<T>(conn, condition, orders, from, count, fields);
+            }
+        }
+
+        public List<T> List<T>(IConnection conn, Criteria condition, Order[] orders, int offset, int count, string[] fields)
+        { 
+            return SelectList<T>(conn, null, condition, orders, offset, count, fields);
+        }
+
         public void LoadDBConnectionString(string connectStr, string dbDriver)
         {
             _d1.SetGlobalDBString(connectStr, dbDriver);
@@ -90,8 +138,66 @@ namespace Thinkment.Data
             return SelectList<T>(conn, null, condition, orders, offset, count, fields);
         }
 
+        public int Update(object obj, string[] fields)
+        {
+            return Update(obj, fields, null);
+        }
+
+        public int Update(object obj, string[] fields, Criteria condition)
+        {
+            using (IConnection conn = _d1.GetDBConnection(obj.GetType()))
+            {
+                return Update(conn, obj, fields, condition);
+            }
+        }
+
+        public int Update(IConnection conn, object obj, string[] fields, Criteria condition)
+        {
+            bool stoped = false;
+            int rowsAffected = 0;
+            AssistantEntity typedEntity = new AssistantEntity(obj);
+            typedEntity.Criteria = condition;
+
+            if (AssertContinueUpdating(typedEntity, fields, out stoped))
+            {
+                ObjectManager oa = _d1.GetObjectManager(obj.GetType());
+                rowsAffected = oa.MyUpdate(conn, obj, fields, condition);
+            }
+
+            if (!stoped)
+            {
+                //NotifyUpdated(typedEntity, fields, rowsAffected);
+            }
+            return rowsAffected;
+        }
+
+        [field: NonSerializedAttribute]
+        public event EventHandler<AssistantPrepareEventArgs> PreDeleteItem;
+
+        [field: NonSerializedAttribute]
         public event EventHandler<AssistantPrepareEventArgs> PreSelectItem;
+
+        [field: NonSerializedAttribute]
         public event EventHandler<AssistantPrepareEventArgs> PreInsertItem;
+
+        [field: NonSerializedAttribute]
+        public event EventHandler<AssistantPrepareEventArgs> PreUpdateItem;
+
+
+        private bool AssertContinueDeleting(AssistantEntity entity, out bool stoped)
+        {
+            stoped = false;
+            if (null != PreDeleteItem)
+            {
+                AssistantPrepareEventArgs args = new AssistantPrepareEventArgs();
+                args.Entity = entity;
+                PreDeleteItem(this, args);
+
+                stoped = args.Stoped;
+                return !args.Canceled;
+            }
+            return true;
+        }
 
         private bool AssertContinueInserting(AssistantEntity entity, string[] fields, out bool stoped)
         {
@@ -119,6 +225,22 @@ namespace Thinkment.Data
                 PreSelectItem(this, eventContext);
 
                 return !eventContext.Canceled;
+            }
+            return true;
+        }
+
+        private bool AssertContinueUpdating(AssistantEntity entity, string[] fields, out bool stoped)
+        {
+            stoped = false;
+            if (null != PreUpdateItem)
+            {
+                AssistantPrepareEventArgs args = new AssistantPrepareEventArgs();
+                args.Entity = entity;
+                args.Fields = fields;
+
+                PreUpdateItem(this, args);
+                stoped = args.Stoped;
+                return !args.Stoped;
             }
             return true;
         }

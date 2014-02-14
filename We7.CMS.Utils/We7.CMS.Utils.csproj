@@ -52,6 +52,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Helpers\PageVisitorHelper.cs" />
     <Compile Include="Helpers\SiteSettingHelper.cs" />
     <Compile Include="Helpers\TemplateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

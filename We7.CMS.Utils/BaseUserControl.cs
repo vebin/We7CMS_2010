@@ -6,7 +6,7 @@ using We7.Framework;
 using We7.Framework.Config;
 using We7.CMS.Accounts;
 
-namespace We7.CMS.Utils
+namespace We7.CMS
 {
     [Serializable]
     public class BaseUserControl : System.Web.UI.UserControl
@@ -21,14 +21,19 @@ namespace We7.CMS.Utils
             get{ return (HelperFactory)Application[HelperFactory.ApplicationID]; }
         }
 
-        protected SiteSettingHelper CDHelper
+        protected Utils.SiteSettingHelper CDHelper
         {
-            get { return HelperFactory.GetHelper<SiteSettingHelper>(); }
+            get { return HelperFactory.GetHelper<Utils.SiteSettingHelper>(); }
         }
 
         protected LogHelper LogHelper
         {
             get { return HelperFactory.GetHelper<LogHelper>(); }
+        }
+
+        protected PageVisitorHelper PageVisitorHelper
+        {
+            get { return HelperFactory.GetHelper<PageVisitorHelper>(); }
         }
 
         protected TemplateHelper TemplateHelper

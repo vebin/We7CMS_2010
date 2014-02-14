@@ -1,0 +1,50 @@
+2014-02-11 17:26:05,762 [10] We7.Framework.HelperFactory -Error
+System.ArgumentException: 已添加了具有相同键的项。
+   在 System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   在 System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   在 System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 204
+2014-02-11 17:26:05,808 [10] We7.Framework.HelperFactory -Error
+System.ArgumentException: 已添加了具有相同键的项。
+   在 System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   在 System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   在 System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 204
+2014-02-11 17:26:05,808 [10] We7.Framework.HelperFactory -Error
+System.ArgumentException: 已添加了具有相同键的项。
+   在 System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   在 System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   在 System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 204
+2014-02-11 17:26:05,809 [10] We7.CMS.BasePage -Error
+System.TypeLoadException: 找不到指定类型的 Helper：We7.CMS.TemplateHelper
+   在 We7.Framework.HelperFactory.GetHelper[T]() 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 126
+   在 We7.CMS.BasePage.get_TemplateHelper() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Utils\BasePage.cs:行号 58
+   在 We7.CMS.Web.Admin.NewSiteWizard.BindTemplate() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Admin\NewSiteWizard.aspx.cs:行号 226
+   在 We7.CMS.Web.Admin.NewSiteWizard.Initialize() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Admin\NewSiteWizard.aspx.cs:行号 48
+   在 We7.CMS.BasePage.OnLoad(EventArgs e) 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Utils\BasePage.cs:行号 68
+2014-02-11 17:27:47,371 [9] We7.Framework.HelperFactory -Error
+System.ArgumentException: 已添加了具有相同键的项。
+   在 System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   在 System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   在 System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 204
+2014-02-11 17:27:47,371 [9] We7.Framework.HelperFactory -Error
+System.ArgumentException: 已添加了具有相同键的项。
+   在 System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   在 System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   在 System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 204
+2014-02-11 17:27:47,371 [9] We7.Framework.HelperFactory -Error
+System.ArgumentException: 已添加了具有相同键的项。
+   在 System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   在 System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   在 System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   在 We7.Framework.HelperFactory.ProcessType(Type type) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 204
+2014-02-11 17:27:47,371 [9] We7.CMS.BasePage -Error
+System.TypeLoadException: 找不到指定类型的 Helper：We7.CMS.TemplateHelper
+   在 We7.Framework.HelperFactory.GetHelper[T]() 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 126
+   在 We7.CMS.BasePage.get_TemplateHelper() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Utils\BasePage.cs:行号 58
+   在 We7.CMS.Web.Admin.NewSiteWizard.BindTemplate() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Admin\NewSiteWizard.aspx.cs:行号 226
+   在 We7.CMS.Web.Admin.NewSiteWizard.Initialize() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Admin\NewSiteWizard.aspx.cs:行号 48
+   在 We7.CMS.BasePage.OnLoad(EventArgs e) 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Utils\BasePage.cs:行号 68

@@ -44,8 +44,10 @@
     <Compile Include="Enum\MasterPageMode.cs" />
     <Compile Include="Enum\TypeOfPasswordHashed.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="PageVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SkinInfo.cs" />
+    <Compile Include="Statistics.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\We7.Framework\We7.Framework.csproj">

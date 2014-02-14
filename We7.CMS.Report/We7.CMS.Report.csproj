@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{77C3C049-609F-445A-BB8B-62EC07893D59}</ProjectGuid>
+    <ProjectGuid>{02A79CE8-50B7-421C-B07E-B4A061C6847E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>We7.Framework</RootNamespace>
-    <AssemblyName>We7.Framework</AssemblyName>
+    <RootNamespace>We7.CMS.Report</RootNamespace>
+    <AssemblyName>We7.CMS.Report</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,19 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\Solution Items\DLL\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SQLite, Version=1.0.60.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Solution Items\DLL\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,38 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppCtx.cs" />
-    <Compile Include="Cache\DefaultCacheStrategy.cs" />
-    <Compile Include="Cache\ICacheStrategy.cs" />
-    <Compile Include="Common\IX.cs" />
-    <Compile Include="Config\DefaultConfigFileManager.cs" />
-    <Compile Include="Config\GeneralConfigFileManager.cs" />
-    <Compile Include="Config\GeneralConfigInfo.cs" />
-    <Compile Include="Config\GeneralConfigs.cs" />
-    <Compile Include="Config\IConfigInfo.cs" />
-    <Compile Include="Config\SiteConfigFileManager.cs" />
-    <Compile Include="Config\SiteConfigInfo.cs" />
-    <Compile Include="Config\SiteConfigs.cs" />
-    <Compile Include="Factable\IFactable.cs" />
-    <Compile Include="Helper\BaseHelper.cs" />
-    <Compile Include="Helper\Helper.cs" />
-    <Compile Include="Helper\HelperAttribute.cs" />
-    <Compile Include="Helper\HelperFactory.cs" />
-    <Compile Include="Helper\IHelper.cs" />
-    <Compile Include="Logger\LogHelper.cs" />
+    <Compile Include="PageViewReportHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\FileHelper.cs" />
-    <Compile Include="Util\SerializationHelper.cs" />
-    <Compile Include="Util\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\We7.Share\Thinkment.Data\Thinkment.Data.csproj">
-      <Project>{D4AE4B8A-01E4-47BE-BADA-67E5C5A24437}</Project>
-      <Name>Thinkment.Data</Name>
+    <ProjectReference Include="..\We7.CMS.Common\We7.CMS.Common.csproj">
+      <Project>{4CD41C55-E409-4A11-BAD8-DCF98BA6854E}</Project>
+      <Name>We7.CMS.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <ProjectReference Include="..\We7.Framework\We7.Framework.csproj">
+      <Project>{77C3C049-609F-445A-BB8B-62EC07893D59}</Project>
+      <Name>We7.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

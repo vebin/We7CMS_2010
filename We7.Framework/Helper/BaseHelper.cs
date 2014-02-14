@@ -6,6 +6,16 @@ using Thinkment.Data;
 
 namespace We7.Framework
 {
+    /// <summary>
+    /// 缓存时间
+    /// </summary>
+    public enum CacheTime
+    { 
+        Short = 10,
+        Medium = 20,
+        Long = 30
+    }
+
     [Serializable]
     public abstract class BaseHelper : IHelper
     {

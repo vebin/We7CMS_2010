@@ -54,6 +54,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\XML\CD.xml" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Go\ShowSitePage.aspx" />

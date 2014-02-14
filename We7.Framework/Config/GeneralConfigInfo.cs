@@ -22,6 +22,8 @@ namespace We7.Framework.Config
         bool enableCookieAuthentication = true;
         bool isOEM = false;
         string icpInfo = "";
+        string iPDBConnection = "New=False;Compress=True;Synchronous=Off;UTF8Encoding=True;Version=3;Data Source={$Current}\\IP.db";
+
         bool isAddLog;
         
         
@@ -57,6 +59,11 @@ namespace We7.Framework.Config
         {
             get { return enableHtmlTemplate; }
             set { enableHtmlTemplate = value; }
+        }
+        public string IPDBConnection
+        {
+            get { return iPDBConnection; }
+            set { iPDBConnection = value; }
         }
         public bool IsAddLog
         {

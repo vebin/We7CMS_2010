@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Objects>
+  <Database name="We7.CMS.Common">
+    <Object type="We7.CMS.Common.Channel,We7.CMS.Commont" table="Channel" primaryKey="ID" identity="" description="栏目表">
+      <Property name="ID" field="ID" size="40" type="String" nullable="false" description="栏目唯一标识符"/>
+      <Property name="ParentID" field="ParentID" size="40" type="String" nullable="false" description="父级栏目唯一标识符"/>
+      <Property name="Alias" field="Alias" size="16" type="String" description="栏目别名"/>
+      <Property name="FullPath" field="FullPath" size="255" type="String" description="显示全路径，如：新闻/图片新闻"/>
+      <Property name="Parameter" field="Parameter" size="255" type="String" description="参数"/>
+      <Property name="TemplateName" field="TemplateName" size="64" type="String" description="模板名称"/>
+      <Property name="DetailTemplate" field="DetailTemplate" size="64" type="String" description="详细页模板"/>
+      <Property name="DefaultContentID" field="DefaultContentID" size="40" type="String" description="默认详细内容ID"/>
+      <Property name="Index" field="SequenceIndex" size="4" type="Int32" description="索引"/>
+      <Property name="ReferenceID" field="ReferenceID" size="4" type="String" description="参考ID"/>
+      <Property name="Name" field="Title" size="64" type="String" description="栏目名称"/>
+      <Property name="Description" field="Description" size="255" type="String" description="栏目描述"/>
+      <Property name="State" field="State" size="4" type="Int32" description="栏目状态"/>
+      <Property name="SecurityLevel" field="SecurityLevel" size="4" type="Int32" description="安全级别"/>
+      <Property name="Created" field="Created" size="4" type="DateTime" description="创建时间"/>
+      <Property name="ChannelFolder" field="ChannelFolder" size="64" type="String" description="栏目文件夹"/>
+      <Property name="TitleImage" field="TitleImage" size="64" type="String" description="标题图片"/>
+      <Property name="Process" field="Process" size="16" type="String" description="是否走审批流程：1-审批，其它-不审批"/>
+      <Property name="ProcessLayerNO" field="ProcessLayerNO" size="50" type="String" description="审核步骤：1、2、3类，字符串"/>
+      <Property name="ProcessEnd" field="ProcessEnd" size="16" type="String" description="审核完毕动作：0-审结，进入禁用；1-审结后直接启用；2-送跨站审核"/>
+      <Property name="Type" field="Type" size="16" type="String" description="栏目类型"/>
+      <Property name="ChannelName" field="ChannelName" size="50" type="String" description="频道唯一名称，用于url"/>
+      <Property name="RefAreaID" field="RefAreaID" size="40" type="String" description="栏目来源"/>
+      <Property name="IsComment" field="IsComment" size="4" type="Int32" description="是否评论"/>
+      <Property name="FullUrl" field="FullUrl" size="255" type="String" description="栏目地址，为原本栏目的channelname的组合"/>
+      <Property name="ReturnUrl" field="ReturnUrl" size="255" type="String" description="增加属性ReturnUrl来解决跳转问题，前台菜单控件请使用ReturnUrl"/>
+      <Property name="Updated" field="Updated" size="255" type="String" description="更新时间"/>
+      <Property name="EnumState" field="EnumState" size="40" type="String" description="栏目状态"/>
+      <Property name="ArticlesCount" field="ArticlesCount" size="6" type="Int32" description="统计该栏目下的文章数"/>
+      <Property name="Tags" field="Tags" size="255" type="String" description="标签"/>
+      <Property name="Keyword" field="Keyword" size="255" type="String" description="SEO优化关键字"/>
+      <Property name="DescriptionKey" field="DescriptionKey" size="255" type="String" description="SEO优化描述"/>
+      <Property name="IPStrategy" field="IPStrategy" size="128" type="String" description="IP策略"/>
+      <Property name="ModelName" field="ModelName" size="128" type="String" description="模型名称"/>
+      <!--<Property name="LinkUrl" field="LinkUrl" size="255" type="String" description="二级域名地址"/>
+          <Property name="ChannelDir" field="ChannelDir" size="255" type="String" description="域名扩展"/>
+      -->
+    </Object>
+    <!--页面访问者信息表PageVisitor-->
+    <Object type="We7.CMS.Common.PageVisitor, We7.CMS.Common" table="PageVisitor" primaryKey="ID" identity="" description="页面访问者信息表">
+      <Property name="ID" field="ID" size="40" type="String" nullable="false" description="页面访问者信息唯一标识符"/>
+      <Property name="TypeCode" field="TypeCode" size="4" type="Int32" nullable="false" description="类别：0为登陆统计，1为文章统计"/>
+      <Property name="UserID" field="UserID" size="40" type="String" description="用户ID"/>
+      <Property name="VisitDate" field="VisitDate" size="4" type="DateTime" description="访问时间"/>
+      <Property name="LogoutDate" field="LogoutDate" size="4" type="DateTime" description="退出时间"/>
+      <Property name="VisitorIP" field="VisitorIP" size="50" type="String" description="访问者IP"/>
+      <Property name="Url" field="Url" size="255" type="String" description="入口页面"/>
+      <Property name="Clicks" field="Clicks" size="4" type="Int32" description="点击数"/>
+      <Property name="HttpReferer" field="Http_Referer" size="255" type="String" description="来源应用网址"/>
+      <Property name="OnlineTime" field="OnlineTime" size="4" type="DateTime" description="在线时间"/>
+      <Property name="Platform" field="Platform" size="50" type="String" description="操作系统"/>
+      <Property name="Browser" field="Browser" size="50" type="String" description="浏览器"/>
+      <Property name="Screen" field="Screen" size="50" type="String" description="屏幕分辨率"/>
+      <Property name="Province" field="Province" size="50" type="String" description="省份"/>
+      <Property name="City" field="City" size="50" type="String" description="城市"/>
+      <Property name="Created" field="Created" size="4" type="DateTime" description="创建时间"/>
+      <Property name="Updated" field="Updated" size="4" type="DateTime" description="更新时间"/>
+      <Property name="SearchEngine" field="SearchEngine" size="50" type="String" description="搜索引擎"/>
+      <Property name="Keyword" field="Keyword" size="50" type="String" description="搜索引擎关键字"/>
+      <Property name="FromSite" field="FromSite" size="100" type="String" description="来源主域名"/>
+    </Object>
+    <Object type="We7.CMS.Common.PageVisitorHistory, We7.CMS.Common" table="PageVisitorHistory" primaryKey="ID" identity="" description="页面访问者历史信息表">
+      <Property name="ID" field="ID" size="40" type="String" nullable="false" description="页面访问者信息唯一标识符"/>
+      <Property name="TypeCode" field="TypeCode" size="4" type="Int32" nullable="false" description="类别：0为登陆统计，1为文章统计"/>
+      <Property name="UserID" field="UserID" size="40" type="String" description="用户ID"/>
+      <Property name="VisitDate" field="VisitDate" size="4" type="DateTime" description="访问时间"/>
+      <Property name="LogoutDate" field="LogoutDate" size="4" type="DateTime" description="退出时间"/>
+      <Property name="VisitorIP" field="VisitorIP" size="50" type="String" description="访问者IP"/>
+      <Property name="Url" field="Url" size="255" type="String" description="入口页面"/>
+      <Property name="Clicks" field="Clicks" size="4" type="Int32" description="点击数"/>
+      <Property name="HttpReferer" field="Http_Referer" size="255" type="String" description="来源应用网址"/>
+      <Property name="OnlineTime" field="OnlineTime" size="4" type="DateTime" description="在线时间"/>
+      <Property name="Platform" field="Platform" size="50" type="String" description="操作系统"/>
+      <Property name="Browser" field="Browser" size="50" type="String" description="浏览器"/>
+      <Property name="Screen" field="Screen" size="50" type="String" description="屏幕分辨率"/>
+      <Property name="Province" field="Province" size="50" type="String" description="省份"/>
+      <Property name="City" field="City" size="50" type="String" description="城市"/>
+      <Property name="Created" field="Created" size="4" type="DateTime" description="创建时间"/>
+      <Property name="Updated" field="Updated" size="4" type="DateTime" description="更新时间"/>
+      <Property name="SearchEngine" field="SearchEngine" size="50" type="String" description="搜索引擎"/>
+      <Property name="Keyword" field="Keyword" size="50" type="String" description="搜索引擎关键字"/>
+      <Property name="FromSite" field="FromSite" size="100" type="String" description="来源主域名"/>
+    </Object>
+    
+    <!--页面访问统计Statistics-->
+    <Object type="We7.CMS.Common.Statistics,We7.CMS.Common" table="Statistics" primaryKey="ID" identity="" description="页面访问统计表">
+      <Property name="ID" field="ID" size="40" type="String" nullable="false" description="页面访问统计唯一标示符"/>
+      <Property name="VisitorID" field="VisitorID" size="40" type="String" description="用户唯一标示符"/>
+      <Property name="ChannelID" field="ChannelID" size="40" type="String" description="栏目唯一标示符"/>
+      <Property name="ArticleID" field="ArticleID" size="40" type="String" description="文章唯一标示符"/>
+      <Property name="VisitDate" field="VisitDate" size="4" type="DateTime" description="访问时间"/>
+      <Property name="Url" field="Url" size="255" type="String" description="入口页面"/>
+      <Property name="Created" field="Created" size="4" type="DateTime" description="创建时间" />
+      <Property name="Updated" field="Updated" size="4" type="DateTime" description="更新时间" />
+    </Object>
+    <Object type="We7.CMS.Common.StatisticsHistory,We7.CMS.Common" table="StatisticsHistory" primaryKey="ID" identity="" description="页面访问统计历史表">
+      <Property name="ID" field="ID" size="40" type="String" nullable="false" description="页面访问统计唯一标示符"/>
+      <Property name="VisitorID" field="VisitorID" size="40" type="String" description="用户唯一标示符"/>
+      <Property name="ChannelID" field="ChannelID" size="40" type="String" description="栏目唯一标示符"/>
+      <Property name="ArticleID" field="ArticleID" size="40" type="String" description="文章唯一标示符"/>
+      <Property name="VisitDate" field="VisitDate" size="4" type="DateTime" description="访问时间"/>
+      <Property name="Url" field="Url" size="255" type="String" description="入口页面"/>
+      <Property name="Created" field="Created" size="4" type="DateTime" description="创建时间" />
+      <Property name="Updated" field="Updated" size="4" type="DateTime" description="更新时间" />
+    </Object>
+    
+    
+  </Database>
+</Objects>

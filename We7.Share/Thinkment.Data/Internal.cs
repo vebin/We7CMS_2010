@@ -108,6 +108,44 @@ namespace Thinkment.Data
 
             return ls.Data;
         }
+
+        public int MyDeleteList(IConnection conn, Criteria condition)
+        {
+            DeleteHandle ds = new DeleteHandle();
+            ds.Connect = conn;
+            ds.ConditionCriteria = condition;
+            ds.EntityObject = curObject;
+            ds.Execute();
+            return ds.ReturnCode;
+        }
+
+        public int MyUpdate(IConnection conn, object obj, string[] fields, Criteria condition)
+        {
+            Criteria c = condition;
+            if (c == null)
+            {
+                if (string.IsNullOrEmpty(CurObject.PrimaryKeyName))
+                {
+                    throw new DataException(ErrorCodes.ConditionRequired);
+                }
+                c = CurObject.BuildCriteria(obj);
+            }
+
+            UpdateHandle uh = new UpdateHandle();
+            uh.Connect = conn;
+            uh.EntityObject = curObject;
+            uh.ExecuteObject = obj;
+            uh.ConditionCriteria = c;
+            if (fields != null)
+            {
+                foreach (string f in fields)
+                {
+                    uh.AddFields(f);
+                }
+            }
+            uh.Execute();
+            return uh.ReturnCode;
+        }
     }
 
     static class UpdateXmlElement
@@ -227,6 +265,28 @@ namespace Thinkment.Data
                 }
                     
             }
+        }
+
+        public Criteria BuildCriteria(object obj)
+        {
+            string[] _f0 = primaryKeyName.Split(new char[]{ ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (_f0.Length == 0)
+                throw new DataException(ErrorCodes.NoPrimaryKey);
+            Criteria _f1 = null;
+            foreach (string _f2 in _f0)
+            {
+                object _f3 = GetValue(obj, _f2);
+                Criteria _f4 = new Criteria(CriteriaType.Equals, _f2, _f3);
+                if (_f1 == null)
+                {
+                    _f1 = _f4;
+                }
+                else
+                {
+                    _f4.Criterias.Add(_f4);
+                }
+            }
+            return _f1;
         }
 
         public List<Order> BuildOrderList()
@@ -935,6 +995,95 @@ namespace Thinkment.Data
                     _data.Add((T)o);
                 }
             }
+        }
+    }
+
+    class DeleteHandle : OperateHandle
+    {
+        int returnCode;
+
+        public int ReturnCode
+        {
+            get { return returnCode; }
+            set { returnCode = value; }
+        }
+
+        public void Execute()
+        {
+            returnCode = 0;
+            Build();
+            returnCode = Connect.Update(SQL);
+        }
+
+        protected override void Build()
+        {
+            SQL.Parameters.Clear();
+            if (ConditionCriteria == null || ConditionCriteria.Type == CriteriaType.None && ConditionCriteria.Criterias.Count == 0)
+            {
+                SQL.SqlClause = String.Format("DELETE FROM {0}", Connect.Driver.FormatTable(EntityObject.TableName));
+            }
+            else
+            {
+                this.BuildCondition();
+                SQL.SqlClause = String.Format("DELETE FROM {0} WHERE {1}", Connect.Driver.FormatTable(EntityObject.TableName), Condition);
+            }
+        }
+    }
+
+    class UpdateHandle : OperateHandle
+    {
+        int returnCode;
+
+        public int ReturnCode
+        {
+            get { return returnCode; }
+            set { returnCode = value; }
+        }
+        string fieldsSet;
+
+        public string FieldsSet
+        {
+            get { return fieldsSet; }
+            set { fieldsSet = value; }
+        }
+
+        void AddParameter(StringBuilder sb, Property p)
+        {
+            string pn = AddParameter(p);
+            string s = string.Format("{0}={1}", Connect.Driver.FormatField(Adorns.None, p.Field), pn);
+            AddSplitString(sb, s);
+        }
+
+        public void Execute()
+        {
+            Build();
+            returnCode = Connect.Update(SQL);
+        }
+
+        protected override void Build()
+        {
+            BuildFieldsSet();
+            SQL.SqlClause = string.Format("UPDATE {0} SET {1}", Connect.Driver.FormatTable(EntityObject.TableName), FieldsSet);
+            if (ConditionCriteria != null && !(ConditionCriteria.Type == CriteriaType.None && ConditionCriteria.Criterias.Count == 0))
+            {
+                BuildCondition();
+                SQL.SqlClause += string.Format(" WHERE {0}", Condition);
+            }
+        }
+
+        void BuildFieldsSet()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (Property p in EntityObject.PropertyDict.Values)
+            {
+                if (p.Readonly ||
+                        (ListFieldDict.Count > 0 &&
+                            !ListFieldDict.ContainsKey(p.Name)))
+                    continue;
+                AddParameter(sb, p);
+            }
+            fieldsSet = sb.ToString();
         }
     }
 }

@@ -16,6 +16,11 @@ namespace We7.CMS
             get { return Security.CurrentAccountID; }
         }
 
+        protected ArticleHelper ArticleHelper
+        {
+            get { return HelperFactory.GetHelper<ArticleHelper>(); }
+        }
+
         protected HelperFactory HelperFactory
         {
             get{ return (HelperFactory)Application[HelperFactory.ApplicationID]; }

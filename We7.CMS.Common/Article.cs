@@ -30,4 +30,19 @@ namespace We7.CMS.Common
             }
         }
     }
+
+    public class StatisticsArticle
+    {
+        public int TotalArticles { get; set; }
+
+        public int TotalComments { get; set; }
+
+        public int MonthArticles { get; set; }
+
+        public int MonthComments { get; set; }
+
+        public int WeekArticles { get; set; }
+
+        public int WeekComments { get; set; }
+    }
 }

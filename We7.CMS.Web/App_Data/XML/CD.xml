@@ -40,6 +40,24 @@
           <Property name="ChannelDir" field="ChannelDir" size="255" type="String" description="域名扩展"/>
       -->
     </Object>
+
+    <Object type="We7.CMS.Common.Comments,We7.CMS.Common" table="Comments" primaryKey="ID" identity="" description="评论表">
+      <Property name="ID" field="ID" size="40" type="String" nullable="false" description="评论唯一标识符"/>
+      <Property name="ArticleID" field="ArticleID" size="40" type="string" nullable="false" description="文章唯一标示符"/>
+      <Property name="Author" field="Author" size="64" type="String" description="评论作者"/>
+      <Property name="Content" field="Content" size="65536" type="String" description="评论内容"/>
+      <Property name="Created" field="Created" size="4" type="DateTime" description="创建时间"/>
+      <Property name="Updated" field="Updated" size="4" type="DateTime" description="更新时间"/>
+      <Property name="State" field="State" size="4" type="Int32" description="评论状态"/>
+      <Property name="Index" field="SequenceIndex" size="4" type="Int32" description="评论索引"/>
+      <Property name="IP" field="IP" size="40" type="String" description="IP地址"/>
+      <Property name="AccountID" field="AccountID" size="40" type="String" description="用户ID"/>
+      <Property name="ArticleName" field="ArticleName" size="100" type="String" description="文章名称"/>
+      
+      <Property name="UserSatisfaction" field="UserSatisfaction" size="100" type="String" description="用户满意度"/>
+      <Property name="ContentCategory" field="ContentCategory" size="100" type="String" description="评论内容类别"/>
+      <Property name="ContentID" field="ContentID" size="100" type="String" description="当前内容类别下的表单"/>
+    </Object>
     <!--页面访问者信息表PageVisitor-->
     <Object type="We7.CMS.Common.PageVisitor, We7.CMS.Common" table="PageVisitor" primaryKey="ID" identity="" description="页面访问者信息表">
       <Property name="ID" field="ID" size="40" type="String" nullable="false" description="页面访问者信息唯一标识符"/>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Thinkment.Data;
+using System.Web.Caching;
+using System.Web;
 
 namespace We7.Framework
 {
@@ -69,6 +71,14 @@ namespace We7.Framework
             set
             {
                 root = value;
+            }
+        }
+
+        public void CacherCache(string key, HttpContext context, object obj, CacheTime ct)
+        {
+            if (obj != null)
+            {
+                context.Cache.Insert(key, obj, null, DateTime.Now.AddSeconds((int)ct), TimeSpan.Zero, CacheItemPriority.Normal, null);
             }
         }
     }

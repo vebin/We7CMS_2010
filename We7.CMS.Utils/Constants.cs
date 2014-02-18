@@ -25,6 +25,8 @@ namespace We7.CMS
         }
 
         public static string ThemePath = "theme";
+
+        public const string ArticleModelName = "System.Article";
         
     }
 }

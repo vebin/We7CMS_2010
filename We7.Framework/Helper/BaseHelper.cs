@@ -81,5 +81,37 @@ namespace We7.Framework
                 context.Cache.Insert(key, obj, null, DateTime.Now.AddSeconds((int)ct), TimeSpan.Zero, CacheItemPriority.Normal, null);
             }
         }
+
+        protected List<Order> CreateOrdersByAll(string orderString)
+        { 
+            List<Order> orders = new List<Order>();
+            if (!string.IsNullOrEmpty(orderString))
+            {
+                orderString = orderString.Replace(" ", "");
+                string[] keyValues = orderString.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string item in keyValues)
+                {
+                    string[] tmps = item.Split(new char[]{'|'}, StringSplitOptions.RemoveEmptyEntries);
+                    string key = "Updated";
+                    string value = "Asc";
+                    if (tmps.Length > 0)
+                    { 
+                        key = tmps[0];
+                        if (tmps.Length > 1)
+                        { 
+                            value = tmps[1];
+                        }
+                    }
+                    Order o = new Order(key);
+                    o.Mode = (OrderMode)System.Enum.Parse(typeof(OrderMode), value, true);
+                    orders.Add(o);
+                }
+            }
+            if (orders.Count < 1)
+            {
+                orders = null;
+            }
+            return orders;
+        }
     }
 }

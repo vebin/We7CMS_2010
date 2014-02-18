@@ -51,6 +51,8 @@
     <Compile Include="FrontBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Helpers\ArticleHelper.cs" />
+    <Compile Include="Helpers\ChannelHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\PageVisitorHelper.cs" />
     <Compile Include="Helpers\SiteSettingHelper.cs" />

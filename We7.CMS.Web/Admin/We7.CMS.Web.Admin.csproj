@@ -115,6 +115,13 @@
     <Compile Include="tools\widget\SiteProfile.ascx.designer.cs">
       <DependentUpon>SiteProfile.ascx</DependentUpon>
     </Compile>
+    <Compile Include="tools\widget\wid_myprocess.ascx.cs">
+      <DependentUpon>wid_myprocess.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="tools\widget\wid_myprocess.ascx.designer.cs">
+      <DependentUpon>wid_myprocess.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ajax\jquery\jquery-ui.min.js" />
@@ -148,6 +155,7 @@
     <Content Include="theme\Style\main.css" />
     <Content Include="theme\Style\mywidgets.css" />
     <Content Include="tools\widget\SiteProfile.ascx" />
+    <Content Include="tools\widget\wid_myprocess.ascx" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

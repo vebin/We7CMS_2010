@@ -41,7 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs" />
+    <Compile Include="ArticleQuery.cs" />
+    <Compile Include="Channel.cs" />
+    <Compile Include="Comments.cs" />
+    <Compile Include="Enum\ArticleStates.cs" />
     <Compile Include="Enum\MasterPageMode.cs" />
+    <Compile Include="Enum\TypeOfChannel.cs" />
     <Compile Include="Enum\TypeOfPasswordHashed.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PageVisitor.cs" />

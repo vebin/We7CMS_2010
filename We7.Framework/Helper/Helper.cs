@@ -31,6 +31,14 @@ namespace We7
             get { return "{00000000-0000-0000-0000-000000000000}"; }
         }
 
+        public static string EmptyWapGUID
+        {
+            get
+            {
+                return "{00000000-1111-0000-0000-000000000000}";
+            }
+        }
+
         public static string ConvertTextToHtml(string text)
         {
             text.Replace("<", "&lt;");
@@ -148,6 +156,11 @@ namespace We7
             }
             else
                 return -1;
+        }
+
+        public static bool IsEmptyID(string id)
+        {
+            return id == null || id == string.Empty || id == EmptyGUID || id == EmptyWapGUID;
         }
     }
 }

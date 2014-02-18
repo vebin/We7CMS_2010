@@ -82,5 +82,22 @@ namespace Thinkment.Data
             name = n;
             value = v;
         }
+
+        public void AddOr(CriteriaType type, string name, object value)
+        {
+            Add(type, CriteriaMode.Or, name, value);
+        }
+
+        public void Add(CriteriaType type, string name, object value)
+        {
+            Add(type, CriteriaMode.And, name, value);
+        }
+
+        void Add(CriteriaType type, CriteriaMode mode, string name, object value)
+        {
+            Criteria c = new Criteria(type, name, value);
+            c.Mode = mode;
+            c.Criterias.Add(c);
+        }
     }
 }

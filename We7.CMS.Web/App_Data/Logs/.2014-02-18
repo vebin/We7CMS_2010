@@ -1,0 +1,25 @@
+2014-02-18 22:08:18,044 [10] We7.CMS.ApplicationHelper -注意检查：/app_data/xml目录下的配置文件：
+错误代码：UnkownObject
+错误消息：引发类型为“Thinkment.Data.DataException”的异常。
+2014-02-18 22:08:18,066 [10] We7.CMS.BasePage -Error
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> Thinkment.Data.DataException: 引发类型为“Thinkment.Data.DataException”的异常。
+   在 We7.CMS.ApplicationHelper.ResetApplication() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Install\ApplicationHelper.cs:行号 53
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle._InvokeMethodFast(IRuntimeMethodInfo method, Object target, Object[] arguments, SignatureStruct& sig, MethodAttributes methodAttributes, RuntimeType typeOwner)
+   在 System.RuntimeMethodHandle.InvokeMethodFast(IRuntimeMethodInfo method, Object target, Object[] arguments, Signature sig, MethodAttributes methodAttributes, RuntimeType typeOwner)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture, Boolean skipVisibilityChecks)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 We7.Framework.HelperFactory.CreateFactory(Boolean reset) 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 90
+   在 We7.Framework.HelperFactory.get_Instance() 位置 C:\zwq\temp\We7CMS_2010\We7.Framework\Helper\HelperFactory.cs:行号 73
+   在 We7.CMS.BasePage.get_HelperFactory() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Utils\BasePage.cs:行号 53
+   在 We7.CMS.BasePage.get_CDHelper() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Utils\BasePage.cs:行号 48
+   在 We7.CMS.Web.Admin.Signin.GenerateRandomCode() 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Admin\Signin.aspx.cs:行号 151
+   在 We7.CMS.Web.Admin.Signin.Page_Load(Object sender, EventArgs e) 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Web\Admin\Signin.aspx.cs:行号 143
+   在 System.Web.Util.CalliHelper.EventArgFunctionCaller(IntPtr fp, Object o, Object t, EventArgs e)
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 We7.CMS.BasePage.OnLoad(EventArgs e) 位置 C:\zwq\temp\We7CMS_2010\We7.CMS.Utils\BasePage.cs:行号 70
+2014-02-18 22:08:32,843 [9] We7.CMS.ApplicationHelper -注意检查：/app_data/xml目录下的配置文件：
+错误代码：UnkownObject
+错误消息：引发类型为“Thinkment.Data.DataException”的异常。

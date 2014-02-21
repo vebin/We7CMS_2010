@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using We7.CMS.Common;
+using We7.CMS;
 
 
 namespace We7.CMS.Web.Admin.tools.widget

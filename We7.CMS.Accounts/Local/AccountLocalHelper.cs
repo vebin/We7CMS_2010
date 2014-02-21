@@ -77,11 +77,6 @@ namespace We7.CMS.Accounts
             return string.Compare(password, act.Password, false) == 0;
         }
 
-
-        public List<string> GetObjectsByPermission(string accountID, string permission)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

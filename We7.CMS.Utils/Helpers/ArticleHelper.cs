@@ -69,6 +69,7 @@ namespace We7.CMS
             }
             catch (Exception ex)
             { }
+            return new List<Article>();
         }
 
         Criteria CreateCriteriaByAll(ArticleQuery query)

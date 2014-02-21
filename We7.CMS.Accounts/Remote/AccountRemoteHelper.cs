@@ -26,5 +26,16 @@ namespace We7.CMS.Accounts
 
             return results;
         }
+
+
+        public List<string> GetObjectsByPermission(string accountID, string permission)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> GetRolesOfAccount(string accountID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

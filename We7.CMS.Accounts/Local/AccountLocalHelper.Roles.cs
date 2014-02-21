@@ -8,7 +8,7 @@ using Thinkment.Data;
 
 namespace We7.CMS.Accounts
 {
-    public class AccountLocalHelper : BaseHelper, IAccountHelper
+    public partial class AccountLocalHelper : BaseHelper, IAccountHelper
     {
         public List<AccountRole> GetAccountRoles(string accountID)
         {

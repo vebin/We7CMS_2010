@@ -23,7 +23,10 @@ namespace We7.CMS.Web.Admin.tools.widget
         {
             ArticleQuery query = new ArticleQuery();
             query.State = ArticleStates.Checking;
-            List<Article> GetAllArticles = ArticleHelper.QueryArticlesByAll(query);
+            List<Article> GetAllArticles = null;
+            //List<Article> GetAllArticles = ArticleHelper.QueryArticlesByAll(query);
+            if (GetAllArticles == null)
+                return;
         }
     }
 }

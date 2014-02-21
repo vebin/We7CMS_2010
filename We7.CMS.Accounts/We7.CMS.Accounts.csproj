@@ -43,8 +43,12 @@
   <ItemGroup>
     <Compile Include="AccountFactory.cs" />
     <Compile Include="Common\Account.cs" />
+    <Compile Include="Common\AccountRole.cs" />
+    <Compile Include="Common\Permission.cs" />
     <Compile Include="IAccountHelper.cs" />
+    <Compile Include="Local\AccountLocalHelper.Permission.cs" />
     <Compile Include="Local\AccountLocalHelper.cs" />
+    <Compile Include="Local\AccountLocalHelper.Roles.cs" />
     <Compile Include="Remote\AccountRemoteHelper.cs" />
     <Compile Include="Remote\Authentication.cs" />
     <Compile Include="Remote\CryptoHelper.cs" />

@@ -10,5 +10,7 @@ namespace We7.Framework.Factable
         ComponentRegistration Register<TComponent>() where TComponent : class;
 
         TService Resolve<TService>() where TService : class;
+
+        IEnumerable<TService> ResolveAll<TService>() where TService : class;
     }
 }

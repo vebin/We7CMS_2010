@@ -102,6 +102,113 @@ namespace We7.Framework.Factable
             return service;
         }
 
+        public IEnumerable<tService> ResolveAll<tService>() where tService : class
+        { 
+            Type tServ = typeof(tService);
+            ThrowIfNoStorage(this);
+            ThrowIfNotInterface(tServ);
+
+            IEnumerable<ComponentRegistration> descriptors = _storage.FetchAll(tServ);
+            IList<tService> instances = new List<tService>();
+
+            foreach (ComponentRegistration descriptor in descriptors)
+            {
+                tService instance = ResolveInstance(descriptor, null) as tService;
+                if (null != instance)
+                    instances.Add(instance);
+            }
+
+            return instances;
+        }
+
+        object ResolveInstance(ComponentRegistration descriptor, Stack<Type> typeDependencies)
+        {
+            ThrowIfNoStorage(this);
+            if (null == descriptor)
+                return null;
+
+            object instance = null;
+            if (descriptor.IsSingleton)
+                instance = descriptor.Instance;
+            if (null == instance)
+            {
+                instance = CreateInstance(descriptor.ComponentType, typeDependencies);
+                if (null != instance && descriptor.IsSingleton)
+                {
+                    ComponentRegistration newInstance = descriptor.Clone();
+                    newInstance.Instance = instance;
+                    _storage.Store(newInstance);
+                }
+            }
+
+            return instance;
+        }
+
+        object CreateInstance(Type type, Stack<Type> typeDependencies)
+        {
+            object instance = null;
+            bool createStack = (null == typeDependencies);
+            if (createStack)
+                typeDependencies = new Stack<Type>();
+
+            Type[] copyDependencies = typeDependencies.ToArray();
+            foreach (Type dependency in copyDependencies)
+            {
+                if (dependency == type)
+                {
+                    while (typeDependencies.Count > 1)
+                    {
+                        typeDependencies.Pop();
+                    }
+                    throw new InvalidOperationException(string.Format("无法创建 '{0}' 类型的实例，因为无法创建其构造函数中 '{1}' 类型的参数的实                      例，该类型与当前正在实例化的类型存在先循环依赖", typeDependencies.Pop(), type));
+                }
+            }
+            typeDependencies.Push(type);
+
+            List<ConstructorInfo> ctors = new List<ConstructorInfo>(type.GetConstructors());
+            ctors.Sort(delegate(ConstructorInfo ctor1, ConstructorInfo ctor2)
+                        {
+                            return ctor1.GetParameters().Length - ctor2.GetParameters().Length;
+                        });
+
+            List<ComponentRegistration> bufferedTypes = new List<ComponentRegistration>();
+            foreach (ConstructorInfo ctor in ctors)
+            { 
+                ParameterInfo[] allParams = ctor.GetParameters();
+                bool paramTypeRegistered = true;
+                foreach (ParameterInfo param in allParams)
+                {
+                    ComponentRegistration descriptor;
+                    if (!TryResolve(param.ParameterType, out descriptor))
+                    {
+                        paramTypeRegistered = false;
+                        bufferedTypes.Clear();
+                        break;
+                    }
+                    bufferedTypes.Add(descriptor);
+                }
+                if (paramTypeRegistered)
+                {
+                    int length = allParams.Length;
+                    object[] paramsList = new object[length];
+                    for (int i = 0; i < paramsList.Length; i++)
+                    {
+                        paramsList[i] = ResolveInstance(bufferedTypes[i], typeDependencies);
+                    }
+                    instance = ctor.Invoke(paramsList);
+                    break;
+                }
+            }
+            typeDependencies.Pop();
+            if (createStack)
+            {
+                typeDependencies.Clear();
+                typeDependencies = null;
+            }
+
+            return instance;
+        }
+
         public bool TryResolve<TService>(out TService component) where TService : class
         {
             component = null;
@@ -109,8 +216,9 @@ namespace We7.Framework.Factable
             Type tServ = typeof(TService);
 
             if (TryResolve(tServ, out descriptor))
-            { 
-                
+            {
+                component = ResolveInstance(descriptor, null) as TService;
+                return (null != component);
             }
 
             return false;

@@ -10,6 +10,8 @@ namespace We7.Framework.Factable
         void Store(ComponentRegistration descriptor);
 
         ComponentRegistration Fetch(Type tService);
+
+        IEnumerable<ComponentRegistration> FetchAll(Type tService);
     }
 
     internal sealed class ContainerStorage : IContainerStorage
@@ -83,6 +85,18 @@ namespace We7.Framework.Factable
             }
 
             return null;
+        }
+
+
+        public IEnumerable<ComponentRegistration> FetchAll(Type tService)
+        {
+            List<ComponentRegistration> stored = Internal_FetchAll(tService);
+
+            if (null != stored)
+            {
+                return stored.AsReadOnly();
+            }
+            return new ComponentRegistration[0];
         }
     }
 }

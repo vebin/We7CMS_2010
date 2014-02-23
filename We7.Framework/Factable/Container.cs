@@ -257,5 +257,10 @@ namespace We7.Framework.Factable
             descriptor = _storage.Fetch(tService);
             return descriptor != null;
         }
+
+        public void Register(ComponentRegistration registration)
+        {
+            InternalRegister(registration);
+        }
     }
 }

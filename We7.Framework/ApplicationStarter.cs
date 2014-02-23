@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using We7.Framework.Factable;
+using System.Reflection;
 
 namespace We7.Framework
 {
+    public interface IWe7CmsInitializeModule : IFactable
+    {
+        void InitWe7();
+    }
 
     public interface IWe7CmsStarter
     {
@@ -32,6 +37,22 @@ namespace We7.Framework
         {
             IContainer container = CreateContainer();
             ContainerContext.SetContainer(container, application as IAppContainerHolder);
+
+            container.Register<ObjectAssistantAccessorStorage>().Singleton().As<IObjectAssistantAccessorStorage>();
+            container.Register<AutoFactory>().Singleton().As<IFactableRegister>();
+
+            IFactableRegister register = container.Resolve<IFactableRegister>();
+            foreach (string name in _preLoad)
+            {
+                register.RegisterHandlers(Assembly.Load(name));
+            }
+
+            IEnumerable<IWe7CmsInitializeModule> initializeModules = 
+                container.ResolveAll<IWe7CmsInitializeModule>();
+            foreach (IWe7CmsInitializeModule module in initializeModules)
+            {
+                module.InitWe7();
+            }
         }
 
         public IContainer CreateContainer()

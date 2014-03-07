@@ -19,6 +19,11 @@ namespace We7.CMS.Common.AppFoundation
             IsEnable = isEnable;
         }
 
+        public string Id
+        {
+            get { return (null == Metadata) ? null : Metadata.Id; }
+        }
+
         public bool IsEnable { get; internal set; }
 
         public AppMetadata Metadata { get; private set; }

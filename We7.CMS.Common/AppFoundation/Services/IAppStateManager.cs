@@ -8,5 +8,6 @@ namespace We7.CMS.Common.AppFoundation.Services
 {
     public interface IAppStateManager : IFactable
     {
+        IEnumerable<string> EnabledAppIds();
     }
 }

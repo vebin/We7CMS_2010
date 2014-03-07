@@ -7,6 +7,9 @@ namespace We7.CMS.Common.AppFoundation
 {
     public class DefaultAppHost : IAppHost
     {
-
+        public string DirName
+        {
+            get { return "Apps"; }
+        }
     }
 }

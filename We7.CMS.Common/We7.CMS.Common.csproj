@@ -40,6 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppFoundation\AppInfo.cs" />
+    <Compile Include="AppFoundation\AppLoader.cs" />
+    <Compile Include="AppFoundation\AppMetadata.cs" />
+    <Compile Include="AppFoundation\DefaultAppDescriptorManager.cs" />
+    <Compile Include="AppFoundation\DefaultAppHost.cs" />
+    <Compile Include="AppFoundation\IAppDescriptorManager.cs" />
+    <Compile Include="AppFoundation\IAppHost.cs" />
+    <Compile Include="AppFoundation\Services\AppStateManager.cs" />
+    <Compile Include="AppFoundation\Services\IAppStateManager.cs" />
     <Compile Include="Article.cs" />
     <Compile Include="ArticleQuery.cs" />
     <Compile Include="Channel.cs" />

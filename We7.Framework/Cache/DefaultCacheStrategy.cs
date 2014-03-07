@@ -8,6 +8,7 @@ namespace We7.Framework.Cache
 {
     public class DefaultCacheStrategy : ICacheStrategy
     {
+        static readonly DefaultCacheStrategy instance = new DefaultCacheStrategy();
 
         protected static volatile System.Web.Caching.Cache webCache = System.Web.HttpRuntime.Cache;
 
@@ -73,5 +74,15 @@ namespace We7.Framework.Cache
             return webCache.Get(objId);
         }
 
+        public virtual void AddObjectWithFileChange(string objId, object o, CacheItemRemovedCallback callback, params string[] files)
+        {
+            if (string.IsNullOrEmpty(objId) || o == null)
+            {
+                return;
+            }
+
+            CacheDependency dep = new CacheDependency(files, DateTime.Now);
+            webCache.Insert(objId, o, dep, DateTime.Now.AddSeconds(TimeOut), System.Web.Caching.Cache.NoSlidingExpiration,                                              CacheItemPriority.High, callback);
+        }
     }
 }

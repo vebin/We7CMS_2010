@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AppFoundation\AppInfo.cs" />
     <Compile Include="AppFoundation\AppLoader.cs" />
+    <Compile Include="AppFoundation\AppMenuItem.cs" />
     <Compile Include="AppFoundation\AppMetadata.cs" />
     <Compile Include="AppFoundation\DefaultAppDescriptorManager.cs" />
     <Compile Include="AppFoundation\DefaultAppHost.cs" />

@@ -16,7 +16,10 @@ namespace We7.Framework.Config
         string defaultHomePageTitle = "首页 - We7站点";
         
         string defaultTemplateGroup, mobileTemplateGroupFileName, tabletTemplateGroupFileName;
+        int defaultTemplateGroupPrior = 0, mobileTemplateGroupPrior = 1, tabletTemplateGroupPrior = 2;
+
         string defaultTemplateGroupFileName;
+        string deviceGroups = "We7.CMS.Common.PCDeviceGroup,We7.CMS.Common;We7.CMS.Common.TabletDeviceGroup,We7.CMS.Common;We7.CMS.Common.MobileDeviceGroup,We7.CMS.Common";
         bool enableHtmlTemplate = true;
         string enableLoginAuhenCode;
         bool enableCookieAuthentication = true;
@@ -97,15 +100,35 @@ namespace We7.Framework.Config
             get { return defaultTemplateGroupFileName; }
             set { defaultTemplateGroupFileName = value; }
         }
+        public int DefaultTemplateGroupPrior
+        {
+            get { return defaultTemplateGroupPrior; }
+            set { defaultTemplateGroupPrior = value; }
+        }
+        public string DeviceGroups
+        {
+            get { return deviceGroups; }
+            set { deviceGroups = value; }
+        }
         public bool IsDemoSite
         {
             get;
             set;
         }
+        public int MobileTemplateGroupPrior
+        {
+            get { return mobileTemplateGroupPrior; }
+            set { mobileTemplateGroupPrior = value; }
+        }
         public string MobileTemplateGroupFileName
         {
             get { return mobileTemplateGroupFileName; }
             set { mobileTemplateGroupFileName = value; }
+        }
+        public int TabletTemplateGroupPrior
+        {
+            get { return tabletTemplateGroupPrior; }
+            set { tabletTemplateGroupPrior = value; }
         }
         public string TabletTemplateGroupFileName
         {

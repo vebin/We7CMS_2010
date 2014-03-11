@@ -8,6 +8,8 @@ namespace We7.Framework.Cache
 {
     public interface ICacheStrategy : ISingletonFactable
     {
+        void AddObject(string objId, object o);
+
         void AddObject(string objId, object o, int timeOut);
 
         void AddObjectWithFileChange(string objId, object o, CacheItemRemovedCallback callback, params string[] files);

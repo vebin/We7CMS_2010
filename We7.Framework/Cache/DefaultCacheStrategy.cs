@@ -20,6 +20,18 @@ namespace We7.Framework.Cache
             set { _timeOut = value > 0 ? value : 3600; }
         }
 
+        public void AddObject(string objId, object o)
+        {
+            if (string.IsNullOrEmpty(objId) || string.IsNullOrEmpty(objId.Trim()))
+                return;
+            CacheItemRemovedCallback callback = new CacheItemRemovedCallback(onRemove);
+
+            if (TimeOut == 7200)
+                webCache.Insert(objId, o, null, DateTime.MaxValue, TimeSpan.Zero, CacheItemPriority.High, callback);
+            else
+                webCache.Insert(objId, o, null, DateTime.Now.AddSeconds(TimeOut), System.Web.Caching.Cache.NoSlidingExpiration, CacheItemPriority.High, callback);
+        }
+
         public void AddObject(string objId, object o, int timeOut)
         {
             if (string.IsNullOrEmpty(objId) || string.IsNullOrEmpty(objId.Trim()))

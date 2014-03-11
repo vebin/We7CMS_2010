@@ -44,6 +44,7 @@ namespace We7.Framework.Factable
             {
                 List<ComponentRegistration> newListItem = new List<ComponentRegistration>();
                 newListItem.Add(descriptor);
+                //此处加锁的原因？
                 lock (_locker)
                 {
                     _registrationList.Add(descriptor.ServiceType, newListItem);

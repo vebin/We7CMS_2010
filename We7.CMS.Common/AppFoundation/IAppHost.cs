@@ -8,6 +8,6 @@ namespace We7.CMS.Common.AppFoundation
 {
     public interface IAppHost : IFactable
     {
-        string DirName { get; set; }
+        string DirName { get; }
     }
 }

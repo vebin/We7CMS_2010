@@ -16,4 +16,28 @@ namespace We7.CMS.Common.AppFoundation
     {
         void BeginRequest(HttpApplication application);
     }
+
+    public interface IResultFilter : IRequestFilter
+    {
+        void ResultExecuting(ResultExecutingContext context);
+
+        void ResultExecuted(ResultExecutedContext context);
+    }
+
+    public interface IAuthorizationFilter : IRequestFilter
+    {
+        void OnAuthorize(AuthorizationContext context);
+    }
+
+    public interface IReleasingFilter : IRequestFilter
+    {
+        void SendingHeaders(RequestFilterContext context);
+
+        void SendingContent(RequestFilterContext context);
+    }
+
+    public interface IErrorFilter : IRequestFilter
+    {
+        void Error(ApplicationErrorContext context);
+    }
 }

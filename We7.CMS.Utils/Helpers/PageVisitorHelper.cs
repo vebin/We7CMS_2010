@@ -7,6 +7,7 @@ using We7.CMS.Common;
 using Thinkment.Data;
 using System.Reflection;
 using System.Web;
+using System.Web.SessionState;
 
 namespace We7.CMS
 {
@@ -15,6 +16,8 @@ namespace We7.CMS
     public class PageVisitorHelper : BaseHelper
     {
         public const string VisiteCountCacheKey = "$WE7_VISITECOUNT";//访问缓存Key
+        public static readonly string OnlinePeopleApplicationKey = "We7.Application.OnlinePeople.Key";
+        public static readonly string PageVisitorSessionKey = "We7.Session.PageVisitor.Key";
 
         public object CopyPropertiesTo(object source, object target)
         {
@@ -219,6 +222,20 @@ namespace We7.CMS
         public void UpdatePageVisitor(PageVisitorHistory pvh, string[] fields)
         {
             Assistant.Update(pvh, fields);
+        }
+
+        public void PageVisitorLeave()
+        {
+            if (HttpContext.Current != null)
+            {
+                HttpSessionState session = HttpContext.Current.Session;
+                if (session[PageVisitorHelper.PageVisitorSessionKey] != null)
+                {
+                    PageVisitor pv = (PageVisitor)session[PageVisitorHelper.PageVisitorSessionKey];
+                    pv.OnlineTime = DateTime.Now;
+                    Assistant.Update(pv, new string[]{"OnlineTime"});
+                }
+            }
         }
     }
 }

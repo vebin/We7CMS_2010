@@ -83,6 +83,7 @@
     <Compile Include="IAppContainerHolder.cs" />
     <Compile Include="IAppDomainManager.cs" />
     <Compile Include="IObjectAssistantAccessor.cs" />
+    <Compile Include="IObjectToucher.cs" />
     <Compile Include="Logger\LogHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\FileHelper.cs" />

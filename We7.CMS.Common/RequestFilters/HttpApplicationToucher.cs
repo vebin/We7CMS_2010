@@ -24,6 +24,14 @@ namespace We7.CMS.Common.RequestFilters
         {
             app.BeginRequest += application_BeginRequest;
             app.PostResolveRequestCache += application_ReMapHandler;
+
+            app.PreRequestHandlerExecute += application_PreRequestHandlerExecute;
+            app.PostRequestHandlerExecute += application_PostRequestHandlerExecute;
+
+            app.PreSendRequestHeaders += application_PreSendRequestHeaders;
+            app.PreSendRequestContent += application_PreSendRequestContent;
+
+            app.Error += application_Error;
         }
 
         void application_BeginRequest(object sender, EventArgs e)
@@ -47,6 +55,76 @@ namespace We7.CMS.Common.RequestFilters
                 if (null != handler)
                     httpContext.RemapHandler(handler);
             }
+        }
+
+        void application_PreRequestHandlerExecute(object sender, EventArgs e)
+        {
+            HttpApplication app = sender as HttpApplication;
+            ResultExecutingContext context = new ResultExecutingContext(app.Context);
+            context.Handler = app.Context.Handler;
+
+            InvokeFilters(delegate(IResultFilter filter)
+            {
+                filter.ResultExecuting(context);
+            });
+
+            AuthorizationContext authContext = new AuthorizationContext(app.Context);
+
+            InvokeFilters(delegate(IAuthorizationFilter filter)
+            {
+                filter.OnAuthorize(authContext);
+            },
+            delegate
+            {
+                return !authContext.Authorized;
+            });
+
+            if (!authContext.Authorized)
+                throw new HttpException(401, "未授权的访问");
+        }
+
+        void application_PostRequestHandlerExecute(object sender, EventArgs e)
+        {
+            HttpApplication app = sender as HttpApplication;
+            ResultExecutedContext context = new ResultExecutedContext(app.Context);
+
+            InvokeFilters(delegate(IResultFilter filter)
+            {
+                filter.ResultExecuted(context);
+            });
+        }
+
+        void application_PreSendRequestHeaders(object sender, EventArgs e)
+        {
+            HttpApplication app = sender as HttpApplication;
+            RequestFilterContext context = new RequestFilterContext(app.Context);
+
+            InvokeFilters(delegate(IReleasingFilter filter)
+            {
+                filter.SendingHeaders(context);
+            });
+        }
+
+        void application_PreSendRequestContent(object sender, EventArgs e)
+        {
+            HttpApplication app = sender as HttpApplication;
+            RequestFilterContext context = new RequestFilterContext(app.Context);
+
+            InvokeFilters(delegate(IReleasingFilter filter)
+            {
+                filter.SendingContent(context);
+            });
+        }
+
+        void application_Error(object sender, EventArgs e)
+        {
+            HttpApplication app = sender as HttpApplication;
+            ApplicationErrorContext context = new ApplicationErrorContext(app.Context);
+
+            InvokeFilters(delegate(IErrorFilter filter)
+            {
+                filter.Error(context);
+            });
         }
 
         void InvokeFilters<TFilter>(Action<TFilter> action) where TFilter : class

@@ -47,10 +47,14 @@
     <Compile Include="AppFoundation\AppMetadata.cs" />
     <Compile Include="AppFoundation\DefaultAppDescriptorManager.cs" />
     <Compile Include="AppFoundation\DefaultAppHost.cs" />
+    <Compile Include="AppFoundation\DefaultAppManager.cs" />
     <Compile Include="AppFoundation\IAppDescriptorManager.cs" />
     <Compile Include="AppFoundation\IAppHost.cs" />
+    <Compile Include="AppFoundation\IAppManager.cs" />
     <Compile Include="AppFoundation\Services\AppStateManager.cs" />
     <Compile Include="AppFoundation\Services\IAppStateManager.cs" />
+    <Compile Include="AppFoundation\WebOverrides\DefaultAppHandlerReflector.cs" />
+    <Compile Include="AppFoundation\WebOverrides\IAppHandlerReflector.cs" />
     <Compile Include="Article.cs" />
     <Compile Include="ArticleQuery.cs" />
     <Compile Include="Channel.cs" />
@@ -62,8 +66,16 @@
     <Compile Include="Log.cs" />
     <Compile Include="PageVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestFilters\AbstractResultFilter.cs" />
+    <Compile Include="RequestFilters\HttpApplicationToucher.cs" />
+    <Compile Include="RequestFilters\RequestFilterInterfaces.cs" />
+    <Compile Include="RequestFilters\RequestFilterContext.cs" />
     <Compile Include="SkinInfo.cs" />
     <Compile Include="Statistics.cs" />
+    <Compile Include="Templates\IDeviceGroup.cs" />
+    <Compile Include="Templates\MobileDeviceGroup.cs" />
+    <Compile Include="Templates\PCDeviceGroup.cs" />
+    <Compile Include="Templates\TabletDeviceGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\We7.Framework\We7.Framework.csproj">
@@ -71,6 +83,7 @@
       <Name>We7.Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

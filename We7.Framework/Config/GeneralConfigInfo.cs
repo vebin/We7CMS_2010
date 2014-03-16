@@ -41,6 +41,8 @@ namespace We7.Framework.Config
         
         
         string _SSOSiteUrl = string.Empty;
+        bool startPageViewModule = false;
+
         string userRegisterMode = "none";
 
         public string Copyright
@@ -124,6 +126,12 @@ namespace We7.Framework.Config
         {
             get { return mobileTemplateGroupFileName; }
             set { mobileTemplateGroupFileName = value; }
+        }
+
+        public bool StartPageViewModule
+        {
+            get { return startPageViewModule; }
+            set { startPageViewModule = value; }
         }
         public int TabletTemplateGroupPrior
         {

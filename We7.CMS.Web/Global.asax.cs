@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using We7.Framework;
 using We7.Framework.Factable;
+using We7.Framework.Config;
 
 namespace We7.CMS.Web
 {
@@ -43,31 +44,43 @@ namespace We7.CMS.Web
 
         protected void Session_Start(object sender, EventArgs e)
         {
-        }
-
-        protected void Application_BeginRequest(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_AuthenticateRequest(object sender, EventArgs e)
-        {
-
+            Application.Lock();
+            if (Application[PageVisitorHelper.OnlinePeopleApplicationKey] != null)
+                Application[PageVisitorHelper.OnlinePeopleApplicationKey] = (int)Application[PageVisitorHelper.OnlinePeopleApplicationKey] + 1;
+            Application.UnLock();
         }
 
         protected void Application_Error(object sender, EventArgs e)
         {
+            Exception error = Server.GetLastError();
+            We7.Framework.LogHelper.WriteLog(typeof(Global), error);
 
+            if (Context != null && Context.IsCustomErrorEnabled)
+                Server.Transfer(ERROR_PAGE_LOCATION, false);
         }
 
         protected void Session_End(object sender, EventArgs e)
         {
-
+            Application.Lock();
+            Application[PageVisitorHelper.OnlinePeopleApplicationKey] = (int)Application[PageVisitorHelper.OnlinePeopleApplicationKey] - 1;
+            Application.UnLock();
+            if (GeneralConfigs.GetConfig().StartPageViewModule)
+                PageVisitorHelper.PageVisitorLeave();
         }
 
         protected void Application_End(object sender, EventArgs e)
         {
 
+        }
+
+        protected PageVisitorHelper PageVisitorHelper
+        {
+            get { return HelperFactory.GetHelper<PageVisitorHelper>(); }
+        }
+
+        protected HelperFactory HelperFactory
+        {
+            get { return (HelperFactory)Application[HelperFactory.ApplicationID]; }
         }
 
         #region IAppContainerHolder 成员
